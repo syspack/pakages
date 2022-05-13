@@ -1,0 +1,8 @@
+.eggs
+.env
+dist
+env
+pakages/spack
+__pycache__
+docs/_build
+pakages.egg-info/

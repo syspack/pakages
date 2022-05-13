@@ -1,0 +1,50 @@
+name: Paks Test Building
+on:
+  pull_request: []
+  push:
+    branches:
+      - main 
+ 
+jobs:
+  build:
+    permissions:
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+                    # tag           dockerfile in docker/     platforms
+        container: [["18.04"],
+                    ["20.04"]]
+
+    runs-on: ubuntu-latest
+    name: Paks Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Container
+        run: |
+           docker build --build-arg ubuntu_version=${{ matrix.container[0]}} \
+                        -t ghcr.io/syspack/pakages-ubuntu-${{ matrix.container[0] }}:latest .
+
+      # Repos that use pre-built containers don't need to use this manual format
+      - name: Build Package
+        env:        
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker run --env deploy=false \
+                     --env package=zlib \
+                     --env user=${user} \
+                     --env token=${token} ghcr.io/syspack/pakages-ubuntu-${{ matrix.container[0] }}:latest
+
+
+      - name: Build Remote Package
+        env:        
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker run --env deploy=false \
+                     --env package=https://github.com/pakages/zlib \
+                     --env user=${user} \
+                     --env token=${token} ghcr.io/syspack/pakages-ubuntu-${{ matrix.container[0] }}:latest
