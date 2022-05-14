@@ -81,7 +81,7 @@ def do_install(self, **kwargs):
                 # Try until we get a cache hit
                 for registry in registries:
                     for name, uri in self.iter_artifact_names(
-                        registry, request.package.spec, tag
+                        registry, request.pkg.spec, tag
                     ):
                         artifact = oras.fetch(uri, os.path.join(tmpdir, name))
                         if artifact:
