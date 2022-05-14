@@ -90,7 +90,9 @@
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 
 <div class="viewcode-block" id="Oras"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras">[docs]</a><span class="k">class</span> <span class="nc">Oras</span><span class="p">:</span>
@@ -133,21 +135,34 @@
             <span class="k">if</span> <span class="n">digest</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">digest</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;sha256:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Oras.push"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Oras.push"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">retry</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sleep</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Push an oras artifact to an OCI registry</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tries</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">content_type</span> <span class="o">=</span> <span class="n">content_type</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">content_type</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Pushing oras </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
         <span class="k">with</span> <span class="n">utils</span><span class="o">.</span><span class="n">workdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">push_file</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">oras</span><span class="p">(</span>
-                <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-                <span class="n">uri</span><span class="p">,</span>
-                <span class="s2">&quot;--manifest-config&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;/dev/null:application/vnd.unknown.config.v1+json&quot;</span><span class="p">,</span>
-                <span class="c1"># GitHub does not honor this content type - it will return an empty artifact</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">push_file</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">content_type</span><span class="p">,</span>
-            <span class="p">)</span></div>
+            <span class="k">while</span> <span class="n">tries</span> <span class="o">&lt;</span> <span class="n">retry</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_push</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep</span><span class="p">)</span>
+                    <span class="n">sleep</span> <span class="o">=</span> <span class="n">sleep</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="n">tries</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">tries</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+    <span class="k">def</span> <span class="nf">_push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper to push that provides consistent metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oras</span><span class="p">(</span>
+            <span class="s2">&quot;push&quot;</span><span class="p">,</span>
+            <span class="n">uri</span><span class="p">,</span>
+            <span class="s2">&quot;--manifest-config&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/dev/null:application/vnd.unknown.config.v1+json&quot;</span><span class="p">,</span>
+            <span class="c1"># GitHub does not honor this content type - it will return an empty artifact</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">push_file</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">content_type</span><span class="p">,</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Oras.fetch"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">save_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
