@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.install &mdash; Pakages 0.0.13 documentation</title>
+  <title>pakages.install &mdash; Pakages 0.0.14 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -29,7 +29,7 @@
             <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.13
+                0.0.14
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -82,6 +82,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
 
 <span class="kn">import</span> <span class="nn">pakages.oras</span>
 <span class="kn">import</span> <span class="nn">pakages.sbom</span>
@@ -188,9 +189,10 @@
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting archive </span><span class="si">{</span><span class="n">artifact</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
 
                     <span class="c1"># Note - for now not signing, since we don&#39;t have a consistent key strategy</span>
-                    <span class="n">bd</span><span class="o">.</span><span class="n">extract_tarball</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">artifact</span><span class="p">,</span> <span class="n">unsigned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="n">spack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">post_install</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
-                    <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
+                    <span class="c1"># The spack function is a hairball that doesn&#39;t respect the provided filename</span>
+                    <span class="n">spec</span> <span class="o">=</span> <span class="n">extract_tarball</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">artifact</span><span class="p">)</span>
+                    <span class="n">spack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">post_install</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+                    <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
 
     <span class="n">builder</span> <span class="o">=</span> <span class="n">PakInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
 
@@ -204,6 +206,77 @@
         <span class="n">sbom</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">sbom</span><span class="o">.</span><span class="n">generate_sbom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
         <span class="n">sbom_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meta_dir</span><span class="p">,</span> <span class="s2">&quot;sbom.json&quot;</span><span class="p">)</span>
         <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">sbom</span><span class="p">,</span> <span class="n">sbom_file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="extract_tarball"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.extract_tarball">[docs]</a><span class="k">def</span> <span class="nf">extract_tarball</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    extract binary tarball for given package into install area</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The spec prefix is an easy way to get the directory name</span>
+    <span class="n">extract_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+    <span class="n">from_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">dag_hash</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.spack&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Assemble the new spec prefix</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">dag_hash</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tar</span><span class="p">:</span>
+        <span class="n">tar</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+
+    <span class="c1"># Find the json file and .tar.gz</span>
+    <span class="n">spec_file</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">targz</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+            <span class="n">spec_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;gz&quot;</span><span class="p">):</span>
+            <span class="n">targz</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">spec_file</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">from_dir</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s2"> did not come with a spec json.&quot;</span><span class="p">)</span>
+
+    <span class="n">new_prefix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">spec_file</span><span class="p">)</span>
+
+    <span class="c1"># if the original relative prefix is in the spec file use it</span>
+    <span class="n">buildinfo</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;buildinfo&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">relative_prefix</span> <span class="o">=</span> <span class="n">buildinfo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;relative_prefix&quot;</span><span class="p">,</span> <span class="n">new_prefix</span><span class="p">)</span>
+
+    <span class="n">extract_tmp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.tmp&quot;</span><span class="p">)</span>
+    <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">mkdirp</span><span class="p">(</span><span class="n">extract_tmp</span><span class="p">)</span>
+    <span class="n">extracted_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_tmp</span><span class="p">,</span> <span class="n">relative_prefix</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">targz</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tar</span><span class="p">:</span>
+        <span class="n">tar</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">extract_tmp</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">extracted_dir</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">extracted_dir</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="c1"># Clean up</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">targz</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">spec_file</span><span class="p">)</span>
+
+    <span class="c1"># Create a dummy spec to do the relocation</span>
+    <span class="n">new_spec</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s2">&quot;spec&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;spec&quot;</span><span class="p">]})</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">bd</span><span class="o">.</span><span class="n">relocate_package</span><span class="p">(</span><span class="n">new_spec</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_spec</span></div>
 </pre></div>
 
            </div>
