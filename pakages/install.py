@@ -79,7 +79,13 @@ def do_install(self, **kwargs):
                 tmpdir = pakages.utils.get_tmpdir()
 
                 # Try until we get a cache hit
+                artifact = None
                 for registry in registries:
+
+                    # break for outer loop
+                    if artifact:
+                        break
+
                     for name, uri in self.iter_artifact_names(
                         registry, request.pkg.spec, tag
                     ):
@@ -101,7 +107,6 @@ def do_install(self, **kwargs):
 
                 # If we have an artifact, extract where needed and tell spack it's installed!
                 if artifact:
-
                     logger.info(f"Extracting archive {artifact}...")
 
                     # Note - for now not signing, since we don't have a consistent key strategy
