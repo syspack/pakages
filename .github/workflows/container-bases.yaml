@@ -1,4 +1,4 @@
-name: Build Paks Containers
+name: Build Pakages Containers
 
 # This job generates build matrices using base images built two hours earlier
 

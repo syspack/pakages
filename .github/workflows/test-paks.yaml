@@ -1,4 +1,4 @@
-name: Paks Test Building
+name: Pakages Test Building
 on:
   pull_request: []
   push:
@@ -17,7 +17,7 @@ jobs:
                     ["20.04"]]
 
     runs-on: ubuntu-latest
-    name: Paks Build
+    name: Pakages Build
     steps:
       - name: Checkout
         uses: actions/checkout@v2

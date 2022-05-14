@@ -13,7 +13,7 @@ You will need to set a username and email to sign packages.
 Developer Goals
 ===============
 
-Paks is a packaging framework that is optimized for community packages, meaning that
+Pakages is a packaging framework that is optimized for community packages, meaning that
 anyone can generate a simple repository with a package specification and then:
 
 1. The repository automatically detects new versions of a package upstream and builds
@@ -26,8 +26,8 @@ While we use Spack as the underlying manager for building, we have extended a Sp
 spec and other concepts to be flexible to installing from a source like GitHub.
 
 
-Paks Development
-================
+Pakages Development
+===================
 
 The following sections will provide detail about how to provide packages.
 
@@ -43,7 +43,7 @@ your workflow, and locally running Pak from the command line will too.
 GitHub Packages
 ---------------
 
-If you are using Paks as a developer, you likely want to build and deploy binaries
+If you are using Pakages as a developer, you likely want to build and deploy binaries
 of your own packages. This means you will need to push packages to your organization,
 and ideally via an automated workflow that deploys to a specific repository namespace.
 To allow packages to be pushed you will need to go to Settings -> Packages
@@ -56,6 +56,6 @@ won't have permission to push to, but you can pull/install from.
 Repository Creation
 -------------------
 
-These instructions will be written soon! We are still working on core of Paks and
+These instructions will be written soon! We are still working on core of Pakages and
 developing the CI workflows for a package repository.
 

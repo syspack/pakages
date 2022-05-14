@@ -1,4 +1,4 @@
-# Paks
+# Pakages
 
 ## TODO
 
@@ -14,7 +14,7 @@
 
 The project was originally going to be called "stack" but the pypi name wasn't available!
 
-### Paks Organization
+### Pakages Organization
 
 On a high level, Stack should be optimized to:
 

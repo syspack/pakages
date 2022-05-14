@@ -12,7 +12,7 @@ class Spec(spack.spec.Spec):
     @property
     def package(self):
         """
-        Return a custom repository that can deliver Paks packages
+        Return a custom repository that can deliver Pakages packages
         """
         if not self._package:
             self._package = pakages.repo.get(self)

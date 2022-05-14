@@ -110,7 +110,7 @@ class Repo(spack.repo.Repo):
     def get(self, spec):
         """Returns the package associated with the supplied spec
 
-        However we add custom functions provided by Paks.
+        However we add custom functions provided by Pakages.
         """
         if spec.name is None:
             raise spack.repo.UnknownPackageError(None, self)

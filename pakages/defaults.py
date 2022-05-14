@@ -11,7 +11,7 @@ reps = {"$install_dir": install_dir, "$root_dir": os.path.dirname(install_dir)}
 # The default settings file in the install root
 default_settings_file = os.path.join(reps["$install_dir"], "settings.yml")
 
-# Paks home stores user specific keys, etc
+# Pakages home stores user specific keys, etc
 pakageshome = os.path.expanduser("~/.pakages")
 
 # The user settings file can be created to over-ride default
