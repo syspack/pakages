@@ -81,7 +81,7 @@ class BuildCache:
         if not key:
             key = get_gpg_key()
         format_string = " ".join(
-            ["%s@%s/%s" % (s.name, s.version, s.build_hash()) for s in specs]
+            ["%s@%s/%s" % (s.name, s.version, s.dag_hash()) for s in specs]
         )
 
         command = ["create", "-r", "-a"]

@@ -116,7 +116,6 @@ def get_component(spec):
 
     # Finally, custom spack metadata (properties)
     component["properties"] = {
-        "spack:build_hash": spec.build_hash(),
         "spack:dag_hash": spec.dag_hash(),
         "spack:spec": str(spec),
         "spack:build_spec": str(spec.build_spec),
