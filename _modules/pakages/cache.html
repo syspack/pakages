@@ -182,17 +182,11 @@
         <span class="c1"># Find all .spack archives in the cache</span>
         <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">recursive_find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">):</span>
 
-            <span class="c1"># Push a full hash</span>
+            <span class="c1"># Only push generic name - the full hash never hits</span>
             <span class="n">package_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
-            <span class="n">full_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
-            <span class="n">oras</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">archive</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="n">content_type</span><span class="p">)</span>
-
-            <span class="c1"># And a generic one</span>
             <span class="n">generic_name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">generalize_spack_archive</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span>
             <span class="n">full_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">generic_name</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
             <span class="n">oras</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">full_name</span><span class="p">,</span> <span class="n">archive</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="n">content_type</span><span class="p">)</span></div>
-            <span class="c1"># TODO how to add sbom? separately?</span>
-            <span class="c1"># TODO we should support custom tags</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
