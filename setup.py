@@ -14,6 +14,7 @@ def get_lookup():
         exec(filey.read(), lookup)
     return lookup
 
+
 def get_reqs(lookup=None, key="INSTALL_REQUIRES"):
     if lookup == None:
         lookup = get_lookup()

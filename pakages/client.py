@@ -18,7 +18,7 @@ import pakages.spec
 
 class PakClient:
     """
-    Paks has a main controller for interacting with pakages.
+    Pakages has a main controller for interacting with pakages.
     """
 
     def __init__(self, *args, **kwargs):

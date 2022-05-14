@@ -1,7 +1,7 @@
 .. _api_reference_pakages:
 
-Paks API
-========
+Pakages API
+===========
 
 These sections detail the internal functions for pakages.
 

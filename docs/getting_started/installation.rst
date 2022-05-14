@@ -4,7 +4,7 @@
 Installation
 ============
 
-Paks can be installed from pypi, or from source. We recommend a container interaction
+Pakages can be installed from pypi, or from source. We recommend a container interaction
 for the quickest way to get up and running via our `container bases <https://github.com/orgs/syspack/packages?repo_name=pakages>`_
 
 Note that `spack <https://github.com/spack/spack>`_ is required to be on your path.
@@ -38,7 +38,7 @@ which is used to interact with the GitHub packages registry.
 Pypi
 ====
 
-If you want to use Paks locally on your machine or via some custom install,
+If you want to use Pakages locally on your machine or via some custom install,
 the module is available in pypi as `the pakages project <https://pypi.org/project/pakages/>`_.
 
 .. code:: console
