@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.spec &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages.spec &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -47,6 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -56,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -85,25 +86,25 @@
 <span class="kn">import</span> <span class="nn">six</span>
 
 
-<div class="viewcode-block" id="Spec"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.spec.Spec">[docs]</a><span class="k">class</span> <span class="nc">Spec</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">):</span>
+<div class="viewcode-block" id="Spec"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.spec.Spec">[docs]</a><span class="k">class</span> <span class="nc">Spec</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a custom repository that can deliver Paks packages</span>
+<span class="sd">        Return a custom repository that can deliver Pakages packages</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_package</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_package</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_package</span></div>
 
 
-<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.spec.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.spec.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a list of specs from an input string.</span>
 <span class="sd">    For creating one spec, see Spec() constructor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span></div>
 
 
-<div class="viewcode-block" id="parse_specs"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.spec.parse_specs">[docs]</a><span class="k">def</span> <span class="nf">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_specs"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.spec.parse_specs">[docs]</a><span class="k">def</span> <span class="nf">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse specs from a list of strings, and concretize&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
         <span class="n">packages</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">packages</span><span class="p">))</span>

@@ -1,20 +1,20 @@
 .. _manual-main:
 
-====
-Paks
-====
+=======
+Pakages
+=======
 
 .. image:: https://img.shields.io/github/stars/syspack/pakages?style=social
     :alt: GitHub stars
     :target: https://github.com/syspack/pakages/stargazers
 
-Paks is a framework for building community packages and containers 📦️
+Pakages is a framework for building community packages and containers 📦️
 
-Paks is a wrapper around the spack package manager that aims to provide a set of consistent 
+Pakages is a wrapper around the spack package manager that aims to provide a set of consistent 
 and trusted packages and environments, either for use separately or in combination with `syspack/pack <https://github.com/syspack/pakages>`_. 
 It is optimized for install, build, and deploy of spack build caches to GitHub packages. 
 The tool wraps spack to ensure that any installation first checks a repository of trusted pakages packages, 
-and a Paks user can run one of a set of base containers with a chosen set of operating systems and matched compilers, 
+and a Pakages user can run one of a set of base containers with a chosen set of operating systems and matched compilers, 
 and then quickly install binaries from the GitHub packages cache. Since the packages are built from the same base containers, we can have more assurance of a cache hit than if just running on a local machine. 
 
 The packages are intended to be "trusted" because each package repository will be built and deployed with testing, 
@@ -25,7 +25,7 @@ compared to a vulnerability database.
 
 You can see trusted packages under the `pakages <https://github.com/pakages>`_ organization. Trusted means
 that they are built, tested, and deployed from modular repositories, and can be
-installed into consistent container bases that Paks provides.
+installed into consistent container bases that Pakages provides.
 
 .. _main-goals:
 
@@ -35,10 +35,10 @@ Goals
 
 If you are a developer, pakages is a framework that is optimized to help you build packages from source,
 and distribute the binaries via GitHub packages and also provide robust metadata
-and an organization scheme that works well for containers. Paks has focus on this build and deploy,
+and an organization scheme that works well for containers. Pakages has focus on this build and deploy,
 and then testing and automatically updating the individual packages provided.
 
-If you are a Paks user, Paks aims to provide you consistnet and tested container environments for your
+If you are a Pakages user, Pakages aims to provide you consistnet and tested container environments for your
 software.
 
 
@@ -46,11 +46,11 @@ To see the code, head over to the `repository <https://github.com/syspack/pakage
 
 .. _main-getting-started:
 
--------------------------
-Getting started with Paks
--------------------------
+----------------------------
+Getting started with Pakages
+----------------------------
 
-Paks can be installed from pypi or directly from the repository. See :ref:`getting_started-installation` for
+Pakages can be installed from pypi or directly from the repository. See :ref:`getting_started-installation` for
 installation, and then the :ref:`getting-started` section for using pakages on the command line or 
 from a provided base container.
 

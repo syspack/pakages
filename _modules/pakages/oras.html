@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.oras &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages.oras &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -47,6 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -56,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -92,7 +93,7 @@
 <span class="kn">import</span> <span class="nn">requests</span>
 
 
-<div class="viewcode-block" id="Oras"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.oras.Oras">[docs]</a><span class="k">class</span> <span class="nc">Oras</span><span class="p">:</span>
+<div class="viewcode-block" id="Oras"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras">[docs]</a><span class="k">class</span> <span class="nc">Oras</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oras</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -110,7 +111,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_oras</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;oras&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oras</span>
 
-<div class="viewcode-block" id="Oras.get_manifest"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.oras.Oras.get_manifest">[docs]</a>    <span class="k">def</span> <span class="nf">get_manifest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+<div class="viewcode-block" id="Oras.get_manifest"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.get_manifest">[docs]</a>    <span class="k">def</span> <span class="nf">get_manifest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use crane to get the image manifest</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -118,7 +119,7 @@
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Oras.get_manifest_digest"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.oras.Oras.get_manifest_digest">[docs]</a>    <span class="k">def</span> <span class="nf">get_manifest_digest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+<div class="viewcode-block" id="Oras.get_manifest_digest"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.get_manifest_digest">[docs]</a>    <span class="k">def</span> <span class="nf">get_manifest_digest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the first layer digest (the spack package archive)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -132,7 +133,7 @@
             <span class="k">if</span> <span class="n">digest</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">digest</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;sha256:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Oras.push"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.oras.Oras.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Oras.push"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">push_file</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Push an oras artifact to an OCI registry</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -148,7 +149,7 @@
                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">push_file</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">content_type</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Oras.fetch"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.oras.Oras.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">save_file</span><span class="p">):</span>
+<div class="viewcode-block" id="Oras.fetch"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.oras.Oras.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">save_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fetch an oras artifact from an OCI registry</span>
 <span class="sd">        &quot;&quot;&quot;</span>

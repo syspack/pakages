@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.settings &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages.settings &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -47,6 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -56,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -92,7 +93,7 @@
 <span class="kn">import</span> <span class="nn">yaml</span>
 
 
-<div class="viewcode-block" id="EmptySettings"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings">[docs]</a><span class="k">class</span> <span class="nc">EmptySettings</span><span class="p">:</span>
+<div class="viewcode-block" id="EmptySettings"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings">[docs]</a><span class="k">class</span> <span class="nc">EmptySettings</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a new settings object not requiring a settings file.</span>
@@ -107,13 +108,13 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
-<div class="viewcode-block" id="EmptySettings.validate"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.validate"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validate the loaded settings with jsonschema</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">pakages</span><span class="o">.</span><span class="n">schemas</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.inituser"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.inituser">[docs]</a>    <span class="k">def</span> <span class="nf">inituser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.inituser"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.inituser">[docs]</a>    <span class="k">def</span> <span class="nf">inituser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a user specific config in user&#39;s home.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -128,7 +129,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">,</span> <span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Created user settings file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">defaults</span><span class="o">.</span><span class="n">user_settings_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.edit"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.edit"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interactively edit a config file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -144,7 +145,7 @@
             <span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="EmptySettings.get_settings_file"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.get_settings_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_settings_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.get_settings_file"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.get_settings_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_settings_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the preferred used settings file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -156,7 +157,7 @@
         <span class="c1"># First preference to command line, then user settings, then default</span>
         <span class="k">return</span> <span class="n">settings_file</span> <span class="ow">or</span> <span class="n">user_settings</span> <span class="ow">or</span> <span class="n">defaults</span><span class="o">.</span><span class="n">default_settings_file</span></div>
 
-<div class="viewcode-block" id="EmptySettings.load"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.load"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load the settings file into the settings object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -171,7 +172,7 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.get"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.get"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a settings value, doing appropriate substitution and expansion.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -191,7 +192,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-<div class="viewcode-block" id="EmptySettings.add"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.add"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a value to a list parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -209,7 +210,7 @@
                 <span class="s2">&quot;Warning: Check with pakages config edit - ordering of list can change.&quot;</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.remove"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.remove"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove a value from a list parameter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -225,7 +226,7 @@
             <span class="s2">&quot;Warning: Check with pakages config edit - ordering of list can change.&quot;</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.set"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.set"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set a setting based on key and value. If the key has :, it&#39;s nested</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -247,7 +248,7 @@
         <span class="c1"># Validate and catch error message cleanly</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">change_validate</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmptySettings.change_validate"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.change_validate">[docs]</a>    <span class="k">def</span> <span class="nf">change_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.change_validate"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.change_validate">[docs]</a>    <span class="k">def</span> <span class="nf">change_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A courtesy function to validate a new config addition.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -278,11 +279,11 @@
 
         <span class="k">return</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="EmptySettings.delete"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.delete"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">:</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="EmptySettings.save"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.EmptySettings.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptySettings.save"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.EmptySettings.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save settings, but do not change order of anything.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -298,7 +299,7 @@
             <span class="k">yield</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.settings.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">EmptySettings</span><span class="p">):</span>
+<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.settings.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">EmptySettings</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The settings class is a wrapper for easily parsing a settings.yml file.</span>
 

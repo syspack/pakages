@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Internal API &mdash; Paks 0.0.12 documentation</title>
+  <title>Internal API &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -19,7 +19,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Developer Guide" href="../../getting_started/developer-guide.html" /> 
+    <link rel="next" title="pakages package" href="pakages.html" />
+    <link rel="prev" title="Pakages API" href="../pakages.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -27,7 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -48,7 +49,9 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Internal API</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../pakages.html">Pakages API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Internal API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html">pakages package</a></li>
 </ul>
 </li>
 </ul>
@@ -59,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,6 +84,34 @@
 <h1>Internal API<a class="headerlink" href="#internal-api" title="Permalink to this headline"></a></h1>
 <p>These pages document the entire internal API of pakages</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pakages.html">pakages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli">pakages.cli module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.build">pakages.cli.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.config">pakages.cli.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.helpers">pakages.cli.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.install">pakages.cli.install module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.ls">pakages.cli.ls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cli.push">pakages.cli.push module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.cache">pakages.cache module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.handlers">pakages.handlers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.handlers.github">pakages.handlers.github module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.install">pakages.install module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.repo">pakages.repo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.sbom">pakages.sbom module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.spec">pakages.spec module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.utils">pakages.utils module</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -88,7 +119,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../getting_started/developer-guide.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../pakages.html" class="btn btn-neutral float-left" title="Pakages API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pakages.html" class="btn btn-neutral float-right" title="pakages package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.cli &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages.cli &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -47,6 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -56,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -88,7 +89,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.cli.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">():</span>
+<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.cli.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pakages community package manager&quot;</span><span class="p">,</span>
         <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
@@ -286,7 +287,7 @@
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
-<div class="viewcode-block" id="run_main"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.cli.run_main">[docs]</a><span class="k">def</span> <span class="nf">run_main</span><span class="p">():</span>
+<div class="viewcode-block" id="run_main"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.cli.run_main">[docs]</a><span class="k">def</span> <span class="nf">run_main</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>

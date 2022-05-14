@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.repo &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages.repo &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -47,6 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -56,7 +57,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -96,7 +97,7 @@
 <span class="kn">import</span> <span class="nn">re</span>
 
 
-<div class="viewcode-block" id="PakRepo"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.PakRepo">[docs]</a><span class="k">class</span> <span class="nc">PakRepo</span><span class="p">:</span>
+<div class="viewcode-block" id="PakRepo"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.PakRepo">[docs]</a><span class="k">class</span> <span class="nc">PakRepo</span><span class="p">:</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;(http|https)://github.com&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">):</span>
@@ -117,7 +118,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">GitHub</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
-<div class="viewcode-block" id="PakRepo.validate"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.PakRepo.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PakRepo.validate"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.PakRepo.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validate that we have a repo, meaning we expect a repo.yml|yaml and packages</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -129,7 +130,7 @@
         <span class="c1"># Add directory with repo.yaml to spack just to list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repo_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">repo_yaml</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="PakRepo.list_packages"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.PakRepo.list_packages">[docs]</a>    <span class="k">def</span> <span class="nf">list_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PakRepo.list_packages"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.PakRepo.list_packages">[docs]</a>    <span class="k">def</span> <span class="nf">list_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a filesystem repository, list packages there.</span>
 
@@ -140,7 +141,7 @@
         <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_dir</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">repo</span><span class="o">.</span><span class="n">all_package_names</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="PakRepo.cleanup"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.PakRepo.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PakRepo.cleanup"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.PakRepo.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Cleanup a cloned repository - be careful don&#39;t run this for a local path!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -150,7 +151,7 @@
             <span class="n">updated</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">repos</span> <span class="k">if</span> <span class="n">r</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_dir</span><span class="p">]</span>
             <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">updated</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="PakRepo.add"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.PakRepo.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PakRepo.add"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.PakRepo.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add the repository to be known to spack</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -159,7 +160,7 @@
         <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="RepoPath"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.RepoPath">[docs]</a><span class="k">class</span> <span class="nc">RepoPath</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">RepoPath</span><span class="p">):</span>
+<div class="viewcode-block" id="RepoPath"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.RepoPath">[docs]</a><span class="k">class</span> <span class="nc">RepoPath</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">RepoPath</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">repos</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Since we want control over customizing the package class, we return</span>
@@ -179,15 +180,20 @@
                     <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">put_last</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">RepoError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Failed to initialize repository: &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span></div>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Failed to initialize repository: &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+
+<div class="viewcode-block" id="RepoPath.find_module"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.RepoPath.find_module">[docs]</a>    <span class="k">def</span> <span class="nf">find_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">python_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Compatibility method to support Python 2.7</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+        <span class="c1"># Note, might need to update this to be akin to parent</span>
 
 
-<div class="viewcode-block" id="Repo"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.Repo">[docs]</a><span class="k">class</span> <span class="nc">Repo</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">Repo</span><span class="p">):</span>
-<div class="viewcode-block" id="Repo.get"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.Repo.get">[docs]</a>    <span class="nd">@spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">autospec</span>
+<div class="viewcode-block" id="Repo"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.Repo">[docs]</a><span class="k">class</span> <span class="nc">Repo</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">Repo</span><span class="p">):</span>
+<div class="viewcode-block" id="Repo.get"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.Repo.get">[docs]</a>    <span class="nd">@spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">autospec</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the package associated with the supplied spec</span>
 
-<span class="sd">        However we add custom functions provided by Paks.</span>
+<span class="sd">        However we add custom functions provided by Pakages.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">UnknownPackageError</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -234,7 +240,7 @@
 <span class="n">path</span> <span class="o">=</span> <span class="n">llnl</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">Singleton</span><span class="p">(</span><span class="n">_singleton_path</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="get"><a class="viewcode-back" href="../../api_reference/internal/paks.html#pakages.repo.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+<div class="viewcode-block" id="get"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.repo.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convenience wrapper around ``spack.repo.get()``.&quot;&quot;&quot;</span>
     <span class="c1"># TODO add support here for a spec name that is from GitHub</span>
     <span class="c1"># And then add to singleton path (do dynamically as function)</span>

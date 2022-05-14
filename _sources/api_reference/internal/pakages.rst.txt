@@ -1,11 +1,11 @@
 pakages package
-============
+===============
 
 Submodules
 ----------
 
 pakages.cli module
----------------
+------------------
 
 .. automodule:: pakages.cli
     :members:
@@ -14,7 +14,7 @@ pakages.cli module
 
 
 pakages.cli.build module
----------------------
+------------------------
 
 .. automodule:: pakages.cli.build
     :members:
@@ -23,7 +23,7 @@ pakages.cli.build module
 
 
 pakages.cli.config module
-----------------------
+-------------------------
 
 .. automodule:: pakages.cli.config
     :members:
@@ -32,7 +32,7 @@ pakages.cli.config module
 
 
 pakages.cli.helpers module
------------------------
+--------------------------
 
 .. automodule:: pakages.cli.helpers
     :members:
@@ -40,7 +40,7 @@ pakages.cli.helpers module
     :show-inheritance:
 
 pakages.cli.install module
------------------------
+--------------------------
 
 .. automodule:: pakages.cli.install
     :members:
@@ -49,7 +49,7 @@ pakages.cli.install module
 
 
 pakages.cli.ls module
-------------------
+---------------------
 
 .. automodule:: pakages.cli.ls
     :members:
@@ -57,7 +57,7 @@ pakages.cli.ls module
     :show-inheritance:
 
 pakages.cli.push module
---------------------
+-----------------------
 
 .. automodule:: pakages.cli.push
     :members:
@@ -66,7 +66,7 @@ pakages.cli.push module
 
 
 pakages.cache module
------------------
+--------------------
 
 .. automodule:: pakages.cache
     :members:
@@ -75,7 +75,7 @@ pakages.cache module
 
 
 pakages.client module
-------------------
+---------------------
 
 .. automodule:: pakages.client
     :members:
@@ -83,7 +83,7 @@ pakages.client module
     :show-inheritance:
 
 pakages.defaults module
---------------------
+-----------------------
 
 .. automodule:: pakages.defaults
     :members:
@@ -92,7 +92,7 @@ pakages.defaults module
 
 
 pakages.handlers module
---------------------
+-----------------------
 
 .. automodule:: pakages.handlers
     :members:
@@ -100,7 +100,7 @@ pakages.handlers module
     :show-inheritance:
 
 pakages.handlers.github module
----------------------------
+------------------------------
 
 .. automodule:: pakages.handlers.github
     :members:
@@ -108,7 +108,7 @@ pakages.handlers.github module
     :show-inheritance:
 
 pakages.install module
---------------------
+----------------------
 
 .. automodule:: pakages.install
     :members:
@@ -117,7 +117,7 @@ pakages.install module
 
 
 pakages.oras module
-----------------
+-------------------
 
 .. automodule:: pakages.oras
     :members:
@@ -125,7 +125,7 @@ pakages.oras module
     :show-inheritance:
 
 pakages.repo module
-----------------
+-------------------
 
 .. automodule:: pakages.repo
     :members:
@@ -134,7 +134,7 @@ pakages.repo module
 
 
 pakages.sbom module
-----------------
+-------------------
 
 .. automodule:: pakages.sbom
     :members:
@@ -143,7 +143,7 @@ pakages.sbom module
 
 
 pakages.schemas module
--------------------
+----------------------
 
 .. automodule:: pakages.schemas
     :members:
@@ -152,7 +152,7 @@ pakages.schemas module
 
 
 pakages.settings module
---------------------
+-----------------------
 
 .. automodule:: pakages.settings
     :members:
@@ -160,7 +160,7 @@ pakages.settings module
     :show-inheritance:
 
 pakages.spec module
-----------------
+-------------------
 
 .. automodule:: pakages.spec
     :members:
@@ -168,7 +168,7 @@ pakages.spec module
     :show-inheritance:
 
 pakages.version module
--------------------
+----------------------
 
 .. automodule:: pakages.version
     :members:
@@ -177,7 +177,7 @@ pakages.version module
 
 
 pakages.logger module
-------------------
+---------------------
 
 .. automodule:: pakages.logger
     :members:
@@ -186,7 +186,7 @@ pakages.logger module
 
     
 pakages.utils module
------------------
+--------------------
 
 .. automodule:: pakages.utils
     :members:

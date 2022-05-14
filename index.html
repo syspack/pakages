@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paks &mdash; Paks 0.0.12 documentation</title>
+  <title>Pakages &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/sphinx-argparse.css" type="text/css" />
@@ -27,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> Paks
+            <a href="#" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -48,6 +48,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/pakages.html">Pakages API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference/internal/modules.html">Internal API</a></li>
 </ul>
 
@@ -57,7 +58,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Paks</a>
+          <a href="#">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -65,7 +66,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Paks</li>
+      <li>Pakages</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,15 +76,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="paks">
-<span id="manual-main"></span><h1>Paks<a class="headerlink" href="#paks" title="Permalink to this headline"></a></h1>
+  <div class="section" id="pakages">
+<span id="manual-main"></span><h1>Pakages<a class="headerlink" href="#pakages" title="Permalink to this headline"></a></h1>
 <a class="reference external image-reference" href="https://github.com/syspack/pakages/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/syspack/pakages?style=social" /></a>
-<p>Paks is a framework for building community packages and containers 📦️</p>
-<p>Paks is a wrapper around the spack package manager that aims to provide a set of consistent
+<p>Pakages is a framework for building community packages and containers 📦️</p>
+<p>Pakages is a wrapper around the spack package manager that aims to provide a set of consistent
 and trusted packages and environments, either for use separately or in combination with <a class="reference external" href="https://github.com/syspack/pakages">syspack/pack</a>.
 It is optimized for install, build, and deploy of spack build caches to GitHub packages.
 The tool wraps spack to ensure that any installation first checks a repository of trusted pakages packages,
-and a Paks user can run one of a set of base containers with a chosen set of operating systems and matched compilers,
+and a Pakages user can run one of a set of base containers with a chosen set of operating systems and matched compilers,
 and then quickly install binaries from the GitHub packages cache. Since the packages are built from the same base containers, we can have more assurance of a cache hit than if just running on a local machine.</p>
 <p>The packages are intended to be “trusted” because each package repository will be built and deployed with testing,
 and will use an automated tool (<a class="reference external" href="https://github.com/alecbcs/binoc">binoc</a>) to always look for updates to package versions,
@@ -92,20 +93,20 @@ that will be added to the container and easy to interact with, eventually allowi
 compared to a vulnerability database.</p>
 <p>You can see trusted packages under the <a class="reference external" href="https://github.com/pakages">pakages</a> organization. Trusted means
 that they are built, tested, and deployed from modular repositories, and can be
-installed into consistent container bases that Paks provides.</p>
+installed into consistent container bases that Pakages provides.</p>
 <div class="section" id="goals">
 <span id="main-goals"></span><h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline"></a></h2>
 <p>If you are a developer, pakages is a framework that is optimized to help you build packages from source,
 and distribute the binaries via GitHub packages and also provide robust metadata
-and an organization scheme that works well for containers. Paks has focus on this build and deploy,
+and an organization scheme that works well for containers. Pakages has focus on this build and deploy,
 and then testing and automatically updating the individual packages provided.</p>
-<p>If you are a Paks user, Paks aims to provide you consistnet and tested container environments for your
+<p>If you are a Pakages user, Pakages aims to provide you consistnet and tested container environments for your
 software.</p>
 <p>To see the code, head over to the <a class="reference external" href="https://github.com/syspack/pakages/">repository</a>.</p>
 </div>
-<div class="section" id="getting-started-with-paks">
-<span id="main-getting-started"></span><h2>Getting started with Paks<a class="headerlink" href="#getting-started-with-paks" title="Permalink to this headline"></a></h2>
-<p>Paks can be installed from pypi or directly from the repository. See <a class="reference internal" href="getting_started/installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a> for
+<div class="section" id="getting-started-with-pakages">
+<span id="main-getting-started"></span><h2>Getting started with Pakages<a class="headerlink" href="#getting-started-with-pakages" title="Permalink to this headline"></a></h2>
+<p>Pakages can be installed from pypi or directly from the repository. See <a class="reference internal" href="getting_started/installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a> for
 installation, and then the <a class="reference internal" href="getting_started/index.html#getting-started"><span class="std std-ref">Getting Started</span></a> section for using pakages on the command line or
 from a provided base container.</p>
 </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages package &mdash; Paks 0.0.12 documentation</title>
+  <title>pakages package &mdash; Pakages 0.0.12 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -18,7 +18,8 @@
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Internal API" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -26,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Paks
+            <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.12
@@ -46,8 +47,37 @@
 <li class="toctree-l1"><a class="reference internal" href="../../getting_started/developer-guide.html">Developer Guide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Internal API</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../pakages.html">Pakages API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Internal API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pakages package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli">pakages.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.build">pakages.cli.build module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.config">pakages.cli.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.helpers">pakages.cli.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.install">pakages.cli.install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.ls">pakages.cli.ls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cli.push">pakages.cli.push module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.cache">pakages.cache module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.handlers">pakages.handlers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.handlers.github">pakages.handlers.github module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.install">pakages.install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.repo">pakages.repo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.sbom">pakages.sbom module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.spec">pakages.spec module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pakages.utils">pakages.utils module</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -56,7 +86,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Paks</a>
+          <a href="../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -64,9 +94,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Internal API</a> &raquo;</li>
       <li>pakages package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/api_reference/internal/paks.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/api_reference/internal/pakages.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,9 +110,9 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="pakages-cli-module">
-<h2>pakages.cli module<a class="headerlink" href="#pakages-cli-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli"></span><dl class="py function">
+<div class="section" id="module-pakages.cli">
+<span id="pakages-cli-module"></span><h2>pakages.cli module<a class="headerlink" href="#module-pakages.cli" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.get_parser">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.</span></code><code class="sig-name descname"><span class="pre">get_parser</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.get_parser" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -92,25 +123,25 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-build-module">
-<h2>pakages.cli.build module<a class="headerlink" href="#pakages-cli-build-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.build"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.build">
+<span id="pakages-cli-build-module"></span><h2>pakages.cli.build module<a class="headerlink" href="#module-pakages.cli.build" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.build.main">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.build.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">parser</span></span></em>, <em><span class="n"><span class="pre">extra</span></span></em>, <em><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/build.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.build.main" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-config-module">
-<h2>pakages.cli.config module<a class="headerlink" href="#pakages-cli-config-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.config"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.config">
+<span id="pakages-cli-config-module"></span><h2>pakages.cli.config module<a class="headerlink" href="#module-pakages.cli.config" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.config.main">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.config.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">parser</span></span></em>, <em><span class="n"><span class="pre">extra</span></span></em>, <em><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/config.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.config.main" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-helpers-module">
-<h2>pakages.cli.helpers module<a class="headerlink" href="#pakages-cli-helpers-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.helpers"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.helpers">
+<span id="pakages-cli-helpers-module"></span><h2>pakages.cli.helpers module<a class="headerlink" href="#module-pakages.cli.helpers" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.helpers.parse_package_request">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.helpers.</span></code><code class="sig-name descname"><span class="pre">parse_package_request</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/helpers.html#parse_package_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.helpers.parse_package_request" title="Permalink to this definition"></a></dt>
 <dd><p>Given args, parse the packages and repo (if any) from it.
@@ -118,33 +149,33 @@ This is shared between install and build</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-install-module">
-<h2>pakages.cli.install module<a class="headerlink" href="#pakages-cli-install-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.install"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.install">
+<span id="pakages-cli-install-module"></span><h2>pakages.cli.install module<a class="headerlink" href="#module-pakages.cli.install" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.install.main">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.install.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">parser</span></span></em>, <em><span class="n"><span class="pre">extra</span></span></em>, <em><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/install.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.install.main" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-ls-module">
-<h2>pakages.cli.ls module<a class="headerlink" href="#pakages-cli-ls-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.ls"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.ls">
+<span id="pakages-cli-ls-module"></span><h2>pakages.cli.ls module<a class="headerlink" href="#module-pakages.cli.ls" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.ls.main">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.ls.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">parser</span></span></em>, <em><span class="n"><span class="pre">extra</span></span></em>, <em><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/ls.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.ls.main" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cli-push-module">
-<h2>pakages.cli.push module<a class="headerlink" href="#pakages-cli-push-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cli.push"></span><dl class="py function">
+<div class="section" id="module-pakages.cli.push">
+<span id="pakages-cli-push-module"></span><h2>pakages.cli.push module<a class="headerlink" href="#module-pakages.cli.push" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.cli.push.main">
 <code class="sig-prename descclassname"><span class="pre">pakages.cli.push.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">parser</span></span></em>, <em><span class="n"><span class="pre">extra</span></span></em>, <em><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cli/push.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.push.main" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-cache-module">
-<h2>pakages.cache module<a class="headerlink" href="#pakages-cache-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.cache"></span><dl class="py class">
+<div class="section" id="module-pakages.cache">
+<span id="pakages-cache-module"></span><h2>pakages.cache module<a class="headerlink" href="#module-pakages.cache" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.cache.BuildCache">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.cache.</span></code><code class="sig-name descname"><span class="pre">BuildCache</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/cache.html#BuildCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cache.BuildCache" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -184,13 +215,13 @@ This is shared between install and build</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-client-module">
-<h2>pakages.client module<a class="headerlink" href="#pakages-client-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.client"></span><dl class="py class">
+<div class="section" id="module-pakages.client">
+<span id="pakages-client-module"></span><h2>pakages.client module<a class="headerlink" href="#module-pakages.client" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.client.PakClient">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.client.</span></code><code class="sig-name descname"><span class="pre">PakClient</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/client.html#PakClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Paks has a main controller for interacting with pakages.</p>
+<p>Pakages has a main controller for interacting with pakages.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pakages.client.PakClient.add_repository">
 <code class="sig-name descname"><span class="pre">add_repository</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/client.html#PakClient.add_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakClient.add_repository" title="Permalink to this definition"></a></dt>
@@ -240,15 +271,15 @@ pakages.repo.PakRepo first.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-defaults-module">
-<h2>pakages.defaults module<a class="headerlink" href="#pakages-defaults-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.defaults"></span></div>
-<div class="section" id="pakages-handlers-module">
-<h2>pakages.handlers module<a class="headerlink" href="#pakages-handlers-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.handlers"></span></div>
-<div class="section" id="pakages-handlers-github-module">
-<h2>pakages.handlers.github module<a class="headerlink" href="#pakages-handlers-github-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.handlers.github"></span><dl class="py class">
+<div class="section" id="module-pakages.defaults">
+<span id="pakages-defaults-module"></span><h2>pakages.defaults module<a class="headerlink" href="#module-pakages.defaults" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-pakages.handlers">
+<span id="pakages-handlers-module"></span><h2>pakages.handlers module<a class="headerlink" href="#module-pakages.handlers" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-pakages.handlers.github">
+<span id="pakages-handlers-github-module"></span><h2>pakages.handlers.github module<a class="headerlink" href="#module-pakages.handlers.github" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.handlers.github.GitHub">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.handlers.github.</span></code><code class="sig-name descname"><span class="pre">GitHub</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/handlers/github.html#GitHub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.handlers.github.GitHub" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -280,18 +311,18 @@ is free to read with this metadata.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-install-module">
-<h2>pakages.install module<a class="headerlink" href="#pakages-install-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.install"></span><dl class="py function">
+<div class="section" id="module-pakages.install">
+<span id="pakages-install-module"></span><h2>pakages.install module<a class="headerlink" href="#module-pakages.install" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.install.do_install">
 <code class="sig-prename descclassname"><span class="pre">pakages.install.</span></code><code class="sig-name descname"><span class="pre">do_install</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">self</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/install.html#do_install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.install.do_install" title="Permalink to this definition"></a></dt>
 <dd><p>Refactored install process to add proper cache handling.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-oras-module">
-<h2>pakages.oras module<a class="headerlink" href="#pakages-oras-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.oras"></span><dl class="py class">
+<div class="section" id="module-pakages.oras">
+<span id="pakages-oras-module"></span><h2>pakages.oras module<a class="headerlink" href="#module-pakages.oras" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.oras.Oras">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.oras.</span></code><code class="sig-name descname"><span class="pre">Oras</span></code><a class="reference internal" href="../../_modules/pakages/oras.html#Oras"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.oras.Oras" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -328,9 +359,9 @@ is free to read with this metadata.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-repo-module">
-<h2>pakages.repo module<a class="headerlink" href="#pakages-repo-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.repo"></span><dl class="py class">
+<div class="section" id="module-pakages.repo">
+<span id="pakages-repo-module"></span><h2>pakages.repo module<a class="headerlink" href="#module-pakages.repo" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.repo.PakRepo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.repo.</span></code><code class="sig-name descname"><span class="pre">PakRepo</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">path</span></span></em>, <em><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/repo.html#PakRepo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.repo.PakRepo" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -375,7 +406,7 @@ to do this when we install.</p>
 <dt class="sig sig-object py" id="pakages.repo.Repo.get">
 <code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/repo.html#Repo.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.repo.Repo.get" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the package associated with the supplied spec</p>
-<p>However we add custom functions provided by Paks.</p>
+<p>However we add custom functions provided by Pakages.</p>
 </dd></dl>
 
 </dd></dl>
@@ -384,6 +415,11 @@ to do this when we install.</p>
 <dt class="sig sig-object py" id="pakages.repo.RepoPath">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.repo.</span></code><code class="sig-name descname"><span class="pre">RepoPath</span></code><span class="sig-paren">(</span><em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">repos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/repo.html#RepoPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.repo.RepoPath" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spack.repo.RepoPath</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.repo.RepoPath.find_module">
+<code class="sig-name descname"><span class="pre">find_module</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">fullname</span></span></em>, <em><span class="n"><span class="pre">python_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/repo.html#RepoPath.find_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.repo.RepoPath.find_module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -399,9 +435,9 @@ to do this when we install.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-sbom-module">
-<h2>pakages.sbom module<a class="headerlink" href="#pakages-sbom-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.sbom"></span><dl class="py function">
+<div class="section" id="module-pakages.sbom">
+<span id="pakages-sbom-module"></span><h2>pakages.sbom module<a class="headerlink" href="#module-pakages.sbom" title="Permalink to this headline"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py" id="pakages.sbom.generate_sbom">
 <code class="sig-prename descclassname"><span class="pre">pakages.sbom.</span></code><code class="sig-name descname"><span class="pre">generate_sbom</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">pkg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/sbom.html#generate_sbom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.sbom.generate_sbom" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the sbom based on best practices suggested in the guide.</p>
@@ -419,12 +455,12 @@ to do this when we install.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-schemas-module">
-<h2>pakages.schemas module<a class="headerlink" href="#pakages-schemas-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.schemas"></span></div>
-<div class="section" id="pakages-settings-module">
-<h2>pakages.settings module<a class="headerlink" href="#pakages-settings-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.settings"></span><dl class="py class">
+<div class="section" id="module-pakages.schemas">
+<span id="pakages-schemas-module"></span><h2>pakages.schemas module<a class="headerlink" href="#module-pakages.schemas" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-pakages.settings">
+<span id="pakages-settings-module"></span><h2>pakages.settings module<a class="headerlink" href="#module-pakages.settings" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.settings.EmptySettings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.settings.</span></code><code class="sig-name descname"><span class="pre">EmptySettings</span></code><a class="reference internal" href="../../_modules/pakages/settings.html#EmptySettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -512,16 +548,16 @@ a dictionary-like class with extra functions.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-spec-module">
-<h2>pakages.spec module<a class="headerlink" href="#pakages-spec-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.spec"></span><dl class="py class">
+<div class="section" id="module-pakages.spec">
+<span id="pakages-spec-module"></span><h2>pakages.spec module<a class="headerlink" href="#module-pakages.spec" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.spec.Spec">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.spec.</span></code><code class="sig-name descname"><span class="pre">Spec</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">spec_like</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">normal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">concrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">external_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">external_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/spec.html#Spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spec.Spec" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spack.spec.Spec</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="pakages.spec.Spec.package">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">package</span></code><a class="headerlink" href="#pakages.spec.Spec.package" title="Permalink to this definition"></a></dt>
-<dd><p>Return a custom repository that can deliver Paks packages</p>
+<dd><p>Return a custom repository that can deliver Pakages packages</p>
 </dd></dl>
 
 </dd></dl>
@@ -540,12 +576,12 @@ For creating one spec, see Spec() constructor.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="pakages-version-module">
-<h2>pakages.version module<a class="headerlink" href="#pakages-version-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.version"></span></div>
-<div class="section" id="pakages-logger-module">
-<h2>pakages.logger module<a class="headerlink" href="#pakages-logger-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.logger"></span><dl class="py class">
+<div class="section" id="module-pakages.version">
+<span id="pakages-version-module"></span><h2>pakages.version module<a class="headerlink" href="#module-pakages.version" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-pakages.logger">
+<span id="pakages-logger-module"></span><h2>pakages.logger module<a class="headerlink" href="#module-pakages.logger" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pakages.logger.</span></code><code class="sig-name descname"><span class="pre">ColorizingStreamHandler</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">nocolor=False</span></span></em>, <em><span class="n"><span class="pre">stream=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stderr&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em><span class="n"><span class="pre">use_threads=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pakages/logger.html#ColorizingStreamHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.StreamHandler</span></code></p>
@@ -719,15 +755,17 @@ Prints the output to the console.
 <dd></dd></dl>
 
 </div>
-<div class="section" id="pakages-utils-module">
-<h2>pakages.utils module<a class="headerlink" href="#pakages-utils-module" title="Permalink to this headline"></a></h2>
-<span class="target" id="module-pakages.utils"></span></div>
+<div class="section" id="module-pakages.utils">
+<span id="pakages-utils-module"></span><h2>pakages.utils module<a class="headerlink" href="#module-pakages.utils" title="Permalink to this headline"></a></h2>
+</div>
 </div>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Internal API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

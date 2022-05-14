@@ -4,8 +4,8 @@
 User Guide
 ==========
 
-Paks provides basic functionality to install, build, and deploy spack packages.
-If you haven't installed Paks yet or shelled into a pre-built container,
+Pakages provides basic functionality to install, build, and deploy spack packages.
+If you haven't installed Pakages yet or shelled into a pre-built container,
 you should read :ref:`getting_started-installation` first. If you want to tweak
 settings, read :ref:`getting_started-settings`.
 
@@ -13,7 +13,7 @@ Quick Start
 ===========
 
 After installation, you'll first need spack to be on your path. If 
-you want control over Paks settings (discussed next) you should create your own copy of the config file.
+you want control over Pakages settings (discussed next) you should create your own copy of the config file.
 
 .. code-block:: console
 
@@ -38,12 +38,12 @@ If you are using a pre-built container, this will already be the case.
 Commands
 ========
 
-Paks provides the following commands via the ``pakages`` command line client.
+Pakages provides the following commands via the ``pakages`` command line client.
 
 Install
 -------
 
-Paks allows for easy install of different formats of packages. Where do they come from?
+Pakages allows for easy install of different formats of packages. Where do they come from?
 We provide (currently under development) `a set of packages, "pakages" <https://github.com/pakages>`_ , 
 that you can easily install as a Pak user. If you are looking to develop, meaning build, test,
 and deploy your own packages, you should see :ref:`getting_started-developer-guide`.
@@ -99,7 +99,7 @@ Then you can install all packages via:
 
     $ pakages install .
 
-Paks will detect that you want to install from the present working directory,
+Pakages will detect that you want to install from the present working directory,
 and then install appropriately. The above ``.`` will install all packages in the present working directory.
 You'd likely want to use this in a CI recipe to build and deploy a single package repository, however it could
 have a local use case too, in the case that you want to clone someone's package repository and install all of them.
@@ -144,16 +144,16 @@ Build
 -----
 
 The main functionality of pakages is (drumroll) to build packages that are then easy to install
-in a container, or again into the spack install that comes with Paks. A basic build is going
+in a container, or again into the spack install that comes with Pakages. A basic build is going
 to generate a build cache with one or more specs of interest. Any time you build and 
-push to a trusted Paks registry (the one in your settings) then this registry will be used as a cache for future installs. 
+push to a trusted Pakages registry (the one in your settings) then this registry will be used as a cache for future installs. 
 Here is how to build zlib:
 
 .. code-block:: console
 
     $ pakages build zlib
 
-By default, a build cache will be created in a temporary directory and the Paks
+By default, a build cache will be created in a temporary directory and the Pakages
 saved there. This is recommended, as each pak is intended to be modular. If you want
 to specify a custom cache (or one that is always used) you can add ``--cache-dir``.
 You also might want to set a specific gpg key hash to sign with ``--key`` (otherwise
@@ -289,7 +289,7 @@ List installed packages as follows:
 Containers
 ----------
 
-Paks provide a set of `pre-built containers with Paks <https://github.com/orgs/syspack/packages?repo_name=pakages>`_  that serve
+Pakages provide a set of `pre-built containers with Pakages <https://github.com/orgs/syspack/packages?repo_name=pakages>`_  that serve
 as bases for being able to quickly spin up an environment and install. We intend to deprecate updating containers as the operating
 systems that are provided are deprecated. E.g., at the time of writing this in 2022, the earliest Ubuntu version we are providing is 18.04.
 As an example, let's run the ubuntu 18.04 container and install zlib.
