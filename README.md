@@ -2,7 +2,7 @@
 
 > Pakages is a framework for building community packages and containers 📦️
 
-![docs/assets/img/pakages.png](docs/assets/img/pakages.png)
+![docs/assets/img/paks.png](docs/assets/img/paks.png)
 
 ⭐️ [Documentation](https://syspack.github.io/pakages) ⭐️
 
