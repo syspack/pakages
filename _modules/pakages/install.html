@@ -87,7 +87,7 @@
 <span class="kn">import</span> <span class="nn">pakages.sbom</span>
 <span class="kn">import</span> <span class="nn">pakages.utils</span>
 <span class="kn">import</span> <span class="nn">pakages.defaults</span>
-<span class="kn">import</span> <span class="nn">pakages.logger</span> <span class="k">as</span> <span class="nn">logger</span>
+<span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">spack.binary_distribution</span> <span class="k">as</span> <span class="nn">bd</span>
 <span class="kn">import</span> <span class="nn">spack.hooks</span>
@@ -179,6 +179,8 @@
 
                 <span class="c1"># If we have an artifact, extract where needed and tell spack it&#39;s installed!</span>
                 <span class="k">if</span> <span class="n">artifact</span><span class="p">:</span>
+
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting archive </span><span class="si">{</span><span class="n">artifact</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
 
                     <span class="c1"># Note - for now not signing, since we don&#39;t have a consistent key strategy</span>
                     <span class="n">bd</span><span class="o">.</span><span class="n">extract_tarball</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">artifact</span><span class="p">,</span> <span class="n">unsigned</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
