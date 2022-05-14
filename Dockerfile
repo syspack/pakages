@@ -3,6 +3,11 @@ FROM ghcr.io/rse-ops/ubuntu:$ubuntu_version
 
 # docker build --build-arg ubuntu_version=20.04 -t ghcr.io/syspack/pakages-ubuntu-20.04 .
 
+# Convert to shallow clone (smaller container)
+RUN mv /opt/spack /tmp/spack && \
+    git clone --depth 1 file:///tmp/spack /opt/spack && \
+    rm -rf /tmp/spack
+
 # Build all software with debug flags!
 ENV SPACK_ADD_DEBUG_FLAGS=true
 
