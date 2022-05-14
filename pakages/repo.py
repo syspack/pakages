@@ -104,6 +104,11 @@ class RepoPath(spack.repo.RepoPath):
             except spack.repo.RepoError as e:
                 logger.exit("Failed to initialize repository: '%s': %s" % (repo, e))
 
+    def find_module(self, fullname, python_path=None):
+        # Compatibility method to support Python 2.7
+        return None
+        # Note, might need to update this to be akin to parent
+
 
 class Repo(spack.repo.Repo):
     @spack.repo.autospec
