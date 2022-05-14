@@ -7,6 +7,13 @@ import sys
 from .terminal import get_installdir, which, run_command
 
 
+def generalize_spack_archive(name):
+    """
+    Helper function to consistently return the archive name with arch, os, no build hash
+    """
+    return "-".join(name.split("-")[:-1]) + ".spack"
+
+
 def add_pakages_spack_repo():
     import IPython
 
