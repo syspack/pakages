@@ -37,6 +37,20 @@ def do_install(self, **kwargs):
         We take this inline approach because we are not able to import it.
         """
 
+        def iter_artifact_names(self, registry, spec, tag):
+            """
+            Given a registry
+            """
+            name = bd.tarball_name(spec, ".spack")
+
+            uri = "%s/%s:%s" % (registry, name, tag)
+            yield name, uri
+
+            # Now try a generic name WITHOUT hash
+            generic_name = pakages.utils.generalize_spack_archive(name)
+            uri = "%s/%s:%s" % (registry, generic_name, tag)
+            yield generic_name, uri
+
         def prepare_cache(self, registries=None, tag=None):
             """
             Given that we have a build cache for a package, install it.
@@ -62,22 +76,19 @@ def do_install(self, **kwargs):
                     continue
 
                 # The name of the expected package, and directory to put it
-                name = bd.tarball_name(request.pkg.spec, ".spack")
                 tmpdir = pakages.utils.get_tmpdir()
 
                 # Try until we get a cache hit
-                cache_hit = False
                 for registry in registries:
-                    uri = "%s/%s:%s" % (registry, name, tag)
-
-                    # Retrieve the artifact (will be None if doesn't exist)
-                    artifact = oras.fetch(uri, os.path.join(tmpdir, name))
-                    if artifact:
-                        cache_hit = True
-                        break
+                    for name, uri in self.iter_artifact_names(
+                        registry, request.package.spec, tag
+                    ):
+                        artifact = oras.fetch(uri, os.path.join(tmpdir, name))
+                        if artifact:
+                            break
 
                 # Don't continue if not found
-                if not cache_hit:
+                if not artifact:
                     shutil.rmtree(tmpdir)
                     continue
 

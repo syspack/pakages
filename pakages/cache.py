@@ -104,10 +104,16 @@ class BuildCache:
         # Find all .spack archives in the cache
         for archive in utils.recursive_find(self.cache_dir, ".spack"):
 
+            # Push a full hash
             package_name = os.path.basename(archive)
             full_name = "%s/%s:%s" % (uri, package_name, tag)
             oras.push(full_name, archive, content_type=content_type)
 
+            # And a generic one
+            generic_name = utils.generalize_spack_archive(package_name)
+            uri = "%s/%s:%s" % (uri, generic_name, tag)
+            full_name = "%s/%s:%s" % (uri, generic_name, tag)
+            oras.push(full_name, archive, content_type=content_type)
             # TODO how to add sbom? separately?
             # TODO we should support custom tags
 
