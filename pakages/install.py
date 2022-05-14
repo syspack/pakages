@@ -4,6 +4,7 @@ __license__ = "Apache-2.0"
 
 import os
 import shutil
+import tarfile
 
 import pakages.oras
 import pakages.sbom
@@ -110,9 +111,10 @@ def do_install(self, **kwargs):
                     logger.info(f"Extracting archive {artifact}...")
 
                     # Note - for now not signing, since we don't have a consistent key strategy
-                    bd.extract_tarball(request.pkg.spec, artifact, unsigned=True)
-                    spack.hooks.post_install(request.pkg.spec)
-                    spack.store.db.add(request.pkg.spec, spack.store.layout)
+                    # The spack function is a hairball that doesn't respect the provided filename
+                    spec = extract_tarball(request.pkg.spec, artifact)
+                    spack.hooks.post_install(spec)
+                    spack.store.db.add(spec, spack.store.layout)
 
     builder = PakInstaller([(self, kwargs)])
 
@@ -126,3 +128,74 @@ def do_install(self, **kwargs):
         sbom = pakages.sbom.generate_sbom(self.spec)
         sbom_file = os.path.join(meta_dir, "sbom.json")
         pakages.utils.write_json(sbom, sbom_file)
+
+
+def extract_tarball(spec, filename):
+    """
+    extract binary tarball for given package into install area
+    """
+    # The spec prefix is an easy way to get the directory name
+    extract_dir = os.path.dirname(spec.prefix)
+    from_dir = os.path.dirname(filename)
+    name = os.path.basename(filename)
+    dag_hash = name.split("-")[-1].replace(".spack", "")
+
+    # Assemble the new spec prefix
+    prefix = os.path.join(extract_dir, f"{spec.name}-{spec.version}-{dag_hash}")
+    if os.path.exists(spec.prefix):
+        shutil.rmtree(spec.prefix)
+
+    tmpdir = pakages.utils.get_tmpdir()
+    with tarfile.open(filename, "r") as tar:
+        tar.extractall(tmpdir)
+
+    # Find the json file and .tar.gz
+    spec_file = None
+    targz = None
+    for path in os.listdir(tmpdir):
+        if path.endswith(".json"):
+            spec_file = os.path.join(tmpdir, path)
+        elif path.endswith("gz"):
+            targz = os.path.join(tmpdir, path)
+
+    if not spec_file:
+        shutil.rmtree(tmpdir)
+        shutil.rmtree(from_dir)
+        logger.exit(f"{spec} did not come with a spec json.")
+
+    new_prefix = str(os.path.relpath(prefix, spack.store.layout.root))
+    content = pakages.utils.read_json(spec_file)
+
+    # if the original relative prefix is in the spec file use it
+    buildinfo = content.get("buildinfo", {})
+    relative_prefix = buildinfo.get("relative_prefix", new_prefix)
+
+    extract_tmp = os.path.join(spack.store.layout.root, ".tmp")
+    pakages.utils.mkdirp(extract_tmp)
+    extracted_dir = os.path.join(extract_tmp, relative_prefix.split(os.path.sep)[-1])
+
+    with tarfile.open(targz, "r") as tar:
+        tar.extractall(path=extract_tmp)
+    try:
+        shutil.move(extracted_dir, prefix)
+    except Exception as e:
+        shutil.rmtree(extracted_dir)
+        raise e
+
+    # Clean up
+    os.remove(targz)
+    os.remove(spec_file)
+
+    # Create a dummy spec to do the relocation
+    new_spec = spack.spec.Spec.from_dict({"spec": content["spec"]})
+
+    try:
+        bd.relocate_package(new_spec, False)
+    except Exception as e:
+        shutil.rmtree(spec.prefix)
+        raise e
+    finally:
+        shutil.rmtree(tmpdir)
+        if os.path.exists(filename):
+            os.remove(filename)
+    return new_spec
