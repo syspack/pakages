@@ -9,7 +9,7 @@ import pakages.oras
 import pakages.sbom
 import pakages.utils
 import pakages.defaults
-import pakages.logger as logger
+from pakages.logger import logger
 
 import spack.binary_distribution as bd
 import spack.hooks
@@ -101,6 +101,8 @@ def do_install(self, **kwargs):
 
                 # If we have an artifact, extract where needed and tell spack it's installed!
                 if artifact:
+
+                    logger.info(f"Extracting archive {artifact}...")
 
                     # Note - for now not signing, since we don't have a consistent key strategy
                     bd.extract_tarball(request.pkg.spec, artifact, unsigned=True)
