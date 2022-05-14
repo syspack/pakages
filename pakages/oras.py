@@ -12,7 +12,9 @@ import spack.util.crypto
 from pakages.logger import logger
 
 import os
+import random
 import requests
+import time
 
 
 class Oras:
@@ -55,21 +57,34 @@ class Oras:
             if digest:
                 return digest.replace("sha256:", "")
 
-    def push(self, uri, push_file, content_type=None):
+    def push(self, uri, push_file, content_type=None, retry=5, sleep=1):
         """
         Push an oras artifact to an OCI registry
         """
+        tries = 0
         content_type = content_type or pakages.defaults.content_type
         logger.info("Pushing oras {0}".format(uri))
         with utils.workdir(os.path.dirname(push_file)):
-            self.oras(
-                "push",
-                uri,
-                "--manifest-config",
-                "/dev/null:application/vnd.unknown.config.v1+json",
-                # GitHub does not honor this content type - it will return an empty artifact
-                os.path.basename(push_file) + ":" + content_type,
-            )
+            while tries < retry:
+                try:
+                    return self._push(uri, push_file, content_type)
+                except:
+                    time.sleep(sleep)
+                    sleep = sleep * 2**tries + random.uniform(0, 1)
+                    tries += 1
+
+    def _push(self, uri, push_file, content_type):
+        """
+        Helper to push that provides consistent metadata
+        """
+        self.oras(
+            "push",
+            uri,
+            "--manifest-config",
+            "/dev/null:application/vnd.unknown.config.v1+json",
+            # GitHub does not honor this content type - it will return an empty artifact
+            os.path.basename(push_file) + ":" + content_type,
+        )
 
     def fetch(self, url, save_file):
         """

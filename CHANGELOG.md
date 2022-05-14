@@ -15,6 +15,7 @@ The versions coincide with releases on pip. Only major versions will be released
 
 ## [0.0.x](https://github.scom/syspack/pakages/tree/main) (0.0.x)
  - refactoring artifact extraction to allow reuse (0.0.14)
+   - adding exponential backoff and 5 retries for oras push
  - Ensuring pakages pushes a generic name too (0.0.13)
  - More control over custom push/pull registries and settings (0.0.12)
  - Added support for building local path or GitHub remote (0.0.11)
