@@ -3,8 +3,10 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
+import copy
 import shutil
 import tarfile
+from collections import defaultdict
 
 import pakages.oras
 import pakages.sbom
@@ -38,6 +40,55 @@ def do_install(self, **kwargs):
         We take this inline approach because we are not able to import it.
         """
 
+        def _get_task(self, pkg, request, is_compiler, all_deps):
+            """
+            Get a build task for the package.
+            """
+            task = spack.installer.BuildTask(
+                pkg,
+                request,
+                is_compiler,
+                0,
+                0,
+                spack.installer.STATUS_ADDED,
+                self.installed,
+            )
+            pkg_id = spack.installer.package_id(pkg)
+
+            for dep_id in task.dependencies:
+                all_deps[dep_id].add(pkg_id)
+            return task
+
+        def prepopulate_tasks(self):
+            """
+            Pre-populate a lookup of tasks for the cache.
+            """
+            # Prepare the complete list of dependencies to look for
+            # This mimicks init_queue
+            self._pakages_tasks = {}
+            all_deps = defaultdict(set)
+            logger.debug("Initializing the build queue from the build requests")
+            for request in self.build_requests:
+                for dep in request.traverse_dependencies():
+                    dep_id = spack.installer.package_id(dep.package)
+                    if dep_id not in self.build_tasks:
+                        task = self._get_task(dep.package, request, False, all_deps)
+                        self._pakages_tasks[task.pkg_id] = task
+                    spack.store.db.clear_failure(dep, force=False)
+
+                if request.pkg_id not in self._pakages_tasks:
+                    spack.store.db.clear_failure(request.spec, force=True)
+                    task = self._get_task(request.pkg, request, False, all_deps)
+                    self._pakages_tasks[task.pkg_id] = task
+
+            # Add missing dependents to ensure proper uninstalled dependency
+            # tracking when installing multiple specs
+            for dep_id, dependents in all_deps.items():
+                if dep_id in self._pakages_tasks:
+                    task = self._pakages_tasks[dep_id]
+                    for dependent_id in dependents.difference(task.dependents):
+                        task.add_dependent(dependent_id)
+
         def prepare_cache(self, registries=None, tag=None):
             """
             Given that we have a build cache for a package, install it.
@@ -54,12 +105,15 @@ def do_install(self, **kwargs):
             # prepare oras client
             oras = pakages.oras.Oras()
 
+            if not self.build_requests:
+                return
+
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
-            for request in self.build_requests:
+            for pkg_id, request in self._pakages_tasks.items():
 
                 # Don't continue if installed!
-                if request.spec.install_status() == True:
+                if request.pkg.spec.install_status() == True:
                     continue
 
                 # The name of the expected package, and directory to put it
@@ -94,12 +148,22 @@ def do_install(self, **kwargs):
                     # Note - for now not signing, since we don't have a consistent key strategy
                     # The spack function is a hairball that doesn't respect the provided filename
                     spec = extract_tarball(request.pkg.spec, artifact)
+                    if not spec:
+                        continue
+                    # Update the build request
+                    #                    request.pkg.spec = spec
+                    #                   request.pkg_id = spack.installer.package_id(spec.package)
+                    #                  request.dependencies = {f"{x.name}-{x.version}-{x._hash}" for x in spec.dependencies()}
+                    #                 self.build_requests[i] = request
+
+                    # And finish this piece of the install
                     spack.hooks.post_install(spec)
                     spack.store.db.add(spec, spack.store.layout)
 
     builder = PakInstaller([(self, kwargs)])
 
     # Download what we can find from the GitHub cache
+    builder.prepopulate_tasks()
     builder.prepare_cache(registries, tag)
     builder.install()
 
@@ -115,16 +179,29 @@ def extract_tarball(spec, filename):
     """
     extract binary tarball for given package into install area
     """
-    # The spec prefix is an easy way to get the directory name
-    extract_dir = os.path.dirname(spec.prefix)
     from_dir = os.path.dirname(filename)
     name = os.path.basename(filename)
     dag_hash = name.split("-")[-1].replace(".spack", "")
 
-    # Assemble the new spec prefix
-    prefix = os.path.join(extract_dir, f"{spec.name}-{spec.version}-{dag_hash}")
-    if os.path.exists(spec.prefix):
-        shutil.rmtree(spec.prefix)
+    # Anything installed from system
+    if spack.store.layout.root not in spec.prefix:
+        extract_dir = spack.store.layout.root
+
+        # ['linux', 'ubuntu20.04', 'x86_64', 'gcc', '9.4.0', 'bzip2', '1.0.8']
+        parts = os.path.basename(filename).split("-")[:-1]
+        prefix = os.path.join(
+            extract_dir,
+            f"{parts[0]}-{parts[1]}-{parts[2]}",
+            f"{parts[3]}-{parts[4]}",
+            f"{spec.name}-{spec.version}-{dag_hash}",
+        )
+    else:
+        extract_dir = os.path.dirname(spec.prefix)
+        prefix = os.path.join(extract_dir, f"{spec.name}-{spec.version}-{dag_hash}")
+
+    # The spec prefix is an easy way to get the directory name
+    if os.path.exists(prefix):
+        shutil.rmtree(prefix)
 
     tmpdir = pakages.utils.get_tmpdir()
     with tarfile.open(filename, "r") as tar:
@@ -172,9 +249,11 @@ def extract_tarball(spec, filename):
 
     try:
         bd.relocate_package(new_spec, False)
+    # This probably shouldn't fail, will let it slide for now
     except Exception as e:
-        shutil.rmtree(spec.prefix)
-        raise e
+        import IPython
+
+        IPython.embed()
     finally:
         shutil.rmtree(tmpdir)
         if os.path.exists(filename):

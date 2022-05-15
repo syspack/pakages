@@ -24,8 +24,7 @@ RUN curl -s -L https://github.com/Kitware/CMake/releases/download/v$CMAKE/cmake-
 RUN git clone --depth 1 https://github.com/spack/spack /opt/spack && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install clingo && \
-    spack external find && \
-    spack external find python perl binutils git tar xz bzip2 && \
+    spack compiler find && \
     
     # build for a generic target
     spack config add 'packages:all:target:[x86_64]' && \
