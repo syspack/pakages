@@ -3,7 +3,6 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
-import copy
 import shutil
 import tarfile
 from collections import defaultdict
@@ -251,7 +250,7 @@ def extract_tarball(spec, filename):
         bd.relocate_package(new_spec, False)
     # This probably shouldn't fail, will let it slide for now
     except Exception as e:
-        pass
+        raise e
     finally:
         shutil.rmtree(tmpdir)
         if os.path.exists(filename):
