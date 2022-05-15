@@ -251,9 +251,7 @@ def extract_tarball(spec, filename):
         bd.relocate_package(new_spec, False)
     # This probably shouldn't fail, will let it slide for now
     except Exception as e:
-        import IPython
-
-        IPython.embed()
+        pass
     finally:
         shutil.rmtree(tmpdir)
         if os.path.exists(filename):
