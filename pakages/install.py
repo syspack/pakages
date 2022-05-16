@@ -210,16 +210,6 @@ def extract_tarball(spec, filename):
     # Anything installed from system
     if spack.store.layout.root not in spec.prefix:
         return
-        extract_dir = spack.store.layout.root
-
-        # ['linux', 'ubuntu20.04', 'x86_64', 'gcc', '9.4.0', 'bzip2', '1.0.8']
-        parts = os.path.basename(filename).split("-")[:-1]
-        prefix = os.path.join(
-            extract_dir,
-            f"{parts[0]}-{parts[1]}-{parts[2]}",
-            f"{parts[3]}-{parts[4]}",
-            f"{spec.name}-{spec.version}-{dag_hash}",
-        )
     else:
         extract_dir = os.path.dirname(spec.prefix)
         prefix = os.path.join(extract_dir, f"{spec.name}-{spec.version}-{dag_hash}")
