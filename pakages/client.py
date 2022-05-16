@@ -110,10 +110,7 @@ class PakClient:
         for spec in self.iter_specs(packages):
             logger.info("Preparing to install %s" % spec.name)
 
-            # TODO here we actually want to insert preparing GitHub packages build cache
-            # We should match based on a basic set of architectures we know the containers support
-            # E.g., check the platform and spit an error if it's some niche HPC one.
-
+            # Do install - this dumps out matching from build cache first
             spec.package.do_install(
                 force=True,
                 registries=registries,

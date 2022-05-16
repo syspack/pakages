@@ -107,6 +107,13 @@ def do_install(self, **kwargs):
             if not self.build_requests:
                 return
 
+            # We will update build requests with specs we find
+            # This is a loose matching, we just care about name and version for now
+            requests = {
+                "%s:%s" % (x.pkg.spec.name, x.pkg.spec.version): x
+                for x in self.build_requests
+            }
+
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
             for pkg_id, request in self._pakages_tasks.items():
@@ -142,22 +149,40 @@ def do_install(self, **kwargs):
 
                 # If we have an artifact, extract where needed and tell spack it's installed!
                 if artifact:
-                    logger.info(f"Extracting archive {artifact}...")
-
                     # Note - for now not signing, since we don't have a consistent key strategy
                     # The spack function is a hairball that doesn't respect the provided filename
                     spec = extract_tarball(request.pkg.spec, artifact)
                     if not spec:
                         continue
-                    # Update the build request
-                    #                    request.pkg.spec = spec
-                    #                   request.pkg_id = spack.installer.package_id(spec.package)
-                    #                  request.dependencies = {f"{x.name}-{x.version}-{x._hash}" for x in spec.dependencies()}
-                    #                 self.build_requests[i] = request
+
+                    # Remove the build request if we hit it. Note that this
+                    # might fail if dependencies are still needed (and not hit)
+                    # I haven't tested it yet
+                    spec_id = f"{spec.name}:{spec.version}"
+                    if spec_id in requests:
+
+                        # update the build request
+                        requests[spec_id].pkg.spec = spec
+                        requests[spec_id].pkg_id = spack.installer.package_id(
+                            spec.package
+                        )
+                        requests[spec_id].dependencies = {
+                            f"{x.name}-{x.version}-{x._hash}"
+                            for x in spec.dependencies()
+                        }
+
+                        # And flag the task as installed
+                        task = requests[spec_id]
+                        requests[spec_id].task = spack.installer.STATUS_INSTALLED
+                        self._flag_installed(task.pkg, spec.dependents())
 
                     # And finish this piece of the install
+                    spec.package.installed_from_binary_cache = True
                     spack.hooks.post_install(spec)
                     spack.store.db.add(spec, spack.store.layout)
+
+            # Update build requests
+            self.build_requests = list(requests.values())
 
     builder = PakInstaller([(self, kwargs)])
 
@@ -184,6 +209,7 @@ def extract_tarball(spec, filename):
 
     # Anything installed from system
     if spack.store.layout.root not in spec.prefix:
+        return
         extract_dir = spack.store.layout.root
 
         # ['linux', 'ubuntu20.04', 'x86_64', 'gcc', '9.4.0', 'bzip2', '1.0.8']
@@ -245,6 +271,7 @@ def extract_tarball(spec, filename):
 
     # Create a dummy spec to do the relocation
     new_spec = spack.spec.Spec.from_dict({"spec": content["spec"]})
+    new_spec._prefix = prefix
 
     try:
         bd.relocate_package(new_spec, False)
