@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.spec &mdash; Pakages 0.0.14 documentation</title>
+  <title>pakages.spec &mdash; Pakages 0.0.15 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -29,7 +29,7 @@
             <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.14
+                0.0.15
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -84,7 +84,6 @@
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">import</span> <span class="nn">spack.util.string</span>
 <span class="kn">import</span> <span class="nn">pakages.repo</span>
-<span class="kn">import</span> <span class="nn">six</span>
 
 
 <div class="viewcode-block" id="Spec"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.spec.Spec">[docs]</a><span class="k">class</span> <span class="nc">Spec</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">):</span>
@@ -109,16 +108,18 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse specs from a list of strings, and concretize</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
-        <span class="n">packages</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">packages</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">packages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
 
     <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">SpecParser</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing spec for </span><span class="si">{</span><span class="n">legacy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="c1"># Create a new Pak spec to copy (duplicate) into</span>
+        <span class="n">spack_spec</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">(</span><span class="n">legacy</span><span class="p">)</span>
         <span class="n">spec</span> <span class="o">=</span> <span class="n">Spec</span><span class="p">()</span>
-        <span class="n">spec</span><span class="o">.</span><span class="n">_dup</span><span class="p">(</span><span class="n">legacy</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">_dup</span><span class="p">(</span><span class="n">spack_spec</span><span class="p">)</span>
 
         <span class="c1"># Always set the arch to be general</span>
         <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">ArchSpec</span><span class="p">()</span>

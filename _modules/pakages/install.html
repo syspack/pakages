@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.install &mdash; Pakages 0.0.14 documentation</title>
+  <title>pakages.install &mdash; Pakages 0.0.15 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -29,7 +29,7 @@
             <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.14
+                0.0.15
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -185,6 +185,13 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span><span class="p">:</span>
                 <span class="k">return</span>
 
+            <span class="c1"># We will update build requests with specs we find</span>
+            <span class="c1"># This is a loose matching, we just care about name and version for now</span>
+            <span class="n">requests</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="p">):</span> <span class="n">x</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span>
+            <span class="p">}</span>
+
             <span class="c1"># If we want to use Github packages API, it requires token with package;read scope</span>
             <span class="c1"># https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization</span>
             <span class="k">for</span> <span class="n">pkg_id</span><span class="p">,</span> <span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pakages_tasks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -220,22 +227,40 @@
 
                 <span class="c1"># If we have an artifact, extract where needed and tell spack it&#39;s installed!</span>
                 <span class="k">if</span> <span class="n">artifact</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting archive </span><span class="si">{</span><span class="n">artifact</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
-
                     <span class="c1"># Note - for now not signing, since we don&#39;t have a consistent key strategy</span>
                     <span class="c1"># The spack function is a hairball that doesn&#39;t respect the provided filename</span>
                     <span class="n">spec</span> <span class="o">=</span> <span class="n">extract_tarball</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">artifact</span><span class="p">)</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">spec</span><span class="p">:</span>
                         <span class="k">continue</span>
-                    <span class="c1"># Update the build request</span>
-                    <span class="c1">#                    request.pkg.spec = spec</span>
-                    <span class="c1">#                   request.pkg_id = spack.installer.package_id(spec.package)</span>
-                    <span class="c1">#                  request.dependencies = {f&quot;{x.name}-{x.version}-{x._hash}&quot; for x in spec.dependencies()}</span>
-                    <span class="c1">#                 self.build_requests[i] = request</span>
+
+                    <span class="c1"># Remove the build request if we hit it. Note that this</span>
+                    <span class="c1"># might fail if dependencies are still needed (and not hit)</span>
+                    <span class="c1"># I haven&#39;t tested it yet</span>
+                    <span class="n">spec_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="k">if</span> <span class="n">spec_id</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
+
+                        <span class="c1"># update the build request</span>
+                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span>
+                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">pkg_id</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">package_id</span><span class="p">(</span>
+                            <span class="n">spec</span><span class="o">.</span><span class="n">package</span>
+                        <span class="p">)</span>
+                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">_hash</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">dependencies</span><span class="p">()</span>
+                        <span class="p">}</span>
+
+                        <span class="c1"># And flag the task as installed</span>
+                        <span class="n">task</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
+                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">STATUS_INSTALLED</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_flag_installed</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">pkg</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">dependents</span><span class="p">())</span>
 
                     <span class="c1"># And finish this piece of the install</span>
+                    <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">installed_from_binary_cache</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="n">spack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">post_install</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
                     <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
+
+            <span class="c1"># Update build requests</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
     <span class="n">builder</span> <span class="o">=</span> <span class="n">PakInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
 
@@ -262,16 +287,7 @@
 
     <span class="c1"># Anything installed from system</span>
     <span class="k">if</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span>
-        <span class="n">extract_dir</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span>
-
-        <span class="c1"># [&#39;linux&#39;, &#39;ubuntu20.04&#39;, &#39;x86_64&#39;, &#39;gcc&#39;, &#39;9.4.0&#39;, &#39;bzip2&#39;, &#39;1.0.8&#39;]</span>
-        <span class="n">parts</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">extract_dir</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">dag_hash</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">return</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">extract_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">dag_hash</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -323,6 +339,7 @@
 
     <span class="c1"># Create a dummy spec to do the relocation</span>
     <span class="n">new_spec</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="s2">&quot;spec&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">[</span><span class="s2">&quot;spec&quot;</span><span class="p">]})</span>
+    <span class="n">new_spec</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">prefix</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">bd</span><span class="o">.</span><span class="n">relocate_package</span><span class="p">(</span><span class="n">new_spec</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>

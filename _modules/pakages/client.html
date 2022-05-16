@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.client &mdash; Pakages 0.0.14 documentation</title>
+  <title>pakages.client &mdash; Pakages 0.0.15 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
@@ -29,7 +29,7 @@
             <a href="../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.14
+                0.0.15
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -188,10 +188,7 @@
         <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Preparing to install </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-            <span class="c1"># TODO here we actually want to insert preparing GitHub packages build cache</span>
-            <span class="c1"># We should match based on a basic set of architectures we know the containers support</span>
-            <span class="c1"># E.g., check the platform and spit an error if it&#39;s some niche HPC one.</span>
-
+            <span class="c1"># Do install - this dumps out matching from build cache first</span>
             <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">do_install</span><span class="p">(</span>
                 <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">registries</span><span class="o">=</span><span class="n">registries</span><span class="p">,</span>
