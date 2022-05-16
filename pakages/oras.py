@@ -57,7 +57,7 @@ class Oras:
             if digest:
                 return digest.replace("sha256:", "")
 
-    def push(self, uri, push_file, content_type=None, retry=5, sleep=1):
+    def push(self, uri, push_file, content_type=None, retry=3, sleep=1):
         """
         Push an oras artifact to an OCI registry
         """
@@ -91,14 +91,16 @@ class Oras:
         Fetch an oras artifact from an OCI registry
         """
         # We don't have programmatic access to list, so we just try to pull
-        logger.info("Fetching oras {0}".format(url))
         save_dir = os.path.dirname(save_file)
         try:
-            self.oras("pull", url, "-a", "--output", save_dir)
+            logger.debug("Trying fetch for oras {0}".format(url))
+            self.oras("pull", url, "-a", "--output", save_dir, output=str, error=str)
         except:
-            logger.info("{0} is not available for pull.".format(url))
+            logger.debug("{0} is not available for pull.".format(url))
             return
 
+        # Just print those that are successful
+        logger.info("Fetched oras {0}".format(url))
         # Files are technically saved with the hash, we just hope spack will use
         files = os.listdir(save_dir)
         if len(files) > 0:

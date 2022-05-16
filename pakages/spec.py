@@ -6,7 +6,6 @@ import spack.spec
 from pakages.logger import logger
 import spack.util.string
 import pakages.repo
-import six
 
 
 class Spec(spack.spec.Spec):
@@ -31,16 +30,18 @@ def parse_specs(packages):
     """
     Parse specs from a list of strings, and concretize
     """
-    if not isinstance(packages, six.string_types):
-        packages = " ".join(spack.util.string.quote(packages))
+    if not isinstance(packages, list):
+        packages = list(packages)
 
     specs = []
-    for legacy in spack.spec.SpecParser().parse(packages):
+    for legacy in packages:
 
         logger.info(f"Preparing spec for {legacy}")
+
         # Create a new Pak spec to copy (duplicate) into
+        spack_spec = spack.spec.Spec(legacy)
         spec = Spec()
-        spec._dup(legacy)
+        spec._dup(spack_spec)
 
         # Always set the arch to be general
         spec.architecture = spack.spec.ArchSpec()
