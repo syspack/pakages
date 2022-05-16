@@ -11,6 +11,7 @@ import pakages.oras
 import pakages.sbom
 import pakages.utils
 import pakages.defaults
+import pakages.worker
 from pakages.logger import logger
 
 import spack.binary_distribution as bd
@@ -26,7 +27,7 @@ def do_install(self, **kwargs):
     from spack.installer import PackageInstaller
 
     dev_path_var = self.spec.variants.get("dev_path", None)
-    registries = kwargs.get("registries")
+    registry = kwargs.get("registry")
     tag = kwargs.get("tag")
 
     if dev_path_var:
@@ -88,7 +89,34 @@ def do_install(self, **kwargs):
                     for dependent_id in dependents.difference(task.dependents):
                         task.add_dependent(dependent_id)
 
-        def prepare_cache(self, registries=None, tag=None):
+        def _download_pakages_artifacts(self, registry):
+            """
+            Download artifacts in parallel
+            """
+            tasks = []
+
+            # prepare download workers with tasks
+            workers = pakages.worker.Workers()
+            tasks = {}
+            funcs = {}
+
+            # If we want to use Github packages API, it requires token with package;read scope
+            # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
+            for pkg_id, request in self._pakages_tasks.items():
+
+                # Don't continue if installed!
+                if request.pkg.spec.install_status() == True:
+                    continue
+
+                name = bd.tarball_name(request.pkg.spec, ".spack")
+                generic_name = pakages.utils.generalize_spack_archive(name)
+                uri = "%s/%s:%s" % (registry, generic_name, tag)
+                tasks[pkg_id] = {"name": name, "uri": uri}
+                funcs[pkg_id] = pakages.oras.pull_task
+
+            return workers.run(funcs, tasks)
+
+        def prepare_cache(self, registry=None, tag=None):
             """
             Given that we have a build cache for a package, install it.
 
@@ -97,13 +125,11 @@ def do_install(self, **kwargs):
             have one.
             """
             # If no registries in user settings or command line, use default
-            if not registries:
-                registries = [pakages.defaults.trusted_packages_registry]
+            if not registry:
+                registry = pakages.defaults.trusted_packages_registry
             tag = tag or pakages.defaults.default_tag
 
-            # prepare oras client
-            oras = pakages.oras.Oras()
-
+            # Don't continue if no build requests
             if not self.build_requests:
                 return
 
@@ -114,72 +140,44 @@ def do_install(self, **kwargs):
                 for x in self.build_requests
             }
 
+            # First (multiprocess) download the artifacts!
+            tasks = self._download_pakages_artifacts(registry)
+
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
-            for pkg_id, request in self._pakages_tasks.items():
-
-                # Don't continue if installed!
-                if request.pkg.spec.install_status() == True:
-                    continue
-
-                # The name of the expected package, and directory to put it
-                tmpdir = pakages.utils.get_tmpdir()
-
-                # Try until we get a cache hit
-                artifact = None
-                for registry in registries:
-                    name = bd.tarball_name(request.pkg.spec, ".spack")
-                    generic_name = pakages.utils.generalize_spack_archive(name)
-                    uri = "%s/%s:%s" % (registry, generic_name, tag)
-                    artifact = oras.fetch(uri, os.path.join(tmpdir, name))
-                    if artifact:
-                        break
-
-                # Don't continue if not found
+            for pkg_id, artifact in tasks.items():
                 if not artifact:
-                    shutil.rmtree(tmpdir)
+                    continue
+                request = self._pakages_tasks[pkg_id]
+
+                # Note - for now not signing, since we don't have a consistent key strategy
+                # The spack function is a hairball that doesn't respect the provided filename
+                spec = extract_tarball(request.pkg.spec, artifact)
+                if not spec:
                     continue
 
-                # Checksum check (removes sha256 prefix)
-                sha256 = oras.get_manifest_digest(uri)
-                if sha256:
-                    checker = spack.util.crypto.Checker(sha256)
-                    if not checker.check(artifact):
-                        logger.exit("Checksum of %s is not correct." % artifact)
+                # Remove the build request if we hit it. Note that this
+                # might fail if dependencies are still needed (and not hit)
+                # I haven't tested it yet
+                spec_id = f"{spec.name}:{spec.version}"
+                if spec_id in requests:
 
-                # If we have an artifact, extract where needed and tell spack it's installed!
-                if artifact:
-                    # Note - for now not signing, since we don't have a consistent key strategy
-                    # The spack function is a hairball that doesn't respect the provided filename
-                    spec = extract_tarball(request.pkg.spec, artifact)
-                    if not spec:
-                        continue
+                    # update the build request
+                    requests[spec_id].pkg.spec = spec
+                    requests[spec_id].pkg_id = spack.installer.package_id(spec.package)
+                    requests[spec_id].dependencies = {
+                        f"{x.name}-{x.version}-{x._hash}" for x in spec.dependencies()
+                    }
 
-                    # Remove the build request if we hit it. Note that this
-                    # might fail if dependencies are still needed (and not hit)
-                    # I haven't tested it yet
-                    spec_id = f"{spec.name}:{spec.version}"
-                    if spec_id in requests:
+                    # And flag the task as installed
+                    task = requests[spec_id]
+                    requests[spec_id].task = spack.installer.STATUS_INSTALLED
+                    self._flag_installed(task.pkg, spec.dependents())
 
-                        # update the build request
-                        requests[spec_id].pkg.spec = spec
-                        requests[spec_id].pkg_id = spack.installer.package_id(
-                            spec.package
-                        )
-                        requests[spec_id].dependencies = {
-                            f"{x.name}-{x.version}-{x._hash}"
-                            for x in spec.dependencies()
-                        }
-
-                        # And flag the task as installed
-                        task = requests[spec_id]
-                        requests[spec_id].task = spack.installer.STATUS_INSTALLED
-                        self._flag_installed(task.pkg, spec.dependents())
-
-                    # And finish this piece of the install
-                    spec.package.installed_from_binary_cache = True
-                    spack.hooks.post_install(spec)
-                    spack.store.db.add(spec, spack.store.layout)
+                # And finish this piece of the install
+                spec.package.installed_from_binary_cache = True
+                spack.hooks.post_install(spec)
+                spack.store.db.add(spec, spack.store.layout)
 
             # Update build requests
             self.build_requests = list(requests.values())
@@ -188,7 +186,7 @@ def do_install(self, **kwargs):
 
     # Download what we can find from the GitHub cache
     builder.prepopulate_tasks()
-    builder.prepare_cache(registries, tag)
+    builder.prepare_cache(registry, tag)
     builder.install()
 
     # If successful, generate an sbom
