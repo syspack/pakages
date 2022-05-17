@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on Github.
 
 ## [0.0.x](https://github.scom/syspack/pakages/tree/main) (0.0.x)
+ - adding multiprocessing workers (0.0.16)
  - tweaking install process (0.0.15)
  - refactoring artifact extraction to allow reuse (0.0.14)
    - adding exponential backoff and 5 retries for oras push
