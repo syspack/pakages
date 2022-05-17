@@ -89,12 +89,26 @@
 <span class="kn">import</span> <span class="nn">pakages.sbom</span>
 <span class="kn">import</span> <span class="nn">pakages.utils</span>
 <span class="kn">import</span> <span class="nn">pakages.defaults</span>
+<span class="kn">import</span> <span class="nn">pakages.worker</span>
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">spack.binary_distribution</span> <span class="k">as</span> <span class="nn">bd</span>
 <span class="kn">import</span> <span class="nn">spack.hooks</span>
 <span class="kn">import</span> <span class="nn">spack.store</span>
 <span class="kn">import</span> <span class="nn">spack.util.crypto</span>
+
+
+<div class="viewcode-block" id="BuildRequest"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.BuildRequest">[docs]</a><span class="k">class</span> <span class="nc">BuildRequest</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">BuildRequest</span><span class="p">):</span>
+
+    <span class="c1"># We need link and run for downloading build cache</span>
+    <span class="c1"># And will need all three in case of install</span>
+    <span class="n">_active_deptypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="BuildRequest.get_deptypes"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.BuildRequest.get_deptypes">[docs]</a>    <span class="k">def</span> <span class="nf">get_deptypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We only care about link and run</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_deptypes</span></div></div>
 
 
 <div class="viewcode-block" id="do_install"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.do_install">[docs]</a><span class="k">def</span> <span class="nf">do_install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -116,6 +130,15 @@
 
 <span class="sd">        We take this inline approach because we are not able to import it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">installs</span><span class="o">=</span><span class="p">[]):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            We only need to wrap this to update the build requests to use our class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">installs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">BuildRequest</span><span class="p">(</span><span class="n">pkg</span><span class="p">,</span> <span class="n">install_args</span><span class="p">)</span> <span class="k">for</span> <span class="n">pkg</span><span class="p">,</span> <span class="n">install_args</span> <span class="ow">in</span> <span class="n">installs</span>
+            <span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">_get_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkg</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">is_compiler</span><span class="p">,</span> <span class="n">all_deps</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -166,6 +189,34 @@
                     <span class="k">for</span> <span class="n">dependent_id</span> <span class="ow">in</span> <span class="n">dependents</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">dependents</span><span class="p">):</span>
                         <span class="n">task</span><span class="o">.</span><span class="n">add_dependent</span><span class="p">(</span><span class="n">dependent_id</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">_download_pakages_artifacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registries</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Download artifacts in parallel</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># If no registries in user settings or command line, use default</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">registries</span><span class="p">:</span>
+                <span class="n">registries</span> <span class="o">=</span> <span class="p">[</span><span class="n">pakages</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">trusted_packages_registry</span><span class="p">]</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">default_tag</span>
+
+            <span class="c1"># prepare download workers with tasks</span>
+            <span class="n">workers</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">Workers</span><span class="p">()</span>
+            <span class="n">tasks</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">funcs</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="c1"># If we want to use Github packages API, it requires token with package;read scope</span>
+            <span class="c1"># https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization</span>
+            <span class="k">for</span> <span class="n">pkg_id</span><span class="p">,</span> <span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pakages_tasks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+                <span class="c1"># Don&#39;t continue if installed!</span>
+                <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">install_status</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">tarball_name</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">)</span>
+                <span class="n">tasks</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;registries&quot;</span><span class="p">:</span> <span class="n">registries</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">}</span>
+                <span class="n">funcs</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">pull_task</span>
+
+            <span class="k">return</span> <span class="n">workers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">funcs</span><span class="p">,</span> <span class="n">tasks</span><span class="p">)</span>
+
         <span class="k">def</span> <span class="nf">prepare_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Given that we have a build cache for a package, install it.</span>
@@ -174,14 +225,7 @@
 <span class="sd">            that attempts a pull for an artifact, and just continue if we don&#39;t</span>
 <span class="sd">            have one.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="c1"># If no registries in user settings or command line, use default</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">registries</span><span class="p">:</span>
-                <span class="n">registries</span> <span class="o">=</span> <span class="p">[</span><span class="n">pakages</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">trusted_packages_registry</span><span class="p">]</span>
-            <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">default_tag</span>
-
-            <span class="c1"># prepare oras client</span>
-            <span class="n">oras</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">Oras</span><span class="p">()</span>
-
+            <span class="n">tasks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download_pakages_artifacts</span><span class="p">(</span><span class="n">registries</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span><span class="p">:</span>
                 <span class="k">return</span>
 
@@ -204,30 +248,12 @@
                 <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">install_status</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="k">continue</span>
 
-                <span class="c1"># The name of the expected package, and directory to put it</span>
-                <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
-
                 <span class="c1"># Try until we get a cache hit</span>
-                <span class="n">artifact</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">for</span> <span class="n">registry</span> <span class="ow">in</span> <span class="n">registries</span><span class="p">:</span>
-                    <span class="n">name</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">tarball_name</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">)</span>
-                    <span class="n">generic_name</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">generalize_spack_archive</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                    <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">registry</span><span class="p">,</span> <span class="n">generic_name</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
-                    <span class="n">artifact</span> <span class="o">=</span> <span class="n">oras</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-                    <span class="k">if</span> <span class="n">artifact</span><span class="p">:</span>
-                        <span class="k">break</span>
+                <span class="n">artifact</span> <span class="o">=</span> <span class="n">tasks</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span>
 
                 <span class="c1"># Don&#39;t continue if not found</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">artifact</span><span class="p">:</span>
-                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
                     <span class="k">continue</span>
-
-                <span class="c1"># Checksum check (removes sha256 prefix)</span>
-                <span class="n">sha256</span> <span class="o">=</span> <span class="n">oras</span><span class="o">.</span><span class="n">get_manifest_digest</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">sha256</span><span class="p">:</span>
-                    <span class="n">checker</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">crypto</span><span class="o">.</span><span class="n">Checker</span><span class="p">(</span><span class="n">sha256</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">checker</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Checksum of </span><span class="si">%s</span><span class="s2"> is not correct.&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
 
                 <span class="c1"># If we have an artifact, extract where needed and tell spack it&#39;s installed!</span>
                 <span class="k">if</span> <span class="n">artifact</span><span class="p">:</span>
@@ -253,6 +279,10 @@
 
             <span class="c1"># Update build requests</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+            <span class="c1"># From this point on we need build deps too</span>
+            <span class="k">for</span> <span class="n">br</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span><span class="p">:</span>
+                <span class="n">br</span><span class="o">.</span><span class="n">_active_deptypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;build&quot;</span><span class="p">]</span>
 
     <span class="n">builder</span> <span class="o">=</span> <span class="n">PakInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
 
