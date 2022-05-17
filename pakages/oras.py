@@ -14,6 +14,7 @@ from pakages.logger import logger
 import os
 import random
 import requests
+import shutil
 import time
 
 
@@ -109,3 +110,43 @@ class Oras:
         # Return the file if exists
         if os.path.exists(save_file):
             return save_file
+
+
+def pull_task(*args, **kwargs):
+    """
+    A pull task
+    """
+    name = kwargs.get("name")
+    registries = kwargs.get("registries")
+    tag = kwargs.get("tag")
+    generic_name = utils.generalize_spack_archive(name)
+
+    # Prepare an oras client
+    oras = Oras()
+
+    # The name of the expected package, and directory to put it
+    tmpdir = utils.get_tmpdir()
+
+    # Try until we get a cache hit
+    artifact = None
+    for registry in registries:
+        uri = "%s/%s:%s" % (registry, generic_name, tag)
+        artifact = oras.fetch(uri, os.path.join(tmpdir, name))
+        if artifact:
+            break
+
+    # Don't continue if not found
+    if not artifact:
+        shutil.rmtree(tmpdir)
+        return
+
+    # Checksum check (removes sha256 prefix)
+    sha256 = oras.get_manifest_digest(uri)
+    if sha256:
+        checker = spack.util.crypto.Checker(sha256)
+        if not checker.check(artifact):
+            logger.error("Checksum of %s is not correct." % artifact)
+            return
+
+    # will be returned under namespace of package id
+    return artifact
