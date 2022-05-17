@@ -11,12 +11,26 @@ import pakages.oras
 import pakages.sbom
 import pakages.utils
 import pakages.defaults
+import pakages.worker
 from pakages.logger import logger
 
 import spack.binary_distribution as bd
 import spack.hooks
 import spack.store
 import spack.util.crypto
+
+
+class BuildRequest(spack.installer.BuildRequest):
+
+    # We need link and run for downloading build cache
+    # And will need all three in case of install
+    _active_deptypes = ["link", "run"]
+
+    def get_deptypes(self, pkg):
+        """
+        We only care about link and run
+        """
+        return self._active_deptypes
 
 
 def do_install(self, **kwargs):
@@ -38,6 +52,15 @@ def do_install(self, **kwargs):
 
         We take this inline approach because we are not able to import it.
         """
+
+        def __init__(self, installs=[]):
+            """
+            We only need to wrap this to update the build requests to use our class
+            """
+            super().__init__(installs)
+            self.build_requests = [
+                BuildRequest(pkg, install_args) for pkg, install_args in installs
+            ]
 
         def _get_task(self, pkg, request, is_compiler, all_deps):
             """
@@ -88,6 +111,34 @@ def do_install(self, **kwargs):
                     for dependent_id in dependents.difference(task.dependents):
                         task.add_dependent(dependent_id)
 
+        def _download_pakages_artifacts(self, registries, tag=None):
+            """
+            Download artifacts in parallel
+            """
+            # If no registries in user settings or command line, use default
+            if not registries:
+                registries = [pakages.defaults.trusted_packages_registry]
+            tag = tag or pakages.defaults.default_tag
+
+            # prepare download workers with tasks
+            workers = pakages.worker.Workers()
+            tasks = {}
+            funcs = {}
+
+            # If we want to use Github packages API, it requires token with package;read scope
+            # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
+            for pkg_id, request in self._pakages_tasks.items():
+
+                # Don't continue if installed!
+                if request.pkg.spec.install_status() == True:
+                    continue
+
+                name = bd.tarball_name(request.pkg.spec, ".spack")
+                tasks[pkg_id] = {"name": name, "registries": registries, "tag": tag}
+                funcs[pkg_id] = pakages.oras.pull_task
+
+            return workers.run(funcs, tasks)
+
         def prepare_cache(self, registries=None, tag=None):
             """
             Given that we have a build cache for a package, install it.
@@ -96,14 +147,7 @@ def do_install(self, **kwargs):
             that attempts a pull for an artifact, and just continue if we don't
             have one.
             """
-            # If no registries in user settings or command line, use default
-            if not registries:
-                registries = [pakages.defaults.trusted_packages_registry]
-            tag = tag or pakages.defaults.default_tag
-
-            # prepare oras client
-            oras = pakages.oras.Oras()
-
+            tasks = self._download_pakages_artifacts(registries, tag)
             if not self.build_requests:
                 return
 
@@ -126,30 +170,12 @@ def do_install(self, **kwargs):
                 if request.pkg.spec.install_status() == True:
                     continue
 
-                # The name of the expected package, and directory to put it
-                tmpdir = pakages.utils.get_tmpdir()
-
                 # Try until we get a cache hit
-                artifact = None
-                for registry in registries:
-                    name = bd.tarball_name(request.pkg.spec, ".spack")
-                    generic_name = pakages.utils.generalize_spack_archive(name)
-                    uri = "%s/%s:%s" % (registry, generic_name, tag)
-                    artifact = oras.fetch(uri, os.path.join(tmpdir, name))
-                    if artifact:
-                        break
+                artifact = tasks[pkg_id]
 
                 # Don't continue if not found
                 if not artifact:
-                    shutil.rmtree(tmpdir)
                     continue
-
-                # Checksum check (removes sha256 prefix)
-                sha256 = oras.get_manifest_digest(uri)
-                if sha256:
-                    checker = spack.util.crypto.Checker(sha256)
-                    if not checker.check(artifact):
-                        logger.exit("Checksum of %s is not correct." % artifact)
 
                 # If we have an artifact, extract where needed and tell spack it's installed!
                 if artifact:
@@ -175,6 +201,10 @@ def do_install(self, **kwargs):
 
             # Update build requests
             self.build_requests = list(requests.values())
+
+            # From this point on we need build deps too
+            for br in self.build_requests:
+                br._active_deptypes = ["link", "run", "build"]
 
     builder = PakInstaller([(self, kwargs)])
 
