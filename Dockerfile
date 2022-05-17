@@ -22,6 +22,7 @@ RUN curl -s -L https://github.com/Kitware/CMake/releases/download/v$CMAKE/cmake-
 
 # And spack deps
 RUN git clone --depth 1 https://github.com/spack/spack /opt/spack && \
+    sed -i 's/_tracked_deps = ht.dag_hash.deptype/_tracked_deps = ("link", "run",)/' /opt/spack/lib/spack/spack/database.py && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install clingo && \
     spack compiler find && \

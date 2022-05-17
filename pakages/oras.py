@@ -93,14 +93,14 @@ class Oras:
         # We don't have programmatic access to list, so we just try to pull
         save_dir = os.path.dirname(save_file)
         try:
-            logger.debug("Trying fetch for oras {0}".format(url))
+            logger.debug("Trying fetch for {0}".format(url))
             self.oras("pull", url, "-a", "--output", save_dir, output=str, error=str)
         except:
             logger.debug("{0} is not available for pull.".format(url))
             return
 
         # Just print those that are successful
-        logger.info("Fetched oras {0}".format(url))
+        logger.info("Fetched {0}".format(url))
         # Files are technically saved with the hash, we just hope spack will use
         files = os.listdir(save_dir)
         if len(files) > 0:
