@@ -167,20 +167,6 @@ def do_install(self, **kwargs):
                         del requests[spec_id]
                         if not requests:
                             break
-                        # update the build request
-                        # requests[spec_id].pkg.spec = spec
-                        # requests[spec_id].pkg_id = spack.installer.package_id(
-                        #    spec.package
-                        # )
-                        # requests[spec_id].dependencies = {
-                        #    f"{x.name}-{x.version}-{x._hash}"
-                        #    for x in spec.dependencies()
-                        # }
-
-                        # And flag the task as installed
-                        # task = requests[spec_id]
-                        # requests[spec_id].task = spack.installer.STATUS_INSTALLED
-                        # self._flag_installed(task.pkg, spec.dependents())
 
                     # And finish this piece of the install
                     spec.package.installed_from_binary_cache = True
