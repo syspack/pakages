@@ -196,6 +196,10 @@
             <span class="c1"># https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization</span>
             <span class="k">for</span> <span class="n">pkg_id</span><span class="p">,</span> <span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pakages_tasks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 
+                <span class="n">spec_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">if</span> <span class="n">spec_id</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
+
                 <span class="c1"># Don&#39;t continue if installed!</span>
                 <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">install_status</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="k">continue</span>
@@ -238,21 +242,9 @@
                     <span class="c1"># I haven&#39;t tested it yet</span>
                     <span class="n">spec_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="k">if</span> <span class="n">spec_id</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
-
-                        <span class="c1"># update the build request</span>
-                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span>
-                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">pkg_id</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">package_id</span><span class="p">(</span>
-                            <span class="n">spec</span><span class="o">.</span><span class="n">package</span>
-                        <span class="p">)</span>
-                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
-                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">_hash</span><span class="si">}</span><span class="s2">&quot;</span>
-                            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">dependencies</span><span class="p">()</span>
-                        <span class="p">}</span>
-
-                        <span class="c1"># And flag the task as installed</span>
-                        <span class="n">task</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
-                        <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">STATUS_INSTALLED</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_flag_installed</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">pkg</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">dependents</span><span class="p">())</span>
+                        <span class="k">del</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">requests</span><span class="p">:</span>
+                            <span class="k">break</span>
 
                     <span class="c1"># And finish this piece of the install</span>
                     <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">installed_from_binary_cache</span> <span class="o">=</span> <span class="kc">True</span>
