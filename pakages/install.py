@@ -118,6 +118,10 @@ def do_install(self, **kwargs):
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
             for pkg_id, request in self._pakages_tasks.items():
 
+                spec_id = f"{request.pkg.spec.name}:{request.pkg.spec.version}"
+                if spec_id in requests:
+                    del requests[spec_id]
+
                 # Don't continue if installed!
                 if request.pkg.spec.install_status() == True:
                     continue
@@ -160,21 +164,9 @@ def do_install(self, **kwargs):
                     # I haven't tested it yet
                     spec_id = f"{spec.name}:{spec.version}"
                     if spec_id in requests:
-
-                        # update the build request
-                        requests[spec_id].pkg.spec = spec
-                        requests[spec_id].pkg_id = spack.installer.package_id(
-                            spec.package
-                        )
-                        requests[spec_id].dependencies = {
-                            f"{x.name}-{x.version}-{x._hash}"
-                            for x in spec.dependencies()
-                        }
-
-                        # And flag the task as installed
-                        task = requests[spec_id]
-                        requests[spec_id].task = spack.installer.STATUS_INSTALLED
-                        self._flag_installed(task.pkg, spec.dependents())
+                        del requests[spec_id]
+                        if not requests:
+                            break
 
                     # And finish this piece of the install
                     spec.package.installed_from_binary_cache = True
