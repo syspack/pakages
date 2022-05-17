@@ -82,10 +82,6 @@ class Workers:
             sys.exit(1)
 
         except:
-            print("BUG")
-            import IPython
-
-            IPython.embed()
             logger.error("Error running task")
 
         return finished
