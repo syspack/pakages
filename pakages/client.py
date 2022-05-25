@@ -8,12 +8,14 @@ from .settings import Settings
 
 import json
 
+
 def get_client(builder=None, settings_file=None):
     """
     Get a pakages client
     """
     if builder == "spack":
         from pakages.spack.client import SpackClient
+
         return SpackClient(settings_file=settings_file)
     else:
         return PakagesClient(settings_file=settings_file)
@@ -23,6 +25,7 @@ class PakagesClient:
     """
     Pakages has a main controller for interacting with pakages.
     """
+
     def __init__(self, *args, **kwargs):
         settings_file = kwargs.get("settings_file")
         validate = kwargs.get("validate", True)
@@ -46,7 +49,7 @@ class PakagesClient:
         Install one or more packages.
         """
         raise NotImplementedError
-        
+
     def uninstall(self, packages):
         """
         Uninstall a pakage

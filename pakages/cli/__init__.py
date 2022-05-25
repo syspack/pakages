@@ -49,8 +49,8 @@ def get_parser():
     )
 
     parser.add_argument(
-        "--builder", 
-        "-b"
+        "--builder",
+        "-b",
         dest="builder",
         help="Package builder (default is auto-detect)",
     )

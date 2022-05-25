@@ -4,6 +4,7 @@ __license__ = "Apache-2.0"
 
 from pakages.client import get_client
 
+
 def main(args, parser, extra, subparser):
 
     lookup = {"ipython": ipython, "python": python}
@@ -29,6 +30,7 @@ def main(args, parser, extra, subparser):
 
 def create_client(args):
     return get_client(builder=args.builder, settings_file=args.settings_file)
+
 
 def ipython(args):
     """

@@ -6,6 +6,7 @@ import pakages.defaults as defaults
 from pakages.logger import logger
 import sys
 
+
 def main(args, parser, extra, subparser):
 
     # If nothing provided, show help
@@ -21,7 +22,9 @@ def main(args, parser, extra, subparser):
         args.settings_file = defaults.default_settings_file
 
     validate = True if not command == "edit" else False
-    cli = get_client(builder=args.builder, settings_file=args.settings_file, validate=validate)
+    cli = get_client(
+        builder=args.builder, settings_file=args.settings_file, validate=validate
+    )
 
     # For each new setting, update and save!
     if command == "init":

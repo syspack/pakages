@@ -5,6 +5,7 @@ __license__ = "Apache-2.0"
 from pakages.logger import logger
 from pakages.client import get_client
 
+
 def main(args, parser, extra, subparser):
     cli = get_client(builder=args.builder, settings_file=args.settings_file)
     installed = cli.list_installed()
