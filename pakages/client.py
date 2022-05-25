@@ -2,11 +2,7 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
-import pakages.cache
 from .settings import Settings
-
-import json
 
 
 def get_client(builder=None, settings_file=None):

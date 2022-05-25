@@ -9,9 +9,6 @@ from pakages.client import get_client
 def main(args, parser, extra, subparser):
     cli = get_client(builder=args.builder, settings_file=args.settings_file)
 
-    # Get list of packages and (optionally) repository
-    packages = cli.parse_package_request(args)
-
     # Finally, add the repository and install packages
     cache = cli.build(
         args.packages,

@@ -5,13 +5,14 @@ __license__ = "Apache-2.0"
 from pakages.logger import logger
 import pakages.spack.cache
 import pakages.client
-from .settings import Settings
 
 import spack.cmd
 import spack.target
 import spack.main
 import spack.config
 
+import re
+import os
 import json
 
 import pakages.spack.spec
@@ -46,7 +47,7 @@ class SpackClient(pakages.client.PackagesClient):
             repo = packages.pop(0)
 
         # OR if we have a github URI
-        if args.packages and re.search("(http|https)://github.com", args.packages[0]):
+        if packages and re.search("(http|https)://github.com", packages[0]):
             repo = packages.pop(0)
 
         # Add the repository, if defined
@@ -55,7 +56,7 @@ class SpackClient(pakages.client.PackagesClient):
 
         # If we don't have packages and we have a repo, derive from PWD
         if repo and not packages:
-            args.packages = repo.list_packages()
+            packages = repo.list_packages()
 
         # Finally, add the repository
         if repo:
