@@ -21,6 +21,11 @@ if [ -z "${package}" ]; then
     exit 1
 fi
 
+if [ -z "${builder}" ]; then
+    printf "No builder set! Assuming spack.\n"
+    export builder=spack
+fi
+
 # If deploy is set to true and we don't have a uri, this is an error 
 if [ "${deploy}" == "true" ] && [ -z "${uri}" ]; then
     printf "If you want to deploy you must define a uri (unique resource identifier)\n"
@@ -29,7 +34,7 @@ fi
 
 # Run pakages for the specs provided, with deploy or not
 if [ "${deploy}" == "true" ]; then
-    pakages build "${package}" --push "${uri}"
+    pakages build --builder "${builder}" "${package}" --push "${uri}"
 else
-    pakages build "${package}"
+    pakages build --builder "${builder}" "${package}"
 fi

@@ -47,6 +47,14 @@ def get_parser():
         dest="settings_file",
         help="custom path to settings file.",
     )
+
+    parser.add_argument(
+        "--builder", 
+        "-b"
+        dest="builder",
+        help="Package builder (default is auto-detect)",
+    )
+
     subparsers = parser.add_subparsers(
         help="actions",
         title="actions",

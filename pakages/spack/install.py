@@ -7,8 +7,8 @@ import shutil
 import tarfile
 from collections import defaultdict
 
-import pakages.oras
-import pakages.sbom
+import pakages.spack.oras
+import pakages.spack.sbom
 import pakages.utils
 import pakages.defaults
 import pakages.worker
@@ -135,7 +135,7 @@ def do_install(self, **kwargs):
 
                 name = bd.tarball_name(request.pkg.spec, ".spack")
                 tasks[pkg_id] = {"name": name, "registries": registries, "tag": tag}
-                funcs[pkg_id] = pakages.oras.pull_task
+                funcs[pkg_id] = pakages.spack.oras.pull_task
 
             return workers.run(funcs, tasks)
 
@@ -216,7 +216,7 @@ def do_install(self, **kwargs):
     # If successful, generate an sbom
     meta_dir = os.path.join(self.prefix, ".spack")
     if os.path.exists(meta_dir):
-        sbom = pakages.sbom.generate_sbom(self.spec)
+        sbom = pakages.spack.sbom.generate_sbom(self.spec)
         sbom_file = os.path.join(meta_dir, "sbom.json")
         pakages.utils.write_json(sbom, sbom_file)
 

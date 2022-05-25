@@ -3,10 +3,8 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import pakages.defaults as defaults
-from pakages.client import PakClient
 from pakages.logger import logger
 import sys
-
 
 def main(args, parser, extra, subparser):
 
@@ -23,7 +21,7 @@ def main(args, parser, extra, subparser):
         args.settings_file = defaults.default_settings_file
 
     validate = True if not command == "edit" else False
-    cli = PakClient(settings_file=args.settings_file, validate=validate)
+    cli = get_client(builder=args.builder, settings_file=args.settings_file, validate=validate)
 
     # For each new setting, update and save!
     if command == "init":
