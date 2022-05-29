@@ -111,7 +111,7 @@ class Registry(oras.provider.Registry):
 
         # Make the request and return to calling function, unless requires auth
         response = self.session.request(
-            method, url, data=data, json=json, headers=headers, stream=stream, scope=scope
+            method, url, data=data, json=json, headers=headers, stream=stream
         )
 
         # A 401 response is a request for authentication
@@ -120,7 +120,7 @@ class Registry(oras.provider.Registry):
             return response
 
         # Otherwise, authenticate the request and retry
-        if self.authenticate_request(response):
+        if self.authenticate_request(response, scope=scope):
             headers.update(self.headers)
             return self.session.request(
                 method, url, data=data, json=json, headers=headers, stream=stream
