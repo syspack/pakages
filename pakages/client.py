@@ -46,7 +46,6 @@ class PakagesClient:
         """
         Build one or more packages.
         """
-        push_to = kwargs.get("push")
         args = list(args)
         if not args[0] or args[0] == ".":
             args[0] = os.getcwd()
@@ -55,10 +54,7 @@ class PakagesClient:
         # This returns a build result
         result = pkg.build()
         result.summary()
-
-        if push_to:
-            result.push_to(push_to)
-            result.cleanup()
+        return result
 
     def install(self, packages, registry=None, tag=None):
         """

@@ -11,7 +11,6 @@ from pakages.logger import logger
 
 
 class Registry(oras.provider.Registry):
-
     @ensure_container
     def push(self, target, archives: dict, annotations=None):
         """

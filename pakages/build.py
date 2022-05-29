@@ -11,7 +11,7 @@ import os
 class BuildResult:
     """
     A BuildResult holds a set of content types and objects to upload.
-    
+
     We also store the builder name (e.g., Python) so we know how to extract.
     """
 
