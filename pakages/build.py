@@ -42,6 +42,7 @@ class BuildResult:
         password = os.environ.get("ORAS_PASS")
         reg = pakages.oras.Registry()
         if user and password:
+            print('Found username and password for basic auth')
             reg.set_basic_auth(user, password)
         reg.push(target, self.archives, self.annotations)
 

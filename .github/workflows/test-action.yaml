@@ -25,4 +25,4 @@ jobs:
         with:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: ghcr.io/syspack/pakages-bundle:latest
+          target: ghcr.io/syspack/pakages/pakages-bundle:latest
