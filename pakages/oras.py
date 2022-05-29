@@ -135,7 +135,7 @@ class Registry(oras.provider.Registry):
         :type originalResponse: requests.Response
         """
         authHeaderRaw = originalResponse.headers.get("Www-Authenticate")
-        print("authHeader: %s" authHeaderRaw)
+        print("authHeader: %s" % authHeaderRaw)
         if not authHeaderRaw:
             return False
 
