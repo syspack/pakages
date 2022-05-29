@@ -14,7 +14,7 @@ class Registry(oras.provider.Registry):
     @ensure_container
     def push(self, target, archives: dict, annotations=None):
         """
-        Given a dict of layers (mediaType and corrsponding paths) push.
+        Given a dict of layers (paths and corresponding mediaType) push.
         """
         # Prepare a new manifest
         manifest = oras.oci.NewManifest()
@@ -23,7 +23,7 @@ class Registry(oras.provider.Registry):
         annotset = oras.oci.Annotations(annotations or {})
 
         # Upload files as blobs
-        for mediaType, blob in archives.items():
+        for blob, mediaType in archives.items():
 
             # Must exist
             if not os.path.exists(blob):
