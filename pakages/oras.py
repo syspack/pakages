@@ -172,7 +172,7 @@ class Registry(oras.provider.Registry):
             h.realm = f"{self.prefix}://{h.realm}"
 
         # Try hard coding scope
-        params = {"scope": "repository:syspack/pakages/pakages-bundle:pull,push"
+        params = {"scope": "repository:syspack/pakages/pakages-bundle:pull,push"}
 
         print('realm %s' % h.realm)
         authResponse = self.session.get(h.realm, headers=headers, params=params)  # type: ignore
