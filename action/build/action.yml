@@ -25,6 +25,8 @@ runs:
 
     - name: Build Package
       env:
+        ORAS_USER: ${{ github.actor }}
+        ORAS_PASS: ${{ secrets.GITHUB_TOKEN }}
         builder: ${{ inputs.builder }}
         path: ${{ inputs.path }}
         target: ${{ inputs.target }}
