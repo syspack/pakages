@@ -23,4 +23,6 @@ jobs:
       - name: Test Pakages Build
         uses: ./action/build
         with:
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           target: ghcr.io/syspack/pakages-bundle:latest

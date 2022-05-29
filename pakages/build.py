@@ -39,9 +39,10 @@ class BuildResult:
         Push archives to a target
         """
         user = os.environ.get("ORAS_USER")
-        password = os.environ.get("ORAS_PASS")        
+        password = os.environ.get("ORAS_PASS")
         reg = pakages.oras.Registry()
-        reg.set_basic_auth(user, password)
+        if user and password:
+            reg.set_basic_auth(user, password)
         reg.push(target, self.archives, self.annotations)
 
     def summary(self):
