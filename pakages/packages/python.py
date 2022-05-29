@@ -63,7 +63,8 @@ class PythonPackage:
         targz = os.listdir(tmpdir)
         if not targz:
             logger.exit("No files found in build directory.")
-        result.add_archive(targz[0], "application/vnd.oci.image.layer.v1.tar+gzip")
+        targz_path = os.path.join(tmpdir, targz[0])
+        result.add_archive(targz_path, "application/vnd.oci.image.layer.v1.tar+gzip")
 
         if bom:
             bom.metadata.tools.add(
