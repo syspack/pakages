@@ -78,3 +78,109 @@ class Registry(oras.provider.Registry):
         self._check_200_response(self._upload_manifest(manifest, container))
         print(f"Successfully pushed {container}")
         return response
+        
+    def do_request(
+        self,
+        url: str,
+        method: str = "GET",
+        data: Union[dict, bytes] = None,
+        headers: dict = None,
+        json: dict = None,
+        stream: bool = False,
+    ):
+        """
+        Do a request. This is a wrapper around requests to handle retry auth.
+
+        :param url: the URL to issue the request to
+        :type url: str
+        :param method: the method to use (GET, DELETE, POST, PUT, PATCH)
+        :type method: str
+        :param data: data for requests
+        :type data: dict or bytes
+        :param headers: headers for the request
+        :type headers: dict
+        :param json: json data for requests
+        :type json: dict
+        :param stream: stream the responses
+        :type stream: bool
+        """
+        headers = headers or {}
+
+        # Make the request and return to calling function, unless requires auth
+        response = self.session.request(
+            method, url, data=data, json=json, headers=headers, stream=stream
+        )
+
+        # A 401 response is a request for authentication
+        print('STATUS CODE %s' % response.status_code)
+        if response.status_code != 401:
+            return response
+
+        # Otherwise, authenticate the request and retry
+        if self.authenticate_request(response):
+            headers.update(self.headers)
+            return self.session.request(
+                method, url, data=data, json=json, headers=headers, stream=stream
+            )
+        return response
+
+    def authenticate_request(self, originalResponse: requests.Response) -> bool:
+        """
+        Authenticate Request
+        Given a response, look for a Www-Authenticate header to parse.
+
+        We return True/False to indicate if the request should be retried.
+
+        :param originalResponse: original response to get the Www-Authenticate header
+        :type originalResponse: requests.Response
+        """
+        authHeaderRaw = originalResponse.headers.get("Www-Authenticate")
+        print("authHeader: %s" authHeaderRaw)
+        if not authHeaderRaw:
+            return False
+
+        # If we have a token, set auth header (base64 encoded user/pass)
+        if self.token:
+            print("SETTING TOKEN for auth")
+            self.set_header("Authorization", "Basic %s" % self.token)
+
+        headers = copy.deepcopy(self.headers)
+        if "Authorization" not in headers:
+            logger.error(
+                "This endpoint requires a token. Please set "
+                "oras.provider.Registry.set_basic_auth(username, password) "
+                "first or use oras-py login to do the same."
+            )
+            return False
+
+        # Prepare request to retry
+        h = oras.auth.parse_auth_header(authHeaderRaw)
+        if h.service:
+            headers.update(
+                {
+                    "Service": h.service,
+                    "Accept": "application/json",
+                    "User-Agent": "oras-py",
+                }
+            )
+
+        # Currently we don't set a scope (it defaults to build)
+        if not h.realm.startswith("http"):  # type: ignore
+            h.realm = f"{self.prefix}://{h.realm}"
+        print('realm %s' % h.realm)
+        authResponse = self.session.get(h.realm, headers=headers)  # type: ignore
+        print(authResponse.status_code)
+        print(authResponse.reason)
+        if authResponse.status_code != 200:
+            return False
+
+        # Request the token
+        info = authResponse.json()
+        print(info.keys())
+        token = info.get("token")
+        if not token:
+            token = info.get("access_token")
+
+        # Set the token to the original request and retry
+        self.headers.update({"Authorization": "Bearer %s" % token})
+        return True
