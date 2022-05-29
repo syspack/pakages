@@ -89,6 +89,7 @@ class Registry(oras.provider.Registry):
         headers: dict = None,
         json: dict = None,
         stream: bool = False,
+        scope=None,
     ):
         """
         Do a request. This is a wrapper around requests to handle retry auth.
@@ -110,7 +111,7 @@ class Registry(oras.provider.Registry):
 
         # Make the request and return to calling function, unless requires auth
         response = self.session.request(
-            method, url, data=data, json=json, headers=headers, stream=stream
+            method, url, data=data, json=json, headers=headers, stream=stream, scope=scope
         )
 
         # A 401 response is a request for authentication
@@ -126,7 +127,7 @@ class Registry(oras.provider.Registry):
             )
         return response
 
-    def authenticate_request(self, originalResponse: requests.Response) -> bool:
+    def authenticate_request(self, originalResponse: requests.Response, scope=None) -> bool:
         """
         Authenticate Request
         Given a response, look for a Www-Authenticate header to parse.
@@ -169,8 +170,12 @@ class Registry(oras.provider.Registry):
         # Currently we don't set a scope (it defaults to build)
         if not h.realm.startswith("http"):  # type: ignore
             h.realm = f"{self.prefix}://{h.realm}"
+
+        # Try hard coding scope
+        params = {"scope": "repository:syspack/pakages/pakages-bundle:pull,push"
+
         print('realm %s' % h.realm)
-        authResponse = self.session.get(h.realm, headers=headers)  # type: ignore
+        authResponse = self.session.get(h.realm, headers=headers, params=params)  # type: ignore
         print(authResponse.status_code)
         print(authResponse.reason)
         if authResponse.status_code != 200:
