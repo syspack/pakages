@@ -147,22 +147,39 @@ Build
 -----
 
 The main functionality of pakages is (drumroll) to build packages that are then easy to install
-in a container, or again into the spack install that comes with Pakages. A basic build is going
-to generate a build cache with one or more specs of interest. Any time you build and 
+in a container. A basic build is going to generate a build cache with one or more packages of interest. Any time you build and 
 push to a trusted Pakages registry (the one in your settings) then this registry will be used as a cache for future installs. 
-Here is how to build zlib:
+
+Python Build
+^^^^^^^^^^^^
+
+If you have a repository with a setup.py, it is determined to be a Python package
+and we will attempt to build with traditional approaches (e.g., setuptools).
+Here is an example:
+
+.. code-block:: console
+
+    $ git clone https://github.com/vsoch/citelang /tmp/citelang
+    $ cd /tmp/citelang
+    $ pakages build
+
+TODO over weekend or similar
+
+Spack Build
+^^^^^^^^^^^
+
+Here is how to build zlib (from spack):
 
 .. code-block:: console
 
     $ pakages -b spack build zlib
 
-By default, a build cache will be created in a temporary directory and the Pakages
-saved there. This is recommended, as each pak is intended to be modular. If you want
+For spack, by default, a build cache will be created in a temporary directory and the Pakages
+saved there. This is recommended, as each pakage is intended to be modular. If you want
 to specify a custom cache (or one that is always used) you can add ``--cache-dir``.
 You also might want to set a specific gpg key hash to sign with ``--key`` (otherwise
 we will default to the first one we find that is commented to be intended for Spack).
 When you do a build, it will show you the location of the build cache.
-
 
 .. code-block:: console
 
@@ -174,7 +191,6 @@ When you do a build, it will show you the location of the build cache.
     gpg: using "DECA3181DA00313E633F963157BE6A82D830EA34" as default secret key for signing
 
 Build also supports local and remote repositories, as outlined in install. For example:
-
 
 .. code-block:: console
 

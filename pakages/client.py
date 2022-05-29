@@ -2,6 +2,8 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
+import os
+import pakages.packages
 from .settings import Settings
 
 
@@ -39,6 +41,24 @@ class PakagesClient:
         Given an existing cache directory, push known specs to a specific uri
         """
         raise NotImplementedError
+
+    def build(self, *args, **kwargs):
+        """
+        Build one or more packages.
+        """
+        push_to = kwargs.get("push")
+        args = list(args)
+        if not args[0] or args[0] == ".":
+            args[0] = os.getcwd()
+        pkg = pakages.packages.get_package(args[0])
+
+        # This returns a build result
+        result = pkg.build()
+        result.summary()
+
+        if push_to:
+            result.push_to(push_to)
+            result.cleanup()
 
     def install(self, packages, registry=None, tag=None):
         """

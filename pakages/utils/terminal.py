@@ -7,7 +7,6 @@ from subprocess import Popen, PIPE, STDOUT
 import os
 import shlex
 import shutil
-import getpass
 
 
 def which(software, strip_newline=True):
@@ -46,8 +45,28 @@ def get_installdir():
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
-def get_username():
-    return getpass.getuser()
+def get_userhome():
+    """get the user home based on the effective uid. If import of pwd fails
+    (not supported for Windows) then fall back to environment variable.
+    """
+    try:
+        import pwd
+
+        return pwd.getpwuid(os.getuid())[5]
+    except:
+        return os.environ.get("HOME") or os.environ.get("HOMEPATH")
+
+
+def get_user():
+    """Get the name of the user. We first try to import pwd, but fallback to
+    extraction from the environment.
+    """
+    try:
+        import pwd
+
+        return pwd.getpwuid(os.getuid())[0]
+    except:
+        return os.environ.get("USER") or os.environ.get("USERNAME")
 
 
 def run_command(cmd, stream=False):

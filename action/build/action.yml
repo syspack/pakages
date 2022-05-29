@@ -1,0 +1,41 @@
+name: "pakages build"
+description: "Build oras pakages"
+inputs:
+  builder:
+    description: the builder to use (defaults to auto-detect)
+    default: ""
+  path:
+    description: path to root of package (defaults to PWD)
+    default: "."
+  target:
+    description: target to upload to (defaults to GitHub repository)
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Pakages
+      shell: bash
+      run: |
+          which pakages || (
+            git clone -b isolate-spack https://github.com/syspack/pakages
+            cd pakages
+            pip install -e .
+          )
+
+    - name: Build Package
+      env:
+        builder: ${{ inputs.builder }}
+        path: ${{ inputs.path }}
+        target: ${{ inputs.target }}
+      run: |
+          cmd="pakages build"
+          if [[ "${builder}" != "" ]]; then
+              cmd="${cmd} -b ${builder}"
+          fi
+          cmd="pakages build ${path}"
+          if [[ "${target}" != "" ]]; then
+              cmd="${cmd} --push ${target}"
+          fi
+          $cmd
+      shell: bash

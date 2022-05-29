@@ -43,9 +43,7 @@ def get_parser():
     )
 
     parser.add_argument(
-        "--settings-file",
-        dest="settings_file",
-        help="custom path to settings file.",
+        "--settings-file", dest="settings_file", help="custom path to settings file.",
     )
 
     parser.add_argument(
@@ -56,10 +54,7 @@ def get_parser():
     )
 
     subparsers = parser.add_subparsers(
-        help="actions",
-        title="actions",
-        description="actions",
-        dest="command",
+        help="actions", title="actions", description="actions", dest="command",
     )
 
     # print version and exit
@@ -115,22 +110,14 @@ def get_parser():
     )
 
     build.add_argument(
-        "--cache-dir",
-        dest="cache_dir",
-        help="path to cache directory",
+        "--cache-dir", dest="cache_dir", help="path to cache directory",
     )
 
     build.add_argument(
-        "--key",
-        "-k",
-        dest="key",
-        help="specify the gpg key hash to use",
+        "--key", "-k", dest="key", help="specify the gpg key hash to use",
     )
     build.add_argument(
-        "--push",
-        "-p",
-        dest="push",
-        help="push to a named oras endpoint",
+        "--push", "-p", dest="push", help="push to a named oras endpoint",
     )
     build.add_argument(
         "--pushd",
@@ -154,6 +141,7 @@ def get_parser():
         action="store_true",
         help="Given that --push is added, don't clean up the build cache.",
     )
+    build.add_argument("packages", help="install these packages", nargs="?")
 
     config = subparsers.add_parser(
         "config",
@@ -195,7 +183,7 @@ pakages config init""",
         default="ipython",
     )
 
-    for command in [install, build, uninstall]:
+    for command in [install, uninstall]:
         command.add_argument("packages", help="install these packages", nargs="+")
 
     for command in [install, build]:
@@ -247,8 +235,7 @@ def run_main():
         sys.exit(0)
 
     setup_logger(
-        quiet=args.quiet,
-        debug=args.debug,
+        quiet=args.quiet, debug=args.debug,
     )
 
     # retrieve subparser (with help) from parser

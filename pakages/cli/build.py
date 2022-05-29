@@ -24,9 +24,7 @@ def main(args, parser, extra, subparser):
 
     # Do we want to push to a build cache?
     if args.push or args.push_trusted:
-        cache.push(
-            args.push,
-        )
+        cache.push(args.push,)
 
         # By default, we clean up the build cache, unless a custom cache is used
         if not args.no_cleanup and not args.cache_dir:

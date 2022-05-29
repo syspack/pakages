@@ -84,6 +84,7 @@ class Logger:
     def handler(self, msg):
         for handler in self.log_handler:
             handler(msg)
+            return
 
     def set_stream_handler(self, stream_handler):
         if self.stream_handler is not None:
