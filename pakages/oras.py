@@ -16,11 +16,6 @@ class Registry(oras.provider.Registry):
         """
         Given a dict of layers (paths and corresponding mediaType) push.
         """
-        import IPython
-
-        IPython.embed()
-        sys.exit()
-
         # Prepare a new manifest
         manifest = oras.oci.NewManifest()
 
