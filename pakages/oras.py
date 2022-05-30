@@ -144,7 +144,6 @@ class Registry(oras.provider.Registry):
 
         # If we have a token, set auth header (base64 encoded user/pass)
         if self.token:
-            print("SETTING TOKEN for auth")
             self.set_header("Authorization", "Basic %s" % self.token)
 
         headers = copy.deepcopy(self.headers)
