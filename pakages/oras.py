@@ -12,6 +12,7 @@ from oras.decorator import ensure_container
 from pakages.logger import logger
 from typing import *
 
+
 class Registry(oras.provider.Registry):
     @ensure_container
     def push(self, container, archives: dict, annotations=None):
