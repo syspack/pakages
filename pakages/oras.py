@@ -75,7 +75,7 @@ class Registry(oras.provider.Registry):
             conf["annotations"] = config_annots
 
         # Config is just another layer blob!
-        print(f"UPLOADING {config_file}")
+        print(f"UPLOADING {conf}")
         response = self._upload_blob(config_file, container, conf)
         self._check_200_response(response)
 
