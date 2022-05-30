@@ -27,7 +27,7 @@ class BuildResult:
     def __str__(self):
         return "[pakages-build-task]"
 
-    def cleanup(self):
+    def remove(self):
         """
         Delete temporary directory
         """
