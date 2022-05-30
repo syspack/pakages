@@ -3,14 +3,11 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
-import copy
-import requests
 import oras.oci
 import oras.defaults
 import oras.provider
 from oras.decorator import ensure_container
 from pakages.logger import logger
-from typing import *
 
 
 class Registry(oras.provider.Registry):
@@ -52,8 +49,6 @@ class Registry(oras.provider.Registry):
             manifest["layers"].append(layer)
 
             # Upload the blob layer
-            print(container)
-            print(f"UPLOADING {blob}")
             response = self._upload_blob(blob, container, layer)
             self._check_200_response(response)
 
@@ -75,13 +70,11 @@ class Registry(oras.provider.Registry):
             conf["annotations"] = config_annots
 
         # Config is just another layer blob!
-        print(f"UPLOADING {conf}")
         response = self._upload_blob(config_file, container, conf)
         self._check_200_response(response)
 
         # Final upload of the manifest
         manifest["config"] = conf
-        print(f"UPLOADING {manifest}")
         self._check_200_response(self._upload_manifest(manifest, container))
         print(f"Successfully pushed {container}")
         return response
