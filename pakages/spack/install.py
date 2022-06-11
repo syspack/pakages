@@ -41,6 +41,7 @@ def do_install(self, **kwargs):
 
     dev_path_var = self.spec.variants.get("dev_path", None)
     registries = kwargs.get("registries")
+    use_cache = kwargs.get('use_cache', False)
     tag = kwargs.get("tag")
 
     if dev_path_var:
@@ -202,11 +203,14 @@ def do_install(self, **kwargs):
             for br in self.build_requests:
                 br._active_deptypes = ["link", "run", "build"]
 
-    builder = PakInstaller([(self, kwargs)])
-
     # Download what we can find from the GitHub cache
-    builder.prepopulate_tasks()
-    builder.prepare_cache(registries, tag)
+    if use_cache:
+        builder = PakInstaller([(self, kwargs)])
+        builder.prepopulate_tasks()
+        builder.prepare_cache(registries, tag)
+    else:
+        kwargs['use_cache'] = True
+        builder = PackageInstaller([(self, kwargs)])
     builder.install()
 
     # If successful, generate an sbom
@@ -215,7 +219,6 @@ def do_install(self, **kwargs):
         sbom = pakages.spack.sbom.generate_sbom(self.spec)
         sbom_file = os.path.join(meta_dir, "sbom.json")
         pakages.utils.write_json(sbom, sbom_file)
-
 
 def extract_tarball(spec, filename):
     """
