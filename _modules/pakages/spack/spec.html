@@ -85,7 +85,7 @@
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">import</span> <span class="nn">spack.util.string</span>
 <span class="kn">import</span> <span class="nn">pakages.spack.repo</span>
-
+<span class="kn">import</span> <span class="nn">spack.cmd</span>
 
 <div class="viewcode-block" id="Spec"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.spec.Spec">[docs]</a><span class="k">class</span> <span class="nc">Spec</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">):</span>
     <span class="nd">@property</span>
@@ -109,17 +109,14 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse specs from a list of strings, and concretize</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="n">packages</span><span class="p">]</span>
-    <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">concretize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing spec for </span><span class="si">{</span><span class="n">legacy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing spec for </span><span class="si">{</span><span class="n">legacy</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">legacy</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Create a new Pak spec to copy (duplicate) into</span>
-        <span class="n">spack_spec</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">Spec</span><span class="p">(</span><span class="n">legacy</span><span class="p">)</span>
         <span class="n">spec</span> <span class="o">=</span> <span class="n">Spec</span><span class="p">()</span>
-        <span class="n">spec</span><span class="o">.</span><span class="n">_dup</span><span class="p">(</span><span class="n">spack_spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">_dup</span><span class="p">(</span><span class="n">legacy</span><span class="p">)</span>
 
         <span class="c1"># Always set the arch to be general</span>
         <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">ArchSpec</span><span class="p">()</span>
