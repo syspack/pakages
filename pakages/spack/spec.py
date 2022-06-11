@@ -6,7 +6,7 @@ import spack.spec
 from pakages.logger import logger
 import spack.util.string
 import pakages.spack.repo
-
+import spack.cmd
 
 class Spec(spack.spec.Spec):
     @property
@@ -30,17 +30,14 @@ def parse_specs(packages):
     """
     Parse specs from a list of strings, and concretize
     """
-    if not isinstance(packages, list):
-        packages = [packages]
-    specs = []
-    for legacy in packages:
+    specs = spack.cmd.parse_specs(packages, concretize=True)
+    for legacy in specs:
 
-        logger.info(f"Preparing spec for {legacy}")
+        logger.info(f"Preparing spec for {legacy.name}@{legacy.version}")
 
         # Create a new Pak spec to copy (duplicate) into
-        spack_spec = spack.spec.Spec(legacy)
         spec = Spec()
-        spec._dup(spack_spec)
+        spec._dup(legacy)
 
         # Always set the arch to be general
         spec.architecture = spack.spec.ArchSpec()
