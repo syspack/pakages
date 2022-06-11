@@ -22,7 +22,7 @@ jobs:
            export PATH=/tmp/spack/bin:${PATH}
            pip install -e .[all]
 
-      - name: Build ${{ matrix.repo }}
+      - name: Build ${{ matrix.repo[0] }}
         env:
           package: ${{ matrix.repo[0] }}
           repo: ${{ matrix.repo[1] }}

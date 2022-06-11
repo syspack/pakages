@@ -57,7 +57,7 @@ class BuildCache:
 
         # Use defautls for username and email if not provided
         # TODO eventually we want to store keys elsewhere
-        username = username or pakages.utils.get_username()
+        username = username or pakages.utils.get_user()
         email = email or "%s@users.noreply.spack.io" % username
 
         # TODO how do we check if this is already created?
