@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pakages API &mdash; Pakages 0.0.16 documentation</title>
+  <title>pakages package &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -15,11 +16,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Internal API" href="internal/modules.html" />
+    <link rel="next" title="pakages.cli package" href="pakages.cli.html" />
     <link rel="prev" title="Developer Guide" href="../getting_started/developer-guide.html" /> 
 </head>
 
@@ -49,8 +51,29 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="internal/modules.html">Internal API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pakages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.packages.html">pakages.packages package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.spack.html">pakages.spack package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.utils.html">pakages.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.build">pakages.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages.worker">pakages.worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pakages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -67,7 +90,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Pakages API</li>
+      <li>pakages package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api_reference/pakages.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,17 +100,489 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="pakages-api">
-<span id="api-reference-pakages"></span><h1>Pakages API<a class="headerlink" href="#pakages-api" title="Permalink to this headline"></a></h1>
-<p>These sections detail the internal functions for pakages.</p>
-<span class="target" id="module-pakages"></span></div>
+  <section id="pakages-package">
+<h1>pakages package<a class="headerlink" href="#pakages-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.build">pakages.cli.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.config">pakages.cli.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.install">pakages.cli.install module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.ls">pakages.cli.ls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.push">pakages.cli.push module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.shell">pakages.cli.shell module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli.uninstall">pakages.cli.uninstall module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.cli.html#module-pakages.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.handlers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.handlers.html#module-pakages.handlers.github">pakages.handlers.github module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.handlers.html#module-pakages.handlers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pakages.packages.html">pakages.packages package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.packages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.packages.html#module-pakages.packages.python">pakages.packages.python module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.packages.html#module-pakages.packages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pakages.spack.html">pakages.spack package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.cache">pakages.spack.cache module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.client">pakages.spack.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.install">pakages.spack.install module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.oras">pakages.spack.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.repo">pakages.spack.repo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.sbom">pakages.spack.sbom module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.spec">pakages.spack.spec module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack.utils">pakages.spack.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.spack.html#module-pakages.spack">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pakages.utils.html">pakages.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.utils.html#module-pakages.utils.command">pakages.utils.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.utils.html#module-pakages.utils.fileio">pakages.utils.fileio module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.utils.html#module-pakages.utils.terminal">pakages.utils.terminal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.utils.html#module-pakages.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.build">
+<span id="pakages-build-module"></span><h2>pakages.build module<a class="headerlink" href="#module-pakages.build" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.build.BuildResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.build.</span></span><span class="sig-name descname"><span class="pre">BuildResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">builder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/build.html#BuildResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.build.BuildResult" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A BuildResult holds a set of content types and objects to upload.</p>
+<p>We also store the builder name (e.g., Python) so we know how to extract.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.build.BuildResult.add_archive">
+<span class="sig-name descname"><span class="pre">add_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediaType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/build.html#BuildResult.add_archive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.build.BuildResult.add_archive" title="Permalink to this definition"></a></dt>
+<dd><p>Add an archive to the build result</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.build.BuildResult.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/build.html#BuildResult.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.build.BuildResult.push" title="Permalink to this definition"></a></dt>
+<dd><p>Push archives to a target</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.build.BuildResult.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/build.html#BuildResult.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.build.BuildResult.remove" title="Permalink to this definition"></a></dt>
+<dd><p>Delete temporary directory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.build.BuildResult.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/build.html#BuildResult.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.build.BuildResult.summary" title="Permalink to this definition"></a></dt>
+<dd><p>Print a summary of files</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pakages.client">
+<span id="pakages-client-module"></span><h2>pakages.client module<a class="headerlink" href="#module-pakages.client" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.client.PakagesClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.client.</span></span><span class="sig-name descname"><span class="pre">PakagesClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#PakagesClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakagesClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pakages has a main controller for interacting with pakages.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.client.PakagesClient.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#PakagesClient.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakagesClient.build" title="Permalink to this definition"></a></dt>
+<dd><p>Build one or more packages.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.client.PakagesClient.install">
+<span class="sig-name descname"><span class="pre">install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#PakagesClient.install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakagesClient.install" title="Permalink to this definition"></a></dt>
+<dd><p>Install one or more packages.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.client.PakagesClient.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#PakagesClient.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakagesClient.push" title="Permalink to this definition"></a></dt>
+<dd><p>Given an existing cache directory, push known specs to a specific uri</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.client.PakagesClient.uninstall">
+<span class="sig-name descname"><span class="pre">uninstall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#PakagesClient.uninstall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.PakagesClient.uninstall" title="Permalink to this definition"></a></dt>
+<dd><p>Uninstall a pakage</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.client.get_client">
+<span class="sig-prename descclassname"><span class="pre">pakages.client.</span></span><span class="sig-name descname"><span class="pre">get_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">builder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/client.html#get_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.client.get_client" title="Permalink to this definition"></a></dt>
+<dd><p>Get a pakages client</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.defaults">
+<span id="pakages-defaults-module"></span><h2>pakages.defaults module<a class="headerlink" href="#module-pakages.defaults" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.logger">
+<span id="pakages-logger-module"></span><h2>pakages.logger module<a class="headerlink" href="#module-pakages.logger" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.logger.</span></span><span class="sig-name descname"><span class="pre">ColorizingStreamHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nocolor=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stderr&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_threads=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#ColorizingStreamHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StreamHandler</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.BLACK">
+<span class="sig-name descname"><span class="pre">BLACK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.BLACK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.BLUE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.BOLD_SEQ">
+<span class="sig-name descname"><span class="pre">BOLD_SEQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.BOLD_SEQ" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.COLOR_SEQ">
+<span class="sig-name descname"><span class="pre">COLOR_SEQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[%dm'</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.COLOR_SEQ" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.CYAN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.GREEN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.MAGENTA">
+<span class="sig-name descname"><span class="pre">MAGENTA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.MAGENTA" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.RED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.RESET_SEQ">
+<span class="sig-name descname"><span class="pre">RESET_SEQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.RESET_SEQ" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.WHITE">
+<span class="sig-name descname"><span class="pre">WHITE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.WHITE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.YELLOW" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.can_color_tty">
+<span class="sig-name descname"><span class="pre">can_color_tty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#ColorizingStreamHandler.can_color_tty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.can_color_tty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.colors">
+<span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CRITICAL':</span> <span class="pre">1,</span> <span class="pre">'DEBUG':</span> <span class="pre">4,</span> <span class="pre">'ERROR':</span> <span class="pre">1,</span> <span class="pre">'INFO':</span> <span class="pre">2,</span> <span class="pre">'WARNING':</span> <span class="pre">3}</span></em><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.colors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.decorate">
+<span class="sig-name descname"><span class="pre">decorate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#ColorizingStreamHandler.decorate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.decorate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#ColorizingStreamHandler.emit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.emit" title="Permalink to this definition"></a></dt>
+<dd><p>Emit a record.</p>
+<p>If a formatter is specified, it is used to format the record.
+The record is then written to the stream with a trailing newline.  If
+exception information is present, it is formatted using
+traceback.print_exception and appended to the stream.  If the stream
+has an ‘encoding’ attribute, it is used to determine how to do the
+output to the stream.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.logger.ColorizingStreamHandler.is_tty">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_tty</span></span><a class="headerlink" href="#pakages.logger.ColorizingStreamHandler.is_tty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.logger.Logger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="../_modules/pakages/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.cleanup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.debug" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.exit">
+<span class="sig-name descname"><span class="pre">exit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.exit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.exit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.handler">
+<span class="sig-name descname"><span class="pre">handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.handler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.location">
+<span class="sig-name descname"><span class="pre">location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.location"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.location" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.progress">
+<span class="sig-name descname"><span class="pre">progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">done</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.progress" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.set_level">
+<span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.set_level" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.set_stream_handler">
+<span class="sig-name descname"><span class="pre">set_stream_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.set_stream_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.set_stream_handler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.shellcmd">
+<span class="sig-name descname"><span class="pre">shellcmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.shellcmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.shellcmd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.text_handler">
+<span class="sig-name descname"><span class="pre">text_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.text_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.text_handler" title="Permalink to this definition"></a></dt>
+<dd><p>The default snakemake log handler.
+Prints the output to the console.
+:param msg: the log message dictionary
+:type msg: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.logger.Logger.warning">
+<span class="sig-name descname"><span class="pre">warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#Logger.warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.Logger.warning" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.logger.setup_logger">
+<span class="sig-prename descclassname"><span class="pre">pakages.logger.</span></span><span class="sig-name descname"><span class="pre">setup_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printshellcmds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nocolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wms_monitor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/logger.html#setup_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.logger.setup_logger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.oras">
+<span id="pakages-oras-module"></span><h2>pakages.oras module<a class="headerlink" href="#module-pakages.oras" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.oras.Registry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.oras.</span></span><span class="sig-name descname"><span class="pre">Registry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hostname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/oras.html#Registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.oras.Registry" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Registry</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.oras.Registry.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pakages.oras.Registry.push" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pakages.schemas">
+<span id="pakages-schemas-module"></span><h2>pakages.schemas module<a class="headerlink" href="#module-pakages.schemas" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.settings">
+<span id="pakages-settings-module"></span><h2>pakages.settings module<a class="headerlink" href="#module-pakages.settings" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.settings.</span></span><span class="sig-name descname"><span class="pre">EmptySettings</span></span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.add" title="Permalink to this definition"></a></dt>
+<dd><p>Add a value to a list parameter</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.change_validate">
+<span class="sig-name descname"><span class="pre">change_validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.change_validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.change_validate" title="Permalink to this definition"></a></dt>
+<dd><p>A courtesy function to validate a new config addition.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.delete" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.edit">
+<span class="sig-name descname"><span class="pre">edit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.edit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.edit" title="Permalink to this definition"></a></dt>
+<dd><p>Interactively edit a config file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get a settings value, doing appropriate substitution and expansion.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.get_settings_file">
+<span class="sig-name descname"><span class="pre">get_settings_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.get_settings_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.get_settings_file" title="Permalink to this definition"></a></dt>
+<dd><p>Get the preferred used settings file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.inituser">
+<span class="sig-name descname"><span class="pre">inituser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.inituser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.inituser" title="Permalink to this definition"></a></dt>
+<dd><p>Create a user specific config in user’s home.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.load" title="Permalink to this definition"></a></dt>
+<dd><p>Load the settings file into the settings object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.remove" title="Permalink to this definition"></a></dt>
+<dd><p>Remove a value from a list parameter</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save settings, but do not change order of anything.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.set" title="Permalink to this definition"></a></dt>
+<dd><p>Set a setting based on key and value. If the key has :, it’s nested</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.settings.EmptySettings.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#EmptySettings.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.EmptySettings.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validate the loaded settings with jsonschema</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.settings.Settings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.settings.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/settings.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.settings.Settings" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pakages.settings.EmptySettings" title="pakages.settings.EmptySettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmptySettings</span></code></a></p>
+<p>The settings class is a wrapper for easily parsing a settings.yml file.</p>
+<p>We parse into a query-able class. It also gives us control to update settings,
+meaning we change the values and then write them to file. It’s basically
+a dictionary-like class with extra functions.</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.version">
+<span id="pakages-version-module"></span><h2>pakages.version module<a class="headerlink" href="#module-pakages.version" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.worker">
+<span id="pakages-worker-module"></span><h2>pakages.worker module<a class="headerlink" href="#module-pakages.worker" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.worker.Workers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.worker.</span></span><span class="sig-name descname"><span class="pre">Workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#Workers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.Workers" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.worker.Workers.end">
+<span class="sig-name descname"><span class="pre">end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#Workers.end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.Workers.end" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.worker.Workers.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pakages/worker.html#Workers.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.Workers.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run will send a list of tasks, a tuple with arguments, through a function.
+the arguments should be ordered correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>funcs</strong> (<em>-</em>) – the functions to run with multiprocessing.pool,
+a dictionary with lookup by the task name</p></li>
+<li><p><strong>tasks</strong> (<em>-</em>) – a dict of tasks, each task name (key) with a tuple
+of arguments to process</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.worker.Workers.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#Workers.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.Workers.start" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.worker.init_worker">
+<span class="sig-prename descclassname"><span class="pre">pakages.worker.</span></span><span class="sig-name descname"><span class="pre">init_worker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#init_worker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.init_worker" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.worker.multi_package">
+<span class="sig-prename descclassname"><span class="pre">pakages.worker.</span></span><span class="sig-name descname"><span class="pre">multi_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#multi_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.multi_package" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.worker.multi_wrapper">
+<span class="sig-prename descclassname"><span class="pre">pakages.worker.</span></span><span class="sig-name descname"><span class="pre">multi_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func_args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/worker.html#multi_wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.worker.multi_wrapper" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages" title="Permalink to this heading"></a></h2>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../getting_started/developer-guide.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="internal/modules.html" class="btn btn-neutral float-right" title="Internal API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pakages.cli.html" class="btn btn-neutral float-right" title="pakages.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

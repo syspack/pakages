@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,8 +48,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -81,20 +82,14 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
 
-<span class="kn">from</span> <span class="nn">pakages.client</span> <span class="kn">import</span> <span class="n">PakClient</span>
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">parse_package_request</span>
+<span class="kn">from</span> <span class="nn">pakages.client</span> <span class="kn">import</span> <span class="n">get_client</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api_reference/internal/pakages.html#pakages.cli.build.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">subparser</span><span class="p">):</span>
-    <span class="n">cli</span> <span class="o">=</span> <span class="n">PakClient</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">settings_file</span><span class="p">)</span>
-
-    <span class="c1"># Get list of packages and (optionally) repository</span>
-    <span class="n">packages</span><span class="p">,</span> <span class="n">repo</span> <span class="o">=</span> <span class="n">parse_package_request</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api_reference/pakages.cli.html#pakages.cli.build.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">subparser</span><span class="p">):</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">settings_file</span><span class="p">)</span>
 
     <span class="c1"># Finally, add the repository and install packages</span>
-    <span class="k">if</span> <span class="n">repo</span><span class="p">:</span>
-        <span class="n">cli</span><span class="o">.</span><span class="n">add_repository</span><span class="p">(</span><span class="n">repo</span><span class="o">.</span><span class="n">repo_dir</span><span class="p">)</span>
     <span class="n">cache</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
         <span class="n">args</span><span class="o">.</span><span class="n">packages</span><span class="p">,</span>
         <span class="n">cache_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span>
@@ -109,9 +104,7 @@
 
     <span class="c1"># Do we want to push to a build cache?</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">push</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">push_trusted</span><span class="p">:</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
-            <span class="n">args</span><span class="o">.</span><span class="n">push</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">cache</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">push</span><span class="p">)</span>
 
         <span class="c1"># By default, we clean up the build cache, unless a custom cache is used</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_cleanup</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">:</span>

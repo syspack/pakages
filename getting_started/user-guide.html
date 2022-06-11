@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Guide &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -47,18 +49,17 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#install">Install</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#spack">Spack</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#local">Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spack">Spack</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shell">Shell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-and-push">Build and Push</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#push">Push</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uninstall">Uninstall</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list">List</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#containers">Containers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#shell">Shell</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build">Build</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-and-push">Build and Push</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#push">Push</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uninstall">Uninstall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list">List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#containers">Containers</a></li>
 </ul>
 </li>
 </ul>
@@ -67,8 +68,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -96,14 +97,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="user-guide">
-<span id="getting-started-user-guide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+  <section id="user-guide">
+<span id="getting-started-user-guide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading"></a></h1>
 <p>Pakages provides basic functionality to install, build, and deploy spack packages.
 If you haven’t installed Pakages yet or shelled into a pre-built container,
 you should read <a class="reference internal" href="installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a> first. If you want to tweak
 settings, read <a class="reference internal" href="settings.html#getting-started-settings"><span class="std std-ref">Settings</span></a>.</p>
-<div class="section" id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline"></a></h2>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading"></a></h2>
 <p>After installation, you’ll first need spack to be on your path. If
 you want control over Pakages settings (discussed next) you should create your own copy of the config file.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Init your user config
@@ -122,22 +123,24 @@ and ensure the settings are to your liking before continuing. And importantly - 
 using pakages to install the default provided trusted registry at pakages, you likely don’t need to customize
 anything. Finally, make sure that you have spack added to your path, to be discovered by pakages.
 If you are using a pre-built container, this will already be the case.</p>
-</div>
-<div class="section" id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h2>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
+<section id="spack">
+<h3>Spack<a class="headerlink" href="#spack" title="Permalink to this heading"></a></h3>
 <p>Pakages provides the following commands via the <code class="docutils literal notranslate"><span class="pre">pakages</span></code> command line client.</p>
-<div class="section" id="install">
-<h3>Install<a class="headerlink" href="#install" title="Permalink to this headline"></a></h3>
+<section id="install">
+<h4>Install<a class="headerlink" href="#install" title="Permalink to this heading"></a></h4>
 <p>Pakages allows for easy install of different formats of packages. Where do they come from?
 We provide (currently under development) <a class="reference external" href="https://github.com/pakages">a set of packages, “pakages”</a> ,
 that you can easily install as a Pak user. If you are looking to develop, meaning build, test,
 and deploy your own packages, you should see <a class="reference internal" href="developer-guide.html#getting-started-developer-guide"><span class="std std-ref">Developer Guide</span></a>.</p>
-<div class="section" id="spack">
-<h4>Spack<a class="headerlink" href="#spack" title="Permalink to this headline"></a></h4>
-<p>Since pakages is a wrapper to spack, you can install any list of packages that you would
-install with spack, just using pakages install (which is installable via pip so it can be on your path
+<section id="id1">
+<h5>Spack<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
+<p>Pakages can install from spack just using pakages install (which is installable via pip so it can be on your path
 more easily or in a Python environment).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages install zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages --builder spack install zlib
+<span class="gp"># </span>equivalent to pakages -b spack install zlib
 <span class="go">Preparing to install zlib</span>
 <span class="go">linux-ubuntu20.04-skylake</span>
 <span class="go">[+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px</span>
@@ -148,14 +151,14 @@ bill of materials (SBOM) to go alongside the install, and if the package is avai
 on GitHub packages in your trusted registry it will be retrieved there first. If you don’t need either
 this binary install or the SBOM, you could just install with spack. To change the registry to pull from on the fly
 (given that you don’t want to change permanently in your settings) add <code class="docutils literal notranslate"><span class="pre">--registry</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages install zlib --registry ghcr.io/myorg
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack install zlib --registry ghcr.io/myorg
 </pre></div>
 </div>
 <p>Note that we use the manifest
 of the artifact to validate the checksum before installing it.</p>
-</div>
-<div class="section" id="local">
-<h4>Local<a class="headerlink" href="#local" title="Permalink to this headline"></a></h4>
+</section>
+<section id="local">
+<h5>Local<a class="headerlink" href="#local" title="Permalink to this heading"></a></h5>
 <p>If you have a package repository locally, e.g., a directory with this structure:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./</span>
 <span class="go">  repos.yaml</span>
@@ -167,7 +170,7 @@ of the artifact to validate the checksum before installing it.</p>
 </pre></div>
 </div>
 <p>Then you can install all packages via:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages install .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack install .
 </pre></div>
 </div>
 <p>Pakages will detect that you want to install from the present working directory,
@@ -175,23 +178,23 @@ and then install appropriately. The above <code class="docutils literal notransl
 You’d likely want to use this in a CI recipe to build and deploy a single package repository, however it could
 have a local use case too, in the case that you want to clone someone’s package repository and install all of them.
 If you don’t want to install all packages in the local repository, you can also select a specific package by name:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages install . zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack install . zlib
 </pre></div>
 </div>
 <p>This install command is different from a traditional <code class="docutils literal notranslate"><span class="pre">spack</span> <span class="pre">install</span> <span class="pre">zlib</span></code> because we are providing an absolute
 or relative path first to a packages repository before the package name.
 The above command will add the package directory, and then install zlib from it. Finally, to install from
 a repository with the same package structure but from a remote on GitHub:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages install https://github.com/pakages/zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack install https://github.com/pakages/zlib
 </pre></div>
 </div>
 <p>The above will create a temporary repository to use, and then clean up.</p>
-</div>
-</div>
-<div class="section" id="shell">
-<h3>Shell<a class="headerlink" href="#shell" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="shell">
+<h4>Shell<a class="headerlink" href="#shell" title="Permalink to this heading"></a></h4>
 <p>If you want a quick shell to interact with the Pak client and spack, you can do:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages shell
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack shell
 <span class="go">Python 3.8.8 (default, Apr 13 2021, 19:58:26)</span>
 <span class="go">Type &#39;copyright&#39;, &#39;credits&#39; or &#39;license&#39; for more information</span>
 <span class="go">IPython 7.30.1 -- An enhanced Interactive Python. Type &#39;?&#39; for help.</span>
@@ -201,24 +204,37 @@ a repository with the same package structure but from a remote on GitHub:</p>
 </pre></div>
 </div>
 <p>You can also import anything from spack in the shell, so this is a useful developer command.</p>
-</div>
-<div class="section" id="build">
-<h3>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h3>
+</section>
+<section id="build">
+<h4>Build<a class="headerlink" href="#build" title="Permalink to this heading"></a></h4>
 <p>The main functionality of pakages is (drumroll) to build packages that are then easy to install
-in a container, or again into the spack install that comes with Pakages. A basic build is going
-to generate a build cache with one or more specs of interest. Any time you build and
-push to a trusted Pakages registry (the one in your settings) then this registry will be used as a cache for future installs.
-Here is how to build zlib:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib
+in a container. A basic build is going to generate a build cache with one or more packages of interest. Any time you build and
+push to a trusted Pakages registry (the one in your settings) then this registry will be used as a cache for future installs.</p>
+<section id="python-build">
+<h5>Python Build<a class="headerlink" href="#python-build" title="Permalink to this heading"></a></h5>
+<p>If you have a repository with a setup.py, it is determined to be a Python package
+and we will attempt to build with traditional approaches (e.g., setuptools).
+Here is an example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/vsoch/citelang /tmp/citelang
+<span class="gp">$ </span><span class="nb">cd</span> /tmp/citelang
+<span class="gp">$ </span>pakages build
 </pre></div>
 </div>
-<p>By default, a build cache will be created in a temporary directory and the Pakages
-saved there. This is recommended, as each pak is intended to be modular. If you want
+<p>TODO over weekend or similar</p>
+</section>
+<section id="spack-build">
+<h5>Spack Build<a class="headerlink" href="#spack-build" title="Permalink to this heading"></a></h5>
+<p>Here is how to build zlib (from spack):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib
+</pre></div>
+</div>
+<p>For spack, by default, a build cache will be created in a temporary directory and the Pakages
+saved there. This is recommended, as each pakage is intended to be modular. If you want
 to specify a custom cache (or one that is always used) you can add <code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code>.
 You also might want to set a specific gpg key hash to sign with <code class="docutils literal notranslate"><span class="pre">--key</span></code> (otherwise
 we will default to the first one we find that is commented to be intended for Spack).
 When you do a build, it will show you the location of the build cache.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib
 <span class="go">Preparing to install zlib</span>
 <span class="go">linux-ubuntu20.04-skylake</span>
 <span class="go">[+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px</span>
@@ -227,88 +243,89 @@ When you do a build, it will show you the location of the build cache.</p>
 </pre></div>
 </div>
 <p>Build also supports local and remote repositories, as outlined in install. For example:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build .
 </pre></div>
 </div>
 <p>Or build a package by name:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build . zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build . zlib
 </pre></div>
 </div>
 <p>Or build from a remote:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build https://github.com/pakages/zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build https://github.com/pakages/zlib
 </pre></div>
 </div>
 <p>Akin to install, you can also specify a registry to add to look for build cache entries
 to speed up the install:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib --registry ghcr.io/myorg
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib --registry ghcr.io/myorg
 </pre></div>
 </div>
-</div>
-<div class="section" id="build-and-push">
-<h3>Build and Push<a class="headerlink" href="#build-and-push" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="build-and-push">
+<h4>Build and Push<a class="headerlink" href="#build-and-push" title="Permalink to this heading"></a></h4>
 <p>If you add <code class="docutils literal notranslate"><span class="pre">--push</span></code> with a GitHub repository (or other OCI registry that supports oras) identifier, we will
 use a command line tool called oras to upload there:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib --push ghcr.io/syspack/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib --push ghcr.io/syspack/pakages
 </pre></div>
 </div>
 <p>It’s recommeded to <a class="reference external" href="https://oras.land/cli/">install oras</a> so it’s faster, but if you don’t it will be bootstrapped (and you
 can go off and have a sandwich or sword fight!). By default, the above with <code class="docutils literal notranslate"><span class="pre">--push</span></code>
 will build, push, and cleanup. You can disable cleanup:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib --no-cleanup --push ghcr.io/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib --no-cleanup --push ghcr.io/pakages
 </pre></div>
 </div>
 <p>If you customize the <code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code> folder cleanup will be disabled, as it is assumed that you don’t want to delete a non-temporary directory.
 To force a cleanup of a custom cache directory, add <code class="docutils literal notranslate"><span class="pre">--force</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib --no-cleanup --force --push ghcr.io/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib --no-cleanup --force --push ghcr.io/pakages
 </pre></div>
 </div>
 <p>The above examples show a push using a custom GitHub unique resource identifier. To use the default trusted registry from your settings, just do:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages build zlib --pushd
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack build zlib --pushd
 </pre></div>
 </div>
-</div>
-<div class="section" id="push">
-<h3>Push<a class="headerlink" href="#push" title="Permalink to this headline"></a></h3>
+</section>
+<section id="push">
+<h4>Push<a class="headerlink" href="#push" title="Permalink to this heading"></a></h4>
 <p>If you have an existing build cache you want to push:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages push /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack push /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
 </pre></div>
 </div>
 <p>Or push and cleanup:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages push --cleanup /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack push --cleanup /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
 </pre></div>
 </div>
 <p>You can optionally define a default <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> in your settings, in which case you can leave it out:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages push ghcr.io/syspack/pakages
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack push ghcr.io/syspack/pakages
 </pre></div>
 </div>
 <p>The registry will be detected since it starts with <code class="docutils literal notranslate"><span class="pre">ghcr.io</span></code> and the default cache directory used. Alternatively,
 leave the registry out to use the default, and provide the cache directory:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages push /tmp/pakages-tmp.nudv7k0u/
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack push /tmp/pakages-tmp.nudv7k0u/
 </pre></div>
 </div>
 <p>And finally, if you really want to streamline and use the default registry and cache directory, just push!</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages push
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack push
 </pre></div>
 </div>
-</div>
-<div class="section" id="uninstall">
-<h3>Uninstall<a class="headerlink" href="#uninstall" title="Permalink to this headline"></a></h3>
+</section>
+<section id="uninstall">
+<h4>Uninstall<a class="headerlink" href="#uninstall" title="Permalink to this heading"></a></h4>
 <p>You can also uninstall a package.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages uninstall zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack uninstall zlib
 </pre></div>
 </div>
-</div>
-<div class="section" id="list">
-<h3>List<a class="headerlink" href="#list" title="Permalink to this headline"></a></h3>
+</section>
+<section id="list">
+<h4>List<a class="headerlink" href="#list" title="Permalink to this heading"></a></h4>
 <p>List installed packages as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages list
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pakages -b spack list
 <span class="go">-- linux-ubuntu20.04-x86_64 / gcc@9.3.0 -------------------------</span>
 <span class="go">zlib@1.2.11</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="containers">
-<h3>Containers<a class="headerlink" href="#containers" title="Permalink to this headline"></a></h3>
+</section>
+<section id="containers">
+<h4>Containers<a class="headerlink" href="#containers" title="Permalink to this heading"></a></h4>
 <p>Pakages provide a set of <a class="reference external" href="https://github.com/orgs/syspack/packages?repo_name=pakages">pre-built containers with Pakages</a>  that serve
 as bases for being able to quickly spin up an environment and install. We intend to deprecate updating containers as the operating
 systems that are provided are deprecated. E.g., at the time of writing this in 2022, the earliest Ubuntu version we are providing is 18.04.
@@ -322,15 +339,16 @@ As an example, let’s run the ubuntu 18.04 container and install zlib.</p>
 </pre></div>
 </div>
 <p>And then you can easily install.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"> # </span>pakages install zlib
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"> # </span>pakages -b spack install zlib
 <span class="go"> Preparing to install zlib</span>
 <span class="go">[+] /opt/spack/opt/spack/linux-ubuntu18.04-x86_64/gcc-7.5.0/zlib-1.2.11-3rlgy7ycxtoho44una6o3itgfjltkmpd</span>
 </pre></div>
 </div>
 <p>We will be updated these docs with more soon!</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>

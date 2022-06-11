@@ -88,4 +88,4 @@ Resources
     :maxdepth: 1
 
     api_reference/pakages
-    api_reference/internal/modules
+    api_reference/modules

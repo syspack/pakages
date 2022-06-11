@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pakages.spack package &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pakages.utils package" href="pakages.utils.html" />
+    <link rel="prev" title="pakages.packages package" href="pakages.packages.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pakages
+          </a>
+              <div class="version">
+                0.0.16
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/developer-guide.html">Developer Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pakages.html">pakages package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pakages.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.packages.html">pakages.packages package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pakages.spack package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.cache">pakages.spack.cache module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.client">pakages.spack.client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.install">pakages.spack.install module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.oras">pakages.spack.oras module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.repo">pakages.spack.repo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.sbom">pakages.spack.sbom module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.spec">pakages.spack.spec module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack.utils">pakages.spack.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.spack">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.utils.html">pakages.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.build">pakages.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.worker">pakages.worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">pakages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pakages</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="pakages.html">pakages package</a> &raquo;</li>
+      <li>pakages.spack package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api_reference/pakages.spack.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pakages-spack-package">
+<h1>pakages.spack package<a class="headerlink" href="#pakages-spack-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.spack.cache">
+<span id="pakages-spack-cache-module"></span><h2>pakages.spack.cache module<a class="headerlink" href="#module-pakages.spack.cache" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.cache.BuildCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.cache.</span></span><span class="sig-name descname"><span class="pre">BuildCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#BuildCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.BuildCache" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A controller that makes it easy to create a build cache and install to it.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.cache.BuildCache.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">specs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#BuildCache.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.BuildCache.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create the build cache with some number of specs</p>
+<p>Ideally we could do spack buildcache add but that isn’t supported.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.cache.BuildCache.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#BuildCache.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.BuildCache.push" title="Permalink to this definition"></a></dt>
+<dd><p>Push the build cache to an OCI registry (compatible with ORAS)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.cache.BuildCache.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#BuildCache.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.BuildCache.remove" title="Permalink to this definition"></a></dt>
+<dd><p>Delete the entire build cache</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.cache.get_gpg_key">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.cache.</span></span><span class="sig-name descname"><span class="pre">get_gpg_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#get_gpg_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.get_gpg_key" title="Permalink to this definition"></a></dt>
+<dd><p>Find the first key created for spack</p>
+<p>This would really be nicer if we didn’t have to use gpg :)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.cache.gpg_init">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.cache.</span></span><span class="sig-name descname"><span class="pre">gpg_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/cache.html#gpg_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.cache.gpg_init" title="Permalink to this definition"></a></dt>
+<dd><p>Init the gpg directory, setting permissions etc.</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.client">
+<span id="pakages-spack-client-module"></span><h2>pakages.spack.client module<a class="headerlink" href="#module-pakages.spack.client" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.client.</span></span><span class="sig-name descname"><span class="pre">SpackClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="pakages.html#pakages.client.PakagesClient" title="pakages.client.PakagesClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">PakagesClient</span></code></a></p>
+<p>Pakages has a main controller for interacting with pakages.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.add_repository">
+<span class="sig-name descname"><span class="pre">add_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.add_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.add_repository" title="Permalink to this definition"></a></dt>
+<dd><p>Add a repository.</p>
+<p>Given a path that exists, add the repository to the
+underlying spack. If you need to add a GitHub uri, create a
+pakages.repo.PakRepo first.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.build" title="Permalink to this definition"></a></dt>
+<dd><p>Build a package into a cache</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.install">
+<span class="sig-name descname"><span class="pre">install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.install" title="Permalink to this definition"></a></dt>
+<dd><p>Install one or more packages.</p>
+<p>This eventually needs to take into account using the GitHub packages bulid cache</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.iter_specs">
+<span class="sig-name descname"><span class="pre">iter_specs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concretize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.iter_specs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.iter_specs" title="Permalink to this definition"></a></dt>
+<dd><p>A shared function to retrieve iterable of specs from packages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.list_installed">
+<span class="sig-name descname"><span class="pre">list_installed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.list_installed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.list_installed" title="Permalink to this definition"></a></dt>
+<dd><p>List installed packages</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.parse_package_request">
+<span class="sig-name descname"><span class="pre">parse_package_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.parse_package_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.parse_package_request" title="Permalink to this definition"></a></dt>
+<dd><p>Parse the packages and repo (if any) from it.
+This is shared between install and build</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.push" title="Permalink to this definition"></a></dt>
+<dd><p>Given an existing cache directory, push known specs to a specific uri</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.client.SpackClient.uninstall">
+<span class="sig-name descname"><span class="pre">uninstall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/client.html#SpackClient.uninstall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.client.SpackClient.uninstall" title="Permalink to this definition"></a></dt>
+<dd><p>Uninstall a spack package</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.install">
+<span id="pakages-spack-install-module"></span><h2>pakages.spack.install module<a class="headerlink" href="#module-pakages.spack.install" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.install.BuildRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.install.</span></span><span class="sig-name descname"><span class="pre">BuildRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">install_args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/install.html#BuildRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.install.BuildRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BuildRequest</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.install.BuildRequest.get_deptypes">
+<span class="sig-name descname"><span class="pre">get_deptypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/install.html#BuildRequest.get_deptypes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.install.BuildRequest.get_deptypes" title="Permalink to this definition"></a></dt>
+<dd><p>We only care about link and run</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.install.do_install">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.install.</span></span><span class="sig-name descname"><span class="pre">do_install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/install.html#do_install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.install.do_install" title="Permalink to this definition"></a></dt>
+<dd><p>Refactored install process to add proper cache handling.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.install.extract_tarball">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.install.</span></span><span class="sig-name descname"><span class="pre">extract_tarball</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/install.html#extract_tarball"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.install.extract_tarball" title="Permalink to this definition"></a></dt>
+<dd><p>extract binary tarball for given package into install area</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.oras">
+<span id="pakages-spack-oras-module"></span><h2>pakages.spack.oras module<a class="headerlink" href="#module-pakages.spack.oras" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.oras.</span></span><span class="sig-name descname"><span class="pre">Oras</span></span><a class="reference internal" href="../_modules/pakages/spack/oras.html#Oras"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.Oras" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras.fetch">
+<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/oras.html#Oras.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.Oras.fetch" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch an oras artifact from an OCI registry</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras.get_manifest">
+<span class="sig-name descname"><span class="pre">get_manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/oras.html#Oras.get_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.Oras.get_manifest" title="Permalink to this definition"></a></dt>
+<dd><p>Use crane to get the image manifest</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras.get_manifest_digest">
+<span class="sig-name descname"><span class="pre">get_manifest_digest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/oras.html#Oras.get_manifest_digest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.Oras.get_manifest_digest" title="Permalink to this definition"></a></dt>
+<dd><p>Get the first layer digest (the spack package archive)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras.oras">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">oras</span></span><a class="headerlink" href="#pakages.spack.oras.Oras.oras" title="Permalink to this definition"></a></dt>
+<dd><p>Get the oras executable (easier to install on your computer over bootstrap)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.oras.Oras.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">push_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/oras.html#Oras.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.Oras.push" title="Permalink to this definition"></a></dt>
+<dd><p>Push an oras artifact to an OCI registry</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.oras.pull_task">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.oras.</span></span><span class="sig-name descname"><span class="pre">pull_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/oras.html#pull_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.oras.pull_task" title="Permalink to this definition"></a></dt>
+<dd><p>A pull task</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.repo">
+<span id="pakages-spack-repo-module"></span><h2>pakages.spack.repo module<a class="headerlink" href="#module-pakages.spack.repo" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.repo.</span></span><span class="sig-name descname"><span class="pre">PakRepo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#PakRepo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.PakRepo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#PakRepo.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.PakRepo.add" title="Permalink to this definition"></a></dt>
+<dd><p>Add the repository to be known to spack</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#PakRepo.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.PakRepo.cleanup" title="Permalink to this definition"></a></dt>
+<dd><p>Cleanup a cloned repository - be careful don’t run this for a local path!</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo.is_remote">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_remote</span></span><a class="headerlink" href="#pakages.spack.repo.PakRepo.is_remote" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo.list_packages">
+<span class="sig-name descname"><span class="pre">list_packages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#PakRepo.list_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.PakRepo.list_packages" title="Permalink to this definition"></a></dt>
+<dd><p>Given a filesystem repository, list packages there.</p>
+<p>We don’t add the repository to be known by spack here, as we would want
+to do this when we install.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.PakRepo.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#PakRepo.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.PakRepo.validate" title="Permalink to this definition"></a></dt>
+<dd><p>Validate that we have a repo, meaning we expect a repo.yml|yaml and packages</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.repo.Repo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.repo.</span></span><span class="sig-name descname"><span class="pre">Repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#Repo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.Repo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Repo</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.Repo.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#Repo.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.Repo.get" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the package associated with the supplied spec</p>
+<p>However we add custom functions provided by Pakages.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.repo.RepoPath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.repo.</span></span><span class="sig-name descname"><span class="pre">RepoPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">repos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#RepoPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.RepoPath" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RepoPath</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.spack.repo.RepoPath.find_module">
+<span class="sig-name descname"><span class="pre">find_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fullname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">python_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#RepoPath.find_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.RepoPath.find_module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.repo.get">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.repo.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/repo.html#get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.repo.get" title="Permalink to this definition"></a></dt>
+<dd><p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">spack.repo.get()</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pakages.spack.repo.path">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.repo.</span></span><span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;pakages.spack.repo.RepoPath</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#pakages.spack.repo.path" title="Permalink to this definition"></a></dt>
+<dd><p>Singleton repo path instance</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.sbom">
+<span id="pakages-spack-sbom-module"></span><h2>pakages.spack.sbom module<a class="headerlink" href="#module-pakages.spack.sbom" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.sbom.generate_sbom">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.sbom.</span></span><span class="sig-name descname"><span class="pre">generate_sbom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/sbom.html#generate_sbom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.sbom.generate_sbom" title="Permalink to this definition"></a></dt>
+<dd><p>Generates the sbom based on best practices suggested in the guide.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.sbom.generate_timestamp_now">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.sbom.</span></span><span class="sig-name descname"><span class="pre">generate_timestamp_now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/sbom.html#generate_timestamp_now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.sbom.generate_timestamp_now" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.sbom.get_component">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.sbom.</span></span><span class="sig-name descname"><span class="pre">get_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/sbom.html#get_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.sbom.get_component" title="Permalink to this definition"></a></dt>
+<dd><p>Given a spec, get a component for it.</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.spec">
+<span id="pakages-spack-spec-module"></span><h2>pakages.spack.spec module<a class="headerlink" href="#module-pakages.spack.spec" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.spack.spec.Spec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.spack.spec.</span></span><span class="sig-name descname"><span class="pre">Spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec_like</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/spec.html#Spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.spec.Spec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Spec</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.spack.spec.Spec.package">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">package</span></span><a class="headerlink" href="#pakages.spack.spec.Spec.package" title="Permalink to this definition"></a></dt>
+<dd><p>Return a custom repository that can deliver Pakages packages</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.spec.parse">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.spec.</span></span><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/spec.html#parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.spec.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of specs from an input string.
+For creating one spec, see Spec() constructor.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.spec.parse_specs">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.spec.</span></span><span class="sig-name descname"><span class="pre">parse_specs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/spec.html#parse_specs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.spec.parse_specs" title="Permalink to this definition"></a></dt>
+<dd><p>Parse specs from a list of strings, and concretize</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack.utils">
+<span id="pakages-spack-utils-module"></span><h2>pakages.spack.utils module<a class="headerlink" href="#module-pakages.spack.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.utils.add_pakages_spack_repo">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.utils.</span></span><span class="sig-name descname"><span class="pre">add_pakages_spack_repo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/utils.html#add_pakages_spack_repo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.utils.add_pakages_spack_repo" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.utils.add_spack_to_path">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.utils.</span></span><span class="sig-name descname"><span class="pre">add_spack_to_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/utils.html#add_spack_to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.utils.add_spack_to_path" title="Permalink to this definition"></a></dt>
+<dd><p>Find spack and add to path, allowing for import of spack modules</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.utils.generalize_spack_archive">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.utils.</span></span><span class="sig-name descname"><span class="pre">generalize_spack_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/utils.html#generalize_spack_archive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.utils.generalize_spack_archive" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to consistently return the archive name with arch, os, no build hash</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.spack.utils.install_spack">
+<span class="sig-prename descclassname"><span class="pre">pakages.spack.utils.</span></span><span class="sig-name descname"><span class="pre">install_spack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/spack/utils.html#install_spack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.spack.utils.install_spack" title="Permalink to this definition"></a></dt>
+<dd><p>Install spack to pakages/spack (note this is not used).</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.spack">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages.spack" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pakages.packages.html" class="btn btn-neutral float-left" title="pakages.packages package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pakages.utils.html" class="btn btn-neutral float-right" title="pakages.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

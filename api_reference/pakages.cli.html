@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pakages.cli package &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pakages.handlers package" href="pakages.handlers.html" />
+    <link rel="prev" title="pakages package" href="pakages.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pakages
+          </a>
+              <div class="version">
+                0.0.16
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/developer-guide.html">Developer Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pakages.html">pakages package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pakages.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pakages.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.build">pakages.cli.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.config">pakages.cli.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.install">pakages.cli.install module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.ls">pakages.cli.ls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.push">pakages.cli.push module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.shell">pakages.cli.shell module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli.uninstall">pakages.cli.uninstall module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.packages.html">pakages.packages package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.spack.html">pakages.spack package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.utils.html">pakages.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.build">pakages.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.worker">pakages.worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">pakages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pakages</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="pakages.html">pakages package</a> &raquo;</li>
+      <li>pakages.cli package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api_reference/pakages.cli.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pakages-cli-package">
+<h1>pakages.cli package<a class="headerlink" href="#pakages-cli-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.cli.build">
+<span id="pakages-cli-build-module"></span><h2>pakages.cli.build module<a class="headerlink" href="#module-pakages.cli.build" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.build.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.build.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/build.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.build.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli.config">
+<span id="pakages-cli-config-module"></span><h2>pakages.cli.config module<a class="headerlink" href="#module-pakages.cli.config" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.config.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.config.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/config.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.config.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli.install">
+<span id="pakages-cli-install-module"></span><h2>pakages.cli.install module<a class="headerlink" href="#module-pakages.cli.install" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.install.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.install.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/install.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.install.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli.ls">
+<span id="pakages-cli-ls-module"></span><h2>pakages.cli.ls module<a class="headerlink" href="#module-pakages.cli.ls" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.ls.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.ls.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/ls.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.ls.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli.push">
+<span id="pakages-cli-push-module"></span><h2>pakages.cli.push module<a class="headerlink" href="#module-pakages.cli.push" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.push.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.push.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/push.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.push.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli.shell">
+<span id="pakages-cli-shell-module"></span><h2>pakages.cli.shell module<a class="headerlink" href="#module-pakages.cli.shell" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.shell.create_client">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.shell.</span></span><span class="sig-name descname"><span class="pre">create_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/shell.html#create_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.shell.create_client" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.shell.ipython">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.shell.</span></span><span class="sig-name descname"><span class="pre">ipython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/shell.html#ipython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.shell.ipython" title="Permalink to this definition"></a></dt>
+<dd><p>Generate an IPython shell with the client.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.shell.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.shell.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/shell.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.shell.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.shell.python">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.shell.</span></span><span class="sig-name descname"><span class="pre">python</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/shell.html#python"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.shell.python" title="Permalink to this definition"></a></dt>
+<dd><p>Generate an python shell with the client.</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.cli.uninstall">
+<span id="pakages-cli-uninstall-module"></span><h2>pakages.cli.uninstall module<a class="headerlink" href="#module-pakages.cli.uninstall" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.uninstall.main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.uninstall.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subparser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli/uninstall.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.uninstall.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.cli">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages.cli" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.get_parser">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.</span></span><span class="sig-name descname"><span class="pre">get_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.get_parser" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.cli.run_main">
+<span class="sig-prename descclassname"><span class="pre">pakages.cli.</span></span><span class="sig-name descname"><span class="pre">run_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/cli.html#run_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.cli.run_main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pakages.html" class="btn btn-neutral float-left" title="pakages package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pakages.handlers.html" class="btn btn-neutral float-right" title="pakages.handlers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.install &mdash; Pakages 0.0.16 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sphinx-argparse.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/theme.css" type="text/css" />
+  <title>pakages.spack.install &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
   <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -26,13 +27,13 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Pakages
+            <a href="../../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
                 0.0.16
               </div>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -41,14 +42,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/user-guide.html">User Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../getting_started/developer-guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/developer-guide.html">Developer Guide</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -57,16 +58,16 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Pakages</a>
+          <a href="../../../index.html">Pakages</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>pakages.install</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pakages.spack.install</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -75,7 +76,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pakages.install</h1><div class="highlight"><pre>
+  <h1>Source code for pakages.spack.install</h1><div class="highlight"><pre>
 <span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
@@ -85,8 +86,8 @@
 <span class="kn">import</span> <span class="nn">tarfile</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
-<span class="kn">import</span> <span class="nn">pakages.oras</span>
-<span class="kn">import</span> <span class="nn">pakages.sbom</span>
+<span class="kn">import</span> <span class="nn">pakages.spack.oras</span>
+<span class="kn">import</span> <span class="nn">pakages.spack.sbom</span>
 <span class="kn">import</span> <span class="nn">pakages.utils</span>
 <span class="kn">import</span> <span class="nn">pakages.defaults</span>
 <span class="kn">import</span> <span class="nn">pakages.worker</span>
@@ -98,20 +99,20 @@
 <span class="kn">import</span> <span class="nn">spack.util.crypto</span>
 
 
-<div class="viewcode-block" id="BuildRequest"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.BuildRequest">[docs]</a><span class="k">class</span> <span class="nc">BuildRequest</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">BuildRequest</span><span class="p">):</span>
+<div class="viewcode-block" id="BuildRequest"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.install.BuildRequest">[docs]</a><span class="k">class</span> <span class="nc">BuildRequest</span><span class="p">(</span><span class="n">spack</span><span class="o">.</span><span class="n">installer</span><span class="o">.</span><span class="n">BuildRequest</span><span class="p">):</span>
 
     <span class="c1"># We need link and run for downloading build cache</span>
     <span class="c1"># And will need all three in case of install</span>
     <span class="n">_active_deptypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="BuildRequest.get_deptypes"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.BuildRequest.get_deptypes">[docs]</a>    <span class="k">def</span> <span class="nf">get_deptypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkg</span><span class="p">):</span>
+<div class="viewcode-block" id="BuildRequest.get_deptypes"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.install.BuildRequest.get_deptypes">[docs]</a>    <span class="k">def</span> <span class="nf">get_deptypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pkg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        We only care about link and run</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_deptypes</span></div></div>
 
 
-<div class="viewcode-block" id="do_install"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.do_install">[docs]</a><span class="k">def</span> <span class="nf">do_install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="do_install"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.install.do_install">[docs]</a><span class="k">def</span> <span class="nf">do_install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Refactored install process to add proper cache handling.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -213,7 +214,7 @@
 
                 <span class="n">name</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">tarball_name</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">)</span>
                 <span class="n">tasks</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;registries&quot;</span><span class="p">:</span> <span class="n">registries</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">}</span>
-                <span class="n">funcs</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">pull_task</span>
+                <span class="n">funcs</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">pull_task</span>
 
             <span class="k">return</span> <span class="n">workers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">funcs</span><span class="p">,</span> <span class="n">tasks</span><span class="p">)</span>
 
@@ -294,12 +295,12 @@
     <span class="c1"># If successful, generate an sbom</span>
     <span class="n">meta_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">meta_dir</span><span class="p">):</span>
-        <span class="n">sbom</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">sbom</span><span class="o">.</span><span class="n">generate_sbom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">sbom</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">sbom</span><span class="o">.</span><span class="n">generate_sbom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
         <span class="n">sbom_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meta_dir</span><span class="p">,</span> <span class="s2">&quot;sbom.json&quot;</span><span class="p">)</span>
         <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">sbom</span><span class="p">,</span> <span class="n">sbom_file</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="extract_tarball"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.install.extract_tarball">[docs]</a><span class="k">def</span> <span class="nf">extract_tarball</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="extract_tarball"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.install.extract_tarball">[docs]</a><span class="k">def</span> <span class="nf">extract_tarball</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    extract binary tarball for given package into install area</span>
 <span class="sd">    &quot;&quot;&quot;</span>

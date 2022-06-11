@@ -38,6 +38,10 @@ If you are using a pre-built container, this will already be the case.
 Commands
 ========
 
+-----
+Spack
+-----
+
 Pakages provides the following commands via the ``pakages`` command line client.
 
 Install
@@ -51,14 +55,13 @@ and deploy your own packages, you should see :ref:`getting_started-developer-gui
 Spack 
 ^^^^^
 
-Since pakages is a wrapper to spack, you can install any list of packages that you would
-install with spack, just using pakages install (which is installable via pip so it can be on your path
+Pakages can install from spack just using pakages install (which is installable via pip so it can be on your path
 more easily or in a Python environment).
-
 
 .. code-block:: console
     
-    $ pakages install zlib
+    $ pakages --builder spack install zlib
+    # equivalent to pakages -b spack install zlib
     Preparing to install zlib
     linux-ubuntu20.04-skylake
     [+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px
@@ -72,7 +75,7 @@ this binary install or the SBOM, you could just install with spack. To change th
 
 .. code-block:: console
 
-    $ pakages install zlib --registry ghcr.io/myorg
+    $ pakages -b spack install zlib --registry ghcr.io/myorg
 
 Note that we use the manifest 
 of the artifact to validate the checksum before installing it.
@@ -97,7 +100,7 @@ Then you can install all packages via:
 
 .. code-block:: console
 
-    $ pakages install .
+    $ pakages -b spack install .
 
 Pakages will detect that you want to install from the present working directory,
 and then install appropriately. The above ``.`` will install all packages in the present working directory.
@@ -107,7 +110,7 @@ If you don't want to install all packages in the local repository, you can also 
 
 .. code-block:: console
 
-    $ pakages install . zlib
+    $ pakages -b spack install . zlib
 
 
 This install command is different from a traditional ``spack install zlib`` because we are providing an absolute
@@ -117,7 +120,7 @@ a repository with the same package structure but from a remote on GitHub:
 
 .. code-block:: console
 
-    $ pakages install https://github.com/pakages/zlib
+    $ pakages -b spack install https://github.com/pakages/zlib
 
 The above will create a temporary repository to use, and then clean up.
 
@@ -129,7 +132,7 @@ If you want a quick shell to interact with the Pak client and spack, you can do:
 
 .. code-block:: console
 
-    $ pakages shell
+    $ pakages -b spack shell
     Python 3.8.8 (default, Apr 13 2021, 19:58:26) 
     Type 'copyright', 'credits' or 'license' for more information
     IPython 7.30.1 -- An enhanced Interactive Python. Type '?' for help.
@@ -144,26 +147,43 @@ Build
 -----
 
 The main functionality of pakages is (drumroll) to build packages that are then easy to install
-in a container, or again into the spack install that comes with Pakages. A basic build is going
-to generate a build cache with one or more specs of interest. Any time you build and 
+in a container. A basic build is going to generate a build cache with one or more packages of interest. Any time you build and 
 push to a trusted Pakages registry (the one in your settings) then this registry will be used as a cache for future installs. 
-Here is how to build zlib:
+
+Python Build
+^^^^^^^^^^^^
+
+If you have a repository with a setup.py, it is determined to be a Python package
+and we will attempt to build with traditional approaches (e.g., setuptools).
+Here is an example:
 
 .. code-block:: console
 
-    $ pakages build zlib
+    $ git clone https://github.com/vsoch/citelang /tmp/citelang
+    $ cd /tmp/citelang
+    $ pakages build
 
-By default, a build cache will be created in a temporary directory and the Pakages
-saved there. This is recommended, as each pak is intended to be modular. If you want
+TODO over weekend or similar
+
+Spack Build
+^^^^^^^^^^^
+
+Here is how to build zlib (from spack):
+
+.. code-block:: console
+
+    $ pakages -b spack build zlib
+
+For spack, by default, a build cache will be created in a temporary directory and the Pakages
+saved there. This is recommended, as each pakage is intended to be modular. If you want
 to specify a custom cache (or one that is always used) you can add ``--cache-dir``.
 You also might want to set a specific gpg key hash to sign with ``--key`` (otherwise
 we will default to the first one we find that is commented to be intended for Spack).
 When you do a build, it will show you the location of the build cache.
 
-
 .. code-block:: console
 
-    $ pakages build zlib
+    $ pakages -b spack build zlib
     Preparing to install zlib
     linux-ubuntu20.04-skylake
     [+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px
@@ -172,29 +192,28 @@ When you do a build, it will show you the location of the build cache.
 
 Build also supports local and remote repositories, as outlined in install. For example:
 
-
 .. code-block:: console
 
-    $ pakages build .
+    $ pakages -b spack build .
 
 Or build a package by name:
 
 .. code-block:: console
 
-    $ pakages build . zlib
+    $ pakages -b spack build . zlib
 
 Or build from a remote:
 
 .. code-block:: console
 
-    $ pakages build https://github.com/pakages/zlib
+    $ pakages -b spack build https://github.com/pakages/zlib
 
 Akin to install, you can also specify a registry to add to look for build cache entries
 to speed up the install:
 
 .. code-block:: console
 
-    $ pakages build zlib --registry ghcr.io/myorg
+    $ pakages -b spack build zlib --registry ghcr.io/myorg
 
 
 Build and Push
@@ -205,7 +224,7 @@ use a command line tool called oras to upload there:
 
 .. code-block:: console
 
-    $ pakages build zlib --push ghcr.io/syspack/pakages
+    $ pakages -b spack build zlib --push ghcr.io/syspack/pakages
 
 It's recommeded to `install oras <https://oras.land/cli/>`_ so it's faster, but if you don't it will be bootstrapped (and you
 can go off and have a sandwich or sword fight!). By default, the above with ``--push`` 
@@ -213,20 +232,20 @@ will build, push, and cleanup. You can disable cleanup:
 
 .. code-block:: console
 
-    $ pakages build zlib --no-cleanup --push ghcr.io/pakages
+    $ pakages -b spack build zlib --no-cleanup --push ghcr.io/pakages
 
 If you customize the ``--cache-dir`` folder cleanup will be disabled, as it is assumed that you don't want to delete a non-temporary directory.
 To force a cleanup of a custom cache directory, add ``--force``
 
 .. code-block:: console
 
-    $ pakages build zlib --no-cleanup --force --push ghcr.io/pakages
+    $ pakages -b spack build zlib --no-cleanup --force --push ghcr.io/pakages
 
 The above examples show a push using a custom GitHub unique resource identifier. To use the default trusted registry from your settings, just do:
 
 .. code-block:: console
 
-    $ pakages build zlib --pushd
+    $ pakages -b spack build zlib --pushd
 
 
 Push
@@ -236,32 +255,32 @@ If you have an existing build cache you want to push:
 
 .. code-block:: console
 
-    $ pakages push /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
+    $ pakages -b spack push /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
 
 Or push and cleanup:
 
 .. code-block:: console
 
-    $ pakages push --cleanup /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
+    $ pakages -b spack push --cleanup /tmp/pakages-tmp.nudv7k0u/ ghcr.io/syspack/pakages
 
 You can optionally define a default ``cache_dir`` in your settings, in which case you can leave it out:
 
 .. code-block:: console
 
-    $ pakages push ghcr.io/syspack/pakages
+    $ pakages -b spack push ghcr.io/syspack/pakages
 
 The registry will be detected since it starts with ``ghcr.io`` and the default cache directory used. Alternatively,
 leave the registry out to use the default, and provide the cache directory:
 
 .. code-block:: console
 
-    $ pakages push /tmp/pakages-tmp.nudv7k0u/
+    $ pakages -b spack push /tmp/pakages-tmp.nudv7k0u/
 
 And finally, if you really want to streamline and use the default registry and cache directory, just push!
 
 .. code-block:: console
 
-    $ pakages push
+    $ pakages -b spack push
 
 
 Uninstall
@@ -271,7 +290,7 @@ You can also uninstall a package.
 
 .. code-block:: console
 
-    $ pakages uninstall zlib
+    $ pakages -b spack uninstall zlib
 
 
 List
@@ -281,7 +300,7 @@ List installed packages as follows:
 
 .. code-block:: console
 
-    $ pakages list
+    $ pakages -b spack list
     -- linux-ubuntu20.04-x86_64 / gcc@9.3.0 -------------------------
     zlib@1.2.11
     
@@ -310,7 +329,7 @@ And then you can easily install.
 
 .. code-block:: console
 
-    # pakages install zlib
+    # pakages -b spack install zlib
     Preparing to install zlib
    [+] /opt/spack/opt/spack/linux-ubuntu18.04-x86_64/gcc-7.5.0/zlib-1.2.11-3rlgy7ycxtoho44una6o3itgfjltkmpd
 

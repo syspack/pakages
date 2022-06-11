@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
@@ -47,8 +48,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -103,15 +104,21 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo.add">add() (pakages.repo.PakRepo method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.add">add() (pakages.settings.EmptySettings method)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.add">(pakages.settings.EmptySettings method)</a>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo.add">(pakages.spack.repo.PakRepo method)</a>
 </li>
       </ul></li>
+      <li><a href="api_reference/pakages.html#pakages.build.BuildResult.add_archive">add_archive() (pakages.build.BuildResult method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.add_repository">add_repository() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.utils.add_pakages_spack_repo">add_pakages_spack_repo() (in module pakages.spack.utils)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.add_repository">add_repository() (pakages.spack.client.SpackClient method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.utils.add_spack_to_path">add_spack_to_path() (in module pakages.spack.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -119,19 +126,27 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.BLACK">BLACK (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.BLACK">BLACK (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.BLUE">BLUE (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.BLUE">BLUE (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.BOLD_SEQ">BOLD_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.BOLD_SEQ">BOLD_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
+      <li><a href="api_reference/pakages.html#pakages.client.PakagesClient.build">build() (pakages.client.PakagesClient method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.packages.html#pakages.packages.python.PythonPackage.build">(pakages.packages.python.PythonPackage method)</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.build">(pakages.spack.client.SpackClient method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.build">build() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.BuildCache">BuildCache (class in pakages.spack.cache)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.BuildCache">BuildCache (class in pakages.cache)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.install.BuildRequest">BuildRequest (class in pakages.spack.install)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.install.BuildRequest">BuildRequest (class in pakages.install)</a>
+      <li><a href="api_reference/pakages.html#pakages.build.BuildResult">BuildResult (class in pakages.build)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -139,29 +154,43 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.can_color_tty">can_color_tty() (pakages.logger.ColorizingStreamHandler method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.can_color_tty">can_color_tty() (pakages.logger.ColorizingStreamHandler method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.change_validate">change_validate() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing">Capturing (class in pakages.utils.command)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.cleanup">cleanup() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.change_validate">change_validate() (pakages.settings.EmptySettings method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.check_install">check_install() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.cleanup">cleanup() (pakages.logger.Logger method)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo.cleanup">(pakages.repo.PakRepo method)</a>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo.cleanup">(pakages.spack.repo.PakRepo method)</a>
+</li>
+        <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing.cleanup">(pakages.utils.command.Capturing method)</a>
 </li>
       </ul></li>
-      <li><a href="api_reference/internal/pakages.html#pakages.handlers.github.GitHub.clone">clone() (pakages.handlers.github.GitHub method)</a>
+      <li><a href="api_reference/pakages.handlers.html#pakages.handlers.github.GitHub.clone">clone() (pakages.handlers.github.GitHub method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.COLOR_SEQ">COLOR_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.COLOR_SEQ">COLOR_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler">ColorizingStreamHandler (class in pakages.logger)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler">ColorizingStreamHandler (class in pakages.logger)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.colors">colors (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.colors">colors (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.BuildCache.create">create() (pakages.cache.BuildCache method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command">Command (class in pakages.utils.command)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.CYAN">CYAN (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.confirm_action">confirm_action() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.copyfile">copyfile() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.BuildCache.create">create() (pakages.spack.cache.BuildCache method)</a>
+</li>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.shell.create_client">create_client() (in module pakages.cli.shell)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.CYAN">CYAN (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -169,15 +198,17 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.debug">debug() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.debug">debug() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.decorate">decorate() (pakages.logger.ColorizingStreamHandler method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command.decode">decode() (pakages.utils.command.Command method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.delete">delete() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.decorate">decorate() (pakages.logger.ColorizingStreamHandler method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.install.do_install">do_install() (in module pakages.install)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.delete">delete() (pakages.settings.EmptySettings method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.install.do_install">do_install() (in module pakages.spack.install)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -185,19 +216,25 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.edit">edit() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.edit">edit() (pakages.settings.EmptySettings method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.emit">emit() (pakages.logger.ColorizingStreamHandler method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.emit">emit() (pakages.logger.ColorizingStreamHandler method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings">EmptySettings (class in pakages.settings)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings">EmptySettings (class in pakages.settings)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.worker.Workers.end">end() (pakages.worker.Workers method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.error">error() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing.err">err (pakages.utils.command.Capturing property)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.exit">exit() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.error">error() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.install.extract_tarball">extract_tarball() (in module pakages.install)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.exit">exit() (pakages.logger.Logger method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command.export">export() (pakages.utils.command.Command method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.install.extract_tarball">extract_tarball() (in module pakages.spack.install)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -205,11 +242,11 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras.fetch">fetch() (pakages.oras.Oras method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras.fetch">fetch() (pakages.spack.oras.Oras method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.RepoPath.find_module">find_module() (pakages.repo.RepoPath method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.RepoPath.find_module">find_module() (pakages.spack.repo.RepoPath method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -217,43 +254,63 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.sbom.generate_sbom">generate_sbom() (in module pakages.sbom)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.utils.generalize_spack_archive">generalize_spack_archive() (in module pakages.spack.utils)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.sbom.generate_timestamp_now">generate_timestamp_now() (in module pakages.sbom)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.sbom.generate_sbom">generate_sbom() (in module pakages.spack.sbom)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.get">get() (in module pakages.repo)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.sbom.generate_timestamp_now">generate_timestamp_now() (in module pakages.spack.sbom)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.get">get() (in module pakages.spack.repo)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.handlers.github.GitHub.get">(pakages.handlers.github.GitHub method)</a>
+        <li><a href="api_reference/pakages.handlers.html#pakages.handlers.github.GitHub.get">(pakages.handlers.github.GitHub method)</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#pakages.repo.Repo.get">(pakages.repo.Repo method)</a>
+        <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.get">(pakages.settings.EmptySettings method)</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.get">(pakages.settings.EmptySettings method)</a>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.Repo.get">(pakages.spack.repo.Repo method)</a>
 </li>
       </ul></li>
-      <li><a href="api_reference/internal/pakages.html#pakages.sbom.get_component">get_component() (in module pakages.sbom)</a>
+      <li><a href="api_reference/pakages.html#pakages.client.get_client">get_client() (in module pakages.client)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.install.BuildRequest.get_deptypes">get_deptypes() (pakages.install.BuildRequest method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command.get_command">get_command() (pakages.utils.command.Command method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.sbom.get_component">get_component() (in module pakages.spack.sbom)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.install.BuildRequest.get_deptypes">get_deptypes() (pakages.spack.install.BuildRequest method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.get_file_hash">get_file_hash() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.get_gpg_key">get_gpg_key() (in module pakages.spack.cache)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.get_gpg_key">get_gpg_key() (in module pakages.cache)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.get_installdir">get_installdir() (in module pakages.utils.terminal)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras.get_manifest">get_manifest() (pakages.oras.Oras method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras.get_manifest">get_manifest() (pakages.spack.oras.Oras method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras.get_manifest_digest">get_manifest_digest() (pakages.oras.Oras method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras.get_manifest_digest">get_manifest_digest() (pakages.spack.oras.Oras method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.handlers.github.GitHub.get_org_packages">get_org_packages() (pakages.handlers.github.GitHub method)</a>
+      <li><a href="api_reference/pakages.handlers.html#pakages.handlers.github.GitHub.get_org_packages">get_org_packages() (pakages.handlers.github.GitHub method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cli.get_parser">get_parser() (in module pakages.cli)</a>
+      <li><a href="api_reference/pakages.packages.html#pakages.packages.get_package">get_package() (in module pakages.packages)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.get_settings_file">get_settings_file() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.get_parser">get_parser() (in module pakages.cli)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.handlers.github.GitHub">GitHub (class in pakages.handlers.github)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.get_settings_file">get_settings_file() (pakages.settings.EmptySettings method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.gpg_init">gpg_init() (in module pakages.cache)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.get_tmpdir">get_tmpdir() (in module pakages.utils.fileio)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.GREEN">GREEN (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.get_tmpfile">get_tmpfile() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.get_user">get_user() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.get_userhome">get_userhome() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.handlers.html#pakages.handlers.github.GitHub">GitHub (class in pakages.handlers.github)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.gpg_init">gpg_init() (in module pakages.spack.cache)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.GREEN">GREEN (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -261,7 +318,7 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.handler">handler() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.handler">handler() (pakages.logger.Logger method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -269,21 +326,31 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.info">info() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.info">info() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.handlers.github.GitHub.init_headers">init_headers() (pakages.handlers.github.GitHub method)</a>
+      <li><a href="api_reference/pakages.handlers.html#pakages.handlers.github.GitHub.init_headers">init_headers() (pakages.handlers.github.GitHub method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.inituser">inituser() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.worker.init_worker">init_worker() (in module pakages.worker)</a>
 </li>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.inituser">inituser() (pakages.settings.EmptySettings method)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.client.PakagesClient.install">install() (pakages.client.PakagesClient method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.install">(pakages.spack.client.SpackClient method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.install">install() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.utils.install_spack">install_spack() (in module pakages.spack.utils)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo.is_remote">is_remote (pakages.repo.PakRepo property)</a>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.shell.ipython">ipython() (in module pakages.cli.shell)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.is_tty">is_tty (pakages.logger.ColorizingStreamHandler property)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo.is_remote">is_remote (pakages.spack.repo.PakRepo property)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.iter_specs">iter_specs() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.is_tty">is_tty (pakages.logger.ColorizingStreamHandler property)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.iter_specs">iter_specs() (pakages.spack.client.SpackClient method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -291,17 +358,17 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.list_installed">list_installed() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.list_installed">list_installed() (pakages.spack.client.SpackClient method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo.list_packages">list_packages() (pakages.repo.PakRepo method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo.list_packages">list_packages() (pakages.spack.repo.PakRepo method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.load">load() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.load">load() (pakages.settings.EmptySettings method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.location">location() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.location">location() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger">Logger (class in pakages.logger)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger">Logger (class in pakages.logger)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -309,82 +376,124 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.MAGENTA">MAGENTA (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.MAGENTA">MAGENTA (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cli.build.main">main() (in module pakages.cli.build)</a>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.build.main">main() (in module pakages.cli.build)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.cli.config.main">(in module pakages.cli.config)</a>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.config.main">(in module pakages.cli.config)</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#pakages.cli.install.main">(in module pakages.cli.install)</a>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.install.main">(in module pakages.cli.install)</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#pakages.cli.ls.main">(in module pakages.cli.ls)</a>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.ls.main">(in module pakages.cli.ls)</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#pakages.cli.push.main">(in module pakages.cli.push)</a>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.push.main">(in module pakages.cli.push)</a>
+</li>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.shell.main">(in module pakages.cli.shell)</a>
+</li>
+        <li><a href="api_reference/pakages.cli.html#pakages.cli.uninstall.main">(in module pakages.cli.uninstall)</a>
 </li>
       </ul></li>
+      <li><a href="api_reference/pakages.packages.html#pakages.packages.python.PythonPackage.matches">matches() (pakages.packages.python.PythonPackage class method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.mkdir_p">mkdir_p() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.mkdirp">mkdirp() (in module pakages.utils.fileio)</a>
+</li>
       <li>
     module
 
       <ul>
         <li><a href="api_reference/pakages.html#module-pakages">pakages</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cache">pakages.cache</a>
+        <li><a href="api_reference/pakages.html#module-pakages.build">pakages.build</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli">pakages.cli</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli">pakages.cli</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.build">pakages.cli.build</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.build">pakages.cli.build</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.config">pakages.cli.config</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.config">pakages.cli.config</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.helpers">pakages.cli.helpers</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.install">pakages.cli.install</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.install">pakages.cli.install</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.ls">pakages.cli.ls</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.ls">pakages.cli.ls</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.push">pakages.cli.push</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.push">pakages.cli.push</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.shell">pakages.cli.shell</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.client">pakages.client</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.uninstall">pakages.cli.uninstall</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.defaults">pakages.defaults</a>
+        <li><a href="api_reference/pakages.html#module-pakages.client">pakages.client</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.handlers">pakages.handlers</a>
+        <li><a href="api_reference/pakages.html#module-pakages.defaults">pakages.defaults</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.handlers.github">pakages.handlers.github</a>
+        <li><a href="api_reference/pakages.handlers.html#module-pakages.handlers">pakages.handlers</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.install">pakages.install</a>
+        <li><a href="api_reference/pakages.handlers.html#module-pakages.handlers.github">pakages.handlers.github</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.logger">pakages.logger</a>
+        <li><a href="api_reference/pakages.html#module-pakages.logger">pakages.logger</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.oras">pakages.oras</a>
+        <li><a href="api_reference/pakages.html#module-pakages.oras">pakages.oras</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.repo">pakages.repo</a>
+        <li><a href="api_reference/pakages.packages.html#module-pakages.packages">pakages.packages</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.sbom">pakages.sbom</a>
+        <li><a href="api_reference/pakages.packages.html#module-pakages.packages.python">pakages.packages.python</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.schemas">pakages.schemas</a>
+        <li><a href="api_reference/pakages.html#module-pakages.schemas">pakages.schemas</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.settings">pakages.settings</a>
+        <li><a href="api_reference/pakages.html#module-pakages.settings">pakages.settings</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.spec">pakages.spec</a>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack">pakages.spack</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.utils">pakages.utils</a>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.cache">pakages.spack.cache</a>
 </li>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.version">pakages.version</a>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.client">pakages.spack.client</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.install">pakages.spack.install</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.oras">pakages.spack.oras</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.repo">pakages.spack.repo</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.sbom">pakages.spack.sbom</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.spec">pakages.spack.spec</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.utils">pakages.spack.utils</a>
+</li>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils">pakages.utils</a>
+</li>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.command">pakages.utils.command</a>
+</li>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.fileio">pakages.utils.fileio</a>
+</li>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.terminal">pakages.utils.terminal</a>
+</li>
+        <li><a href="api_reference/pakages.html#module-pakages.version">pakages.version</a>
+</li>
+        <li><a href="api_reference/pakages.html#module-pakages.worker">pakages.worker</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference/pakages.html#pakages.worker.multi_package">multi_package() (in module pakages.worker)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.worker.multi_wrapper">multi_wrapper() (in module pakages.worker)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras">Oras (class in pakages.oras)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras">Oras (class in pakages.spack.oras)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras.oras">oras (pakages.oras.Oras property)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras.oras">oras (pakages.spack.oras.Oras property)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing.out">out (pakages.utils.command.Capturing property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -392,7 +501,7 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.spec.Spec.package">package (pakages.spec.Spec property)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.spec.Spec.package">package (pakages.spack.spec.Spec property)</a>
 </li>
       <li>
     pakages
@@ -402,208 +511,324 @@
 </li>
       </ul></li>
       <li>
-    pakages.cache
+    pakages.build
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cache">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.build">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli.build
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.build">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.build">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli.config
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.config">module</a>
-</li>
-      </ul></li>
-      <li>
-    pakages.cli.helpers
-
-      <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.helpers">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.config">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli.install
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.install">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.install">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli.ls
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.ls">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.ls">module</a>
 </li>
       </ul></li>
       <li>
     pakages.cli.push
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.cli.push">module</a>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.push">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.cli.shell
+
+      <ul>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.shell">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.cli.uninstall
+
+      <ul>
+        <li><a href="api_reference/pakages.cli.html#module-pakages.cli.uninstall">module</a>
 </li>
       </ul></li>
       <li>
     pakages.client
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.client">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.client">module</a>
 </li>
       </ul></li>
       <li>
     pakages.defaults
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.defaults">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.defaults">module</a>
 </li>
       </ul></li>
       <li>
     pakages.handlers
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.handlers">module</a>
+        <li><a href="api_reference/pakages.handlers.html#module-pakages.handlers">module</a>
 </li>
       </ul></li>
       <li>
     pakages.handlers.github
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.handlers.github">module</a>
+        <li><a href="api_reference/pakages.handlers.html#module-pakages.handlers.github">module</a>
 </li>
       </ul></li>
-      <li>
-    pakages.install
-
-      <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.install">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pakages.logger
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.logger">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.logger">module</a>
 </li>
       </ul></li>
       <li>
     pakages.oras
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.oras">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.oras">module</a>
 </li>
       </ul></li>
       <li>
-    pakages.repo
+    pakages.packages
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.repo">module</a>
+        <li><a href="api_reference/pakages.packages.html#module-pakages.packages">module</a>
 </li>
       </ul></li>
       <li>
-    pakages.sbom
+    pakages.packages.python
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.sbom">module</a>
+        <li><a href="api_reference/pakages.packages.html#module-pakages.packages.python">module</a>
 </li>
       </ul></li>
       <li>
     pakages.schemas
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.schemas">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.schemas">module</a>
 </li>
       </ul></li>
       <li>
     pakages.settings
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.settings">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.settings">module</a>
 </li>
       </ul></li>
       <li>
-    pakages.spec
+    pakages.spack
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.spec">module</a>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.cache
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.cache">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pakages.spack.client
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.client">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.install
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.install">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.oras
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.oras">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.repo
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.repo">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.sbom
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.sbom">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.spec
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.spec">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.spack.utils
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#module-pakages.spack.utils">module</a>
 </li>
       </ul></li>
       <li>
     pakages.utils
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.utils">module</a>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.utils.command
+
+      <ul>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.command">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.utils.fileio
+
+      <ul>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.fileio">module</a>
+</li>
+      </ul></li>
+      <li>
+    pakages.utils.terminal
+
+      <ul>
+        <li><a href="api_reference/pakages.utils.html#module-pakages.utils.terminal">module</a>
 </li>
       </ul></li>
       <li>
     pakages.version
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#module-pakages.version">module</a>
+        <li><a href="api_reference/pakages.html#module-pakages.version">module</a>
 </li>
       </ul></li>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient">PakClient (class in pakages.client)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo">PakRepo (class in pakages.repo)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.spec.parse">parse() (in module pakages.spec)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cli.helpers.parse_package_request">parse_package_request() (in module pakages.cli.helpers)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.spec.parse_specs">parse_specs() (in module pakages.spec)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.path">path (in module pakages.repo)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.progress">progress() (pakages.logger.Logger method)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.oras.pull_task">pull_task() (in module pakages.oras)</a>
-</li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.BuildCache.push">push() (pakages.cache.BuildCache method)</a>
+      <li>
+    pakages.worker
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.push">(pakages.client.PakClient method)</a>
-</li>
-        <li><a href="api_reference/internal/pakages.html#pakages.oras.Oras.push">(pakages.oras.Oras method)</a>
+        <li><a href="api_reference/pakages.html#module-pakages.worker">module</a>
 </li>
       </ul></li>
+      <li><a href="api_reference/pakages.html#pakages.client.PakagesClient">PakagesClient (class in pakages.client)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo">PakRepo (class in pakages.spack.repo)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.spec.parse">parse() (in module pakages.spack.spec)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.parse_package_request">parse_package_request() (pakages.spack.client.SpackClient method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.spec.parse_specs">parse_specs() (in module pakages.spack.spec)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.path">path (in module pakages.spack.repo)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.print_json">print_json() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.progress">progress() (pakages.logger.Logger method)</a>
+</li>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.pull_task">pull_task() (in module pakages.spack.oras)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.build.BuildResult.push">push() (pakages.build.BuildResult method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.html#pakages.client.PakagesClient.push">(pakages.client.PakagesClient method)</a>
+</li>
+        <li><a href="api_reference/pakages.html#pakages.oras.Registry.push">(pakages.oras.Registry method)</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.BuildCache.push">(pakages.spack.cache.BuildCache method)</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.push">(pakages.spack.client.SpackClient method)</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.oras.Oras.push">(pakages.spack.oras.Oras method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.shell.python">python() (in module pakages.cli.shell)</a>
+</li>
+      <li><a href="api_reference/pakages.packages.html#pakages.packages.python.PythonPackage">PythonPackage (class in pakages.packages.python)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.RED">RED (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.read_file">read_file() (in module pakages.utils.fileio)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cache.BuildCache.remove">remove() (pakages.cache.BuildCache method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.read_json">read_json() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.read_yaml">read_yaml() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.recursive_find">recursive_find() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.RED">RED (pakages.logger.ColorizingStreamHandler attribute)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.oras.Registry">Registry (class in pakages.oras)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.build.BuildResult.remove">remove() (pakages.build.BuildResult method)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.remove">(pakages.settings.EmptySettings method)</a>
+        <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.remove">(pakages.settings.EmptySettings method)</a>
+</li>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.cache.BuildCache.remove">(pakages.spack.cache.BuildCache method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.Repo">Repo (class in pakages.repo)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.Repo">Repo (class in pakages.spack.repo)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.RepoPath">RepoPath (class in pakages.repo)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.RepoPath">RepoPath (class in pakages.spack.repo)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.RESET_SEQ">RESET_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.RESET_SEQ">RESET_SEQ (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.cli.run_main">run_main() (in module pakages.cli)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command.run">run() (pakages.utils.command.Command method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.html#pakages.worker.Workers.run">(pakages.worker.Workers method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.run_command">run_command() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.cli.html#pakages.cli.run_main">run_main() (in module pakages.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -611,31 +836,45 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.save">save() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.save">save() (pakages.settings.EmptySettings method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.set">set() (pakages.settings.EmptySettings method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.set">set() (pakages.settings.EmptySettings method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.set_level">set_level() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.set_level">set_level() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.set_stream_handler">set_stream_handler() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing.set_stderr">set_stderr() (pakages.utils.command.Capturing method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Capturing.set_stdout">set_stdout() (pakages.utils.command.Capturing method)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.set_stream_handler">set_stream_handler() (pakages.logger.Logger method)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.settings.Settings">Settings (class in pakages.settings)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.settings.Settings">Settings (class in pakages.settings)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.setup_logger">setup_logger() (in module pakages.logger)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.setup_logger">setup_logger() (in module pakages.logger)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.shellcmd">shellcmd() (pakages.logger.Logger method)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.shellcmd">shellcmd() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient">SpackClient (class in pakages.spack.client)</a>
 </li>
-      <li><a href="api_reference/internal/pakages.html#pakages.spec.Spec">Spec (class in pakages.spec)</a>
+      <li><a href="api_reference/pakages.spack.html#pakages.spack.spec.Spec">Spec (class in pakages.spack.spec)</a>
 </li>
+      <li><a href="api_reference/pakages.html#pakages.worker.Workers.start">start() (pakages.worker.Workers method)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.build.BuildResult.summary">summary() (pakages.build.BuildResult method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.utils.html#pakages.utils.command.Command.summary">(pakages.utils.command.Command method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.text_handler">text_handler() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.text_handler">text_handler() (pakages.logger.Logger method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -643,18 +882,22 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.client.PakClient.uninstall">uninstall() (pakages.client.PakClient method)</a>
+      <li><a href="api_reference/pakages.html#pakages.client.PakagesClient.uninstall">uninstall() (pakages.client.PakagesClient method)</a>
+
+      <ul>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.client.SpackClient.uninstall">(pakages.spack.client.SpackClient method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.repo.PakRepo.validate">validate() (pakages.repo.PakRepo method)</a>
+      <li><a href="api_reference/pakages.html#pakages.settings.EmptySettings.validate">validate() (pakages.settings.EmptySettings method)</a>
 
       <ul>
-        <li><a href="api_reference/internal/pakages.html#pakages.settings.EmptySettings.validate">(pakages.settings.EmptySettings method)</a>
+        <li><a href="api_reference/pakages.spack.html#pakages.spack.repo.PakRepo.validate">(pakages.spack.repo.PakRepo method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -663,11 +906,21 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.Logger.warning">warning() (pakages.logger.Logger method)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.Logger.warning">warning() (pakages.logger.Logger method)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.terminal.which">which() (in module pakages.utils.terminal)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.WHITE">WHITE (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.WHITE">WHITE (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.workdir">workdir() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.html#pakages.worker.Workers">Workers (class in pakages.worker)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.write_file">write_file() (in module pakages.utils.fileio)</a>
+</li>
+      <li><a href="api_reference/pakages.utils.html#pakages.utils.fileio.write_json">write_json() (in module pakages.utils.fileio)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -675,7 +928,7 @@
 <h2 id="Y">Y</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference/internal/pakages.html#pakages.logger.ColorizingStreamHandler.YELLOW">YELLOW (pakages.logger.ColorizingStreamHandler attribute)</a>
+      <li><a href="api_reference/pakages.html#pakages.logger.ColorizingStreamHandler.YELLOW">YELLOW (pakages.logger.ColorizingStreamHandler attribute)</a>
 </li>
   </ul></td>
 </tr></table>

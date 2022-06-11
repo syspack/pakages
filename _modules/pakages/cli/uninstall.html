@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.cli.push &mdash; Pakages 0.0.16 documentation</title>
+  <title>pakages.cli.uninstall &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
@@ -68,7 +68,7 @@
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
           <li><a href="../cli.html">pakages.cli</a> &raquo;</li>
-      <li>pakages.cli.push</li>
+      <li>pakages.cli.uninstall</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,7 +77,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pakages.cli.push</h1><div class="highlight"><pre>
+  <h1>Source code for pakages.cli.uninstall</h1><div class="highlight"><pre>
 <span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
@@ -85,31 +85,9 @@
 <span class="kn">from</span> <span class="nn">pakages.client</span> <span class="kn">import</span> <span class="n">get_client</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api_reference/pakages.cli.html#pakages.cli.push.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">subparser</span><span class="p">):</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api_reference/pakages.cli.html#pakages.cli.uninstall.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">subparser</span><span class="p">):</span>
     <span class="n">cli</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">settings_file</span><span class="p">)</span>
-
-    <span class="n">uri</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">cache_dir</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="c1"># If we have one argument, if can be either the uri or cache</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ghcr.io&quot;</span><span class="p">):</span>
-            <span class="n">uri</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># Do we still have the other one?</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">uri</span><span class="p">:</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">cache_dir</span><span class="p">:</span>
-        <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># Do we want to push to a build cache?</span>
-    <span class="n">cache</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
-
-    <span class="c1"># For an explicit push, the cache dir needed to already exist, require --cleanup</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cleanup</span><span class="p">:</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div>
+    <span class="n">cli</span><span class="o">.</span><span class="n">uninstall</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">packages</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pakages.utils.command &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Pakages
+          </a>
+              <div class="version">
+                0.0.16
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/developer-guide.html">Developer Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/modules.html">pakages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Pakages</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pakages.utils.command</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pakages.utils.command</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.fileio</span> <span class="kn">import</span> <span class="n">read_file</span>
+<span class="kn">from</span> <span class="nn">.terminal</span> <span class="kn">import</span> <span class="n">get_user</span><span class="p">,</span> <span class="n">run_command</span>
+<span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">locale</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">shlex</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+
+
+<div class="viewcode-block" id="Capturing"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Capturing">[docs]</a><span class="k">class</span> <span class="nc">Capturing</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;capture output from stdout and stderr into capture object.</span>
+<span class="sd">    This is based off of github.com/vsoch/gridtest but modified</span>
+<span class="sd">    to write files. The stderr and stdout are set to temporary files at</span>
+<span class="sd">    the init of the capture, and then they are closed when we exit. This</span>
+<span class="sd">    means expected usage looks like:</span>
+
+<span class="sd">    with Capturing() as capture:</span>
+<span class="sd">        process = subprocess.Popen(...)</span>
+
+<span class="sd">    And then the output and error are retrieved from reading the files:</span>
+<span class="sd">    and exposed as properties to the client:</span>
+
+<span class="sd">        capture.out</span>
+<span class="sd">        capture.err</span>
+
+<span class="sd">    And cleanup means deleting these files, if they exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_stdout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_stderr</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="Capturing.set_stdout"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Capturing.set_stdout">[docs]</a>    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Capturing.set_stderr"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Capturing.set_stderr">[docs]</a>    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return output stream. Returns empty string if empty or doesn&#39;t exist.</span>
+<span class="sd">        Returns (str) : output stream written to file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">read_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">err</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return error stream. Returns empty string if empty or doesn&#39;t exist.</span>
+<span class="sd">        Returns (str) : error stream written to file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">read_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="Capturing.cleanup"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Capturing.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set a unique id that includes executor name (type) and random uuid)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taskid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;[pakages.utils.Command:</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span>
+        <span class="k">return</span> <span class="s2">&quot;[pakages.utils.Command]&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_export_host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Export host information from archspec.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;architecture&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">(),</span>
+            <span class="s2">&quot;python-compiler&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_compiler</span><span class="p">(),</span>
+            <span class="s2">&quot;python-version&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">(),</span>
+            <span class="s2">&quot;cpu-count&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(),</span>
+            <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">sysname</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">libc</span> <span class="o">=</span> <span class="s2">&quot;@&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">libc_ver</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">libc</span> <span class="o">!=</span> <span class="s2">&quot;@&quot;</span><span class="p">:</span>
+            <span class="n">host</span><span class="p">[</span><span class="s2">&quot;libc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libc</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="n">host</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Command.decode"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a line of output (error or regular) decode using the</span>
+<span class="sd">        system default, if appropriate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">getdefaultlocale</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">line</span></div>
+
+    <span class="k">def</span> <span class="nf">_export_common</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;export common task variables such as present working directory, user,</span>
+<span class="sd">        and timestamp for when it was run. This might include envars at some</span>
+<span class="sd">        point, but we&#39;d need to be careful.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">common</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pwd</span><span class="p">,</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">get_user</span><span class="p">(),</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
+            <span class="n">common</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+
+        <span class="c1"># Try to get the version of the command</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cmd&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">cmd</span><span class="p">:</span>
+            <span class="n">binary</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">cmd</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">binary</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+                    <span class="s2">&quot;Error parsing command </span><span class="si">%s</span><span class="s2"> - did you forget the executable?&quot;</span>
+                    <span class="o">%</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">([</span><span class="n">binary</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">([</span><span class="n">binary</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">common</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">common</span>
+
+<div class="viewcode-block" id="Command.export"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return data as json.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get common context (e.g., pwd)</span>
+        <span class="n">common</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_common</span><span class="p">()</span>
+        <span class="n">common</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_export_host</span><span class="p">())</span>
+        <span class="n">common</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">common</span></div>
+
+<div class="viewcode-block" id="Command.get_command"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command.get_command">[docs]</a>    <span class="k">def</span> <span class="nf">get_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cmd</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;A command (cmd) is required.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cmd</span></div>
+
+<div class="viewcode-block" id="Command.run"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run and capture a shell command.</span>
+<span class="sd">        We use Capturing and then save attributes like the pid, output, error</span>
+<span class="sd">        to it, and return to the calling function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+        <span class="c1"># Capturing provides temporary output and error files</span>
+        <span class="k">with</span> <span class="n">Capturing</span><span class="p">()</span> <span class="k">as</span> <span class="n">capture</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+                <span class="n">cmd</span><span class="p">,</span>
+                <span class="n">stdout</span><span class="o">=</span><span class="n">capture</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span>
+                <span class="n">stderr</span><span class="o">=</span><span class="n">capture</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+                <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">capture</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">pid</span>
+            <span class="n">returncode</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+
+            <span class="c1"># Iterate through the output</span>
+            <span class="k">while</span> <span class="n">returncode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">returncode</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+
+        <span class="c1"># Get the remainder of lines, add return code</span>
+        <span class="n">capture</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">capture</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">capture</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">capture</span><span class="o">.</span><span class="n">err</span><span class="p">)</span>
+
+        <span class="c1"># Cleanup capture files and save final return code</span>
+        <span class="n">capture</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+        <span class="n">capture</span><span class="o">.</span><span class="n">returncode</span> <span class="o">=</span> <span class="n">returncode</span>
+        <span class="k">return</span> <span class="n">capture</span></div>
+
+<div class="viewcode-block" id="Command.summary"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.command.Command.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

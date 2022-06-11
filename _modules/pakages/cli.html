@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -47,8 +48,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -89,7 +90,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.cli.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">():</span>
+<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../api_reference/pakages.cli.html#pakages.cli.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pakages community package manager&quot;</span><span class="p">,</span>
         <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
@@ -125,6 +126,14 @@
         <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;settings_file&quot;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;custom path to settings file.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--builder&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-b&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;builder&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Package builder (default is auto-detect)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span>
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;actions&quot;</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;actions&quot;</span><span class="p">,</span>
@@ -224,6 +233,7 @@
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Given that --push is added, don&#39;t clean up the build cache.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">build</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;packages&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;install these packages&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;?&quot;</span><span class="p">)</span>
 
     <span class="n">config</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
         <span class="s2">&quot;config&quot;</span><span class="p">,</span>
@@ -265,7 +275,7 @@
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;ipython&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">build</span><span class="p">,</span> <span class="n">uninstall</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">uninstall</span><span class="p">]:</span>
         <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;packages&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;install these packages&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">build</span><span class="p">]:</span>
@@ -287,7 +297,7 @@
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
-<div class="viewcode-block" id="run_main"><a class="viewcode-back" href="../../api_reference/internal/pakages.html#pakages.cli.run_main">[docs]</a><span class="k">def</span> <span class="nf">run_main</span><span class="p">():</span>
+<div class="viewcode-block" id="run_main"><a class="viewcode-back" href="../../api_reference/pakages.cli.html#pakages.cli.run_main">[docs]</a><span class="k">def</span> <span class="nf">run_main</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pakages.utils package &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pakages" href="modules.html" />
+    <link rel="prev" title="pakages.spack package" href="pakages.spack.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Pakages
+          </a>
+              <div class="version">
+                0.0.16
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/developer-guide.html">Developer Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pakages.html">pakages package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pakages.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.packages.html">pakages.packages package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.spack.html">pakages.spack package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pakages.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.utils.command">pakages.utils.command module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.utils.fileio">pakages.utils.fileio module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.utils.terminal">pakages.utils.terminal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.build">pakages.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.client">pakages.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.defaults">pakages.defaults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.logger">pakages.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.oras">pakages.oras module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.schemas">pakages.schemas module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.settings">pakages.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.version">pakages.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages.worker">pakages.worker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.html#module-pakages">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">pakages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Pakages</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="pakages.html">pakages package</a> &raquo;</li>
+      <li>pakages.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api_reference/pakages.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pakages-utils-package">
+<h1>pakages.utils package<a class="headerlink" href="#pakages-utils-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-pakages.utils.command">
+<span id="pakages-utils-command-module"></span><h2>pakages.utils.command module<a class="headerlink" href="#module-pakages.utils.command" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.utils.command.</span></span><span class="sig-name descname"><span class="pre">Capturing</span></span><a class="reference internal" href="../_modules/pakages/utils/command.html#Capturing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Capturing" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>capture output from stdout and stderr into capture object.
+This is based off of github.com/vsoch/gridtest but modified
+to write files. The stderr and stdout are set to temporary files at
+the init of the capture, and then they are closed when we exit. This
+means expected usage looks like:</p>
+<dl class="simple">
+<dt>with Capturing() as capture:</dt><dd><p>process = subprocess.Popen(…)</p>
+</dd>
+</dl>
+<p>And then the output and error are retrieved from reading the files:
+and exposed as properties to the client:</p>
+<blockquote>
+<div><p>capture.out
+capture.err</p>
+</div></blockquote>
+<p>And cleanup means deleting these files, if they exist.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Capturing.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Capturing.cleanup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing.err">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">err</span></span><a class="headerlink" href="#pakages.utils.command.Capturing.err" title="Permalink to this definition"></a></dt>
+<dd><p>Return error stream. Returns empty string if empty or doesn’t exist.
+Returns (str) : error stream written to file</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing.out">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out</span></span><a class="headerlink" href="#pakages.utils.command.Capturing.out" title="Permalink to this definition"></a></dt>
+<dd><p>Return output stream. Returns empty string if empty or doesn’t exist.
+Returns (str) : output stream written to file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing.set_stderr">
+<span class="sig-name descname"><span class="pre">set_stderr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Capturing.set_stderr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Capturing.set_stderr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Capturing.set_stdout">
+<span class="sig-name descname"><span class="pre">set_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Capturing.set_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Capturing.set_stdout" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pakages.utils.command.Command">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.utils.command.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Command.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Given a line of output (error or regular) decode using the
+system default, if appropriate</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Command.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command.export" title="Permalink to this definition"></a></dt>
+<dd><p>Return data as json.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Command.get_command">
+<span class="sig-name descname"><span class="pre">get_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command.get_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command.get_command" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Command.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run and capture a shell command.
+We use Capturing and then save attributes like the pid, output, error
+to it, and return to the calling function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pakages.utils.command.Command.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/command.html#Command.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.command.Command.summary" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pakages.utils.fileio">
+<span id="pakages-utils-fileio-module"></span><h2>pakages.utils.fileio module<a class="headerlink" href="#module-pakages.utils.fileio" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.copyfile">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">copyfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#copyfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.copyfile" title="Permalink to this definition"></a></dt>
+<dd><p>Copy a file from a source to its destination.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.get_file_hash">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">get_file_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha256'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#get_file_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.get_file_hash" title="Permalink to this definition"></a></dt>
+<dd><p>Return an sha256 hash of the file based on a criteria level.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.get_tmpdir">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">get_tmpdir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#get_tmpdir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.get_tmpdir" title="Permalink to this definition"></a></dt>
+<dd><p>Get a temporary directory for an operation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.get_tmpfile">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">get_tmpfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmpdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#get_tmpfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.get_tmpfile" title="Permalink to this definition"></a></dt>
+<dd><p>Get a temporary file with an optional prefix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.mkdir_p">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">mkdir_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#mkdir_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.mkdir_p" title="Permalink to this definition"></a></dt>
+<dd><p>mkdir_p attempts to get the same functionality as mkdir -p
+:param path: the path to create.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.mkdirp">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">mkdirp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirnames</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#mkdirp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.mkdirp" title="Permalink to this definition"></a></dt>
+<dd><p>Create one or more directories</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.print_json">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">print_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#print_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.print_json" title="Permalink to this definition"></a></dt>
+<dd><p>Print json pretty</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.read_file">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.read_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read a file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.read_json">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">read_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.read_json" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.read_yaml">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">read_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#read_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.read_yaml" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.recursive_find">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">recursive_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#recursive_find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.recursive_find" title="Permalink to this definition"></a></dt>
+<dd><p>Find filenames that match a particular pattern, and yield them.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.workdir">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">workdir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#workdir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.workdir" title="Permalink to this definition"></a></dt>
+<dd><p>Provide context for a working directory, e.g.,</p>
+<dl class="simple">
+<dt>with workdir(name):</dt><dd><p># do stuff</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.write_file">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#write_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.write_file" title="Permalink to this definition"></a></dt>
+<dd><p>Write content to a filename</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.fileio.write_json">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.fileio.</span></span><span class="sig-name descname"><span class="pre">write_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/fileio.html#write_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.fileio.write_json" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pakages.utils.terminal">
+<span id="pakages-utils-terminal-module"></span><h2>pakages.utils.terminal module<a class="headerlink" href="#module-pakages.utils.terminal" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.check_install">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">check_install</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">software</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--version'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#check_install"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.check_install" title="Permalink to this definition"></a></dt>
+<dd><p>check_install will attempt to run the singularity command, and
+return True if installed. The command line utils will not run
+without this check.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>software</strong> (<em>the software to check if installed</em>) – </p></li>
+<li><p><strong>quiet</strong> (<em>should we be quiet?</em><em> (</em><em>default True</em><em>)</em>) – </p></li>
+<li><p><strong>command</strong> (<em>the command to use to check</em><em> (</em><em>defaults to --version</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.confirm_action">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">confirm_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#confirm_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.confirm_action" title="Permalink to this definition"></a></dt>
+<dd><p>confirm if the user wants to perform a certain action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>question</strong> (<em>the question that will be asked</em>) – </p></li>
+<li><p><strong>force</strong> (<em>if the user wants to skip the prompt</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.get_installdir">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">get_installdir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#get_installdir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.get_installdir" title="Permalink to this definition"></a></dt>
+<dd><p>get_installdir returns the installation directory of the application</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.get_user">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">get_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#get_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.get_user" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of the user. We first try to import pwd, but fallback to
+extraction from the environment.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.get_userhome">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">get_userhome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#get_userhome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.get_userhome" title="Permalink to this definition"></a></dt>
+<dd><p>get the user home based on the effective uid. If import of pwd fails
+(not supported for Windows) then fall back to environment variable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.run_command">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#run_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.run_command" title="Permalink to this definition"></a></dt>
+<dd><p>run_command uses subprocess to send a command to the terminal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>the command to send</em><em>, </em><em>should be a list for subprocess</em>) – </p></li>
+<li><p><strong>error_message</strong> (<em>the error message to give to user if fails</em><em>,</em>) – </p></li>
+<li><p><strong>failed.</strong> (<em>if none specified</em><em>, </em><em>will alert that command</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.which">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">which</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">software</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_newline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#which"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.which" title="Permalink to this definition"></a></dt>
+<dd><p>get_install will return the path to where Singularity (or another
+executable) is installed.</p>
+</dd></dl>
+
+</section>
+<section id="module-pakages.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages.utils" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pakages.spack.html" class="btn btn-neutral float-left" title="pakages.spack package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="pakages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

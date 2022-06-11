@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Guide &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,11 +16,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pakages API" href="../api_reference/pakages.html" />
+    <link rel="next" title="pakages package" href="../api_reference/pakages.html" />
     <link rel="prev" title="User Guide" href="user-guide.html" /> 
 </head>
 
@@ -58,8 +60,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/pakages.html">Pakages API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/internal/modules.html">Internal API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/modules.html">pakages</a></li>
 </ul>
 
         </div>
@@ -87,38 +89,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="developer-guide">
-<span id="getting-started-developer-guide"></span><h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline"></a></h1>
+  <section id="developer-guide">
+<span id="getting-started-developer-guide"></span><h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Permalink to this heading"></a></h1>
 <p>This developer guide includes more detail about how to build and distribute your own
 pakages repository, or how to create a module package repository.
 If you haven’t read <a class="reference internal" href="installation.html#getting-started-installation"><span class="std std-ref">Installation</span></a> you should do that first, along
 with learning how to customize settings via <a class="reference internal" href="settings.html#getting-started-settings"><span class="std std-ref">Settings</span></a>.
 You will need to set a username and email to sign packages.</p>
-<div class="section" id="developer-goals">
-<h2>Developer Goals<a class="headerlink" href="#developer-goals" title="Permalink to this headline"></a></h2>
+<section id="developer-goals">
+<h2>Developer Goals<a class="headerlink" href="#developer-goals" title="Permalink to this heading"></a></h2>
 <p>Pakages is a packaging framework that is optimized for community packages, meaning that
 anyone can generate a simple repository with a package specification and then:</p>
 <ol class="arabic simple">
-<li>The repository automatically detects new versions of a package upstream and builds</li>
-<li>Building is recommended to perform testing</li>
-<li>A successful update, build, and test leads to a new release</li>
-<li>The repository then serves metadata about the package via RESTful API</li>
-<li>(Optionally) the repository can provide single containers</li>
+<li><p>The repository automatically detects new versions of a package upstream and builds</p></li>
+<li><p>Building is recommended to perform testing</p></li>
+<li><p>A successful update, build, and test leads to a new release</p></li>
+<li><p>The repository then serves metadata about the package via RESTful API</p></li>
+<li><p>(Optionally) the repository can provide single containers</p></li>
 </ol>
 <p>While we use Spack as the underlying manager for building, we have extended a Spack
 spec and other concepts to be flexible to installing from a source like GitHub.</p>
-</div>
-<div class="section" id="pakages-development">
-<h2>Pakages Development<a class="headerlink" href="#pakages-development" title="Permalink to this headline"></a></h2>
+</section>
+<section id="pakages-development">
+<h2>Pakages Development<a class="headerlink" href="#pakages-development" title="Permalink to this heading"></a></h2>
 <p>The following sections will provide detail about how to provide packages.</p>
-<div class="section" id="github-token">
-<h3>GitHub Token<a class="headerlink" href="#github-token" title="Permalink to this headline"></a></h3>
+<section id="github-token">
+<h3>GitHub Token<a class="headerlink" href="#github-token" title="Permalink to this heading"></a></h3>
 <p>If you intend to push packages to a registry, you will need to provide a <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>
 in the environment. The CI recipes will give you an error if you forget to add this in
 your workflow, and locally running Pak from the command line will too.</p>
-</div>
-<div class="section" id="github-packages">
-<h3>GitHub Packages<a class="headerlink" href="#github-packages" title="Permalink to this headline"></a></h3>
+</section>
+<section id="github-packages">
+<h3>GitHub Packages<a class="headerlink" href="#github-packages" title="Permalink to this heading"></a></h3>
 <p>If you are using Pakages as a developer, you likely want to build and deploy binaries
 of your own packages. This means you will need to push packages to your organization,
 and ideally via an automated workflow that deploys to a specific repository namespace.
@@ -127,21 +129,21 @@ and ensure that the public box is checked. Otherwise, all packages will be priva
 the tool) unless you are using them privately in CI only. Note that by default we use
 packages from <a class="reference external" href="https://github.com/pakages">the pakages organization</a> , which you likely
 won’t have permission to push to, but you can pull/install from.</p>
-</div>
-<div class="section" id="repository-creation">
-<h3>Repository Creation<a class="headerlink" href="#repository-creation" title="Permalink to this headline"></a></h3>
+</section>
+<section id="repository-creation">
+<h3>Repository Creation<a class="headerlink" href="#repository-creation" title="Permalink to this heading"></a></h3>
 <p>These instructions will be written soon! We are still working on core of Pakages and
 developing the CI workflows for a package repository.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="user-guide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../api_reference/pakages.html" class="btn btn-neutral float-right" title="Pakages API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../api_reference/pakages.html" class="btn btn-neutral float-right" title="pakages package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
