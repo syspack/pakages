@@ -258,7 +258,7 @@
                     <span class="c1"># Note - for now not signing, since we don&#39;t have a consistent key strategy</span>
                     <span class="c1"># The spack function is a hairball that doesn&#39;t respect the provided filename</span>
                     <span class="n">spec</span> <span class="o">=</span> <span class="n">extract_tarball</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="p">,</span> <span class="n">artifact</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">spec</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">spec</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">prefix</span><span class="p">):</span>
                         <span class="k">continue</span>
 
                     <span class="c1"># Remove the build request if we hit it. Note that this</span>
@@ -269,7 +269,7 @@
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">requests</span><span class="p">:</span>
                             <span class="k">break</span>
 
-                    <span class="c1"># And finish this piece of the install</span>
+                    <span class="c1"># And finish this piece of the install                    </span>
                     <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">installed_from_binary_cache</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="n">spack</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">post_install</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
                     <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">spack</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
