@@ -240,17 +240,14 @@
             <span class="c1"># If we want to use Github packages API, it requires token with package;read scope</span>
             <span class="c1"># https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization</span>
             <span class="k">for</span> <span class="n">pkg_id</span><span class="p">,</span> <span class="n">request</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pakages_tasks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
                 <span class="n">spec_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="k">if</span> <span class="n">spec_id</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
 
                 <span class="c1"># Don&#39;t continue if installed!</span>
                 <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">pkg</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">install_status</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="k">continue</span>
 
                 <span class="c1"># Try until we get a cache hit</span>
-                <span class="n">artifact</span> <span class="o">=</span> <span class="n">tasks</span><span class="p">[</span><span class="n">pkg_id</span><span class="p">]</span>
+                <span class="n">artifact</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pkg_id</span><span class="p">)</span>
 
                 <span class="c1"># Don&#39;t continue if not found</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">artifact</span><span class="p">:</span>
@@ -267,7 +264,6 @@
                     <span class="c1"># Remove the build request if we hit it. Note that this</span>
                     <span class="c1"># might fail if dependencies are still needed (and not hit)</span>
                     <span class="c1"># I haven&#39;t tested it yet</span>
-                    <span class="n">spec_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">spec</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="k">if</span> <span class="n">spec_id</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
                         <span class="k">del</span> <span class="n">requests</span><span class="p">[</span><span class="n">spec_id</span><span class="p">]</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">requests</span><span class="p">:</span>

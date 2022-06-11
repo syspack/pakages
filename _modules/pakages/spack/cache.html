@@ -82,7 +82,8 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">import</span> <span class="nn">pakages.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">pakages.spack.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">pakages.utils</span>
 <span class="kn">from</span> <span class="nn">spack.main</span> <span class="kn">import</span> <span class="n">SpackCommand</span>
 <span class="kn">import</span> <span class="nn">pakages.defaults</span>
 <span class="kn">import</span> <span class="nn">pakages.settings</span>
@@ -99,7 +100,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Init the gpg directory, setting permissions etc.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">utils</span><span class="o">.</span><span class="n">mkdirp</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+    <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">mkdirp</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="mo">0o700</span><span class="p">)</span></div>
 
 
@@ -125,7 +126,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">cache_dir</span><span class="p">:</span>
-            <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
+            <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">=</span> <span class="n">cache_dir</span>
 
         <span class="c1"># Inherit settings from the client, or set to empty settings</span>
@@ -135,7 +136,7 @@
 
         <span class="c1"># Use defautls for username and email if not provided</span>
         <span class="c1"># TODO eventually we want to store keys elsewhere</span>
-        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_username</span><span class="p">()</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span>
         <span class="n">email</span> <span class="o">=</span> <span class="n">email</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">@users.noreply.spack.io&quot;</span> <span class="o">%</span> <span class="n">username</span>
 
         <span class="c1"># TODO how do we check if this is already created?</span>
@@ -181,7 +182,7 @@
         <span class="n">oras</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">Oras</span><span class="p">()</span>
 
         <span class="c1"># Find all .spack archives in the cache</span>
-        <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">recursive_find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">archive</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">recursive_find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s2">&quot;.spack&quot;</span><span class="p">):</span>
 
             <span class="c1"># Only push generic name - the full hash never hits</span>
             <span class="n">package_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
