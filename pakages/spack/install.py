@@ -151,17 +151,9 @@ def do_install(self, **kwargs):
             if not self.build_requests:
                 return
 
-            # We will update build requests with specs we find
-            # This is a loose matching, we just care about name and version for now
-            requests = {
-                "%s:%s" % (x.pkg.spec.name, x.pkg.spec.version): x
-                for x in self.build_requests
-            }
-
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
             for pkg_id, request in self._pakages_tasks.items():
-                spec_id = f"{request.pkg.spec.name}:{request.pkg.spec.version}"
 
                 # Don't continue if installed!
                 if request.pkg.spec.install_status() == True:
