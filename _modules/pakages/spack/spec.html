@@ -120,8 +120,9 @@
         <span class="n">spec</span><span class="o">.</span><span class="n">_dup</span><span class="p">(</span><span class="n">legacy</span><span class="p">)</span>
 
         <span class="c1"># Always set the arch to be general</span>
-        <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">ArchSpec</span><span class="p">()</span>
-        <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="p">(</span><span class="s2">&quot;x86_64&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;x86_64&quot;</span><span class="p">:</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">ArchSpec</span><span class="p">()</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">architecture</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="p">(</span><span class="s2">&quot;x86_64&quot;</span><span class="p">)</span>
 
         <span class="n">spec</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
         <span class="n">specs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
