@@ -163,8 +163,9 @@
             <span class="n">settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Install all packages, and also generate sboms</span>
-        <span class="n">specs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+        <span class="c1"># Install all packages, and also generate sboms.</span>
+        <span class="c1"># A build never uses the gh-packages cache</span>
+        <span class="n">specs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># TODO how can we attach the sbom to the package (aside from being in archive?)</span>
         <span class="n">cache</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
@@ -196,7 +197,7 @@
         <span class="n">repos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
         <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SpackClient.install"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.install">[docs]</a>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SpackClient.install"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.install">[docs]</a>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Install one or more packages.</span>
 
@@ -216,6 +217,7 @@
             <span class="c1"># Do install - this dumps out matching from build cache first</span>
             <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">do_install</span><span class="p">(</span>
                 <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span>
                 <span class="n">registries</span><span class="o">=</span><span class="n">registries</span><span class="p">,</span>
                 <span class="n">tag</span><span class="o">=</span><span class="n">tag</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">default_tag</span><span class="p">,</span>
             <span class="p">)</span>

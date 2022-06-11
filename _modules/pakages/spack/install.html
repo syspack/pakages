@@ -120,6 +120,7 @@
 
     <span class="n">dev_path_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">variants</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dev_path&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">registries</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;registries&quot;</span><span class="p">)</span>
+    <span class="n">use_cache</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_cache&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">tag</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">dev_path_var</span><span class="p">:</span>
@@ -281,11 +282,14 @@
             <span class="k">for</span> <span class="n">br</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_requests</span><span class="p">:</span>
                 <span class="n">br</span><span class="o">.</span><span class="n">_active_deptypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;build&quot;</span><span class="p">]</span>
 
-    <span class="n">builder</span> <span class="o">=</span> <span class="n">PakInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
-
     <span class="c1"># Download what we can find from the GitHub cache</span>
-    <span class="n">builder</span><span class="o">.</span><span class="n">prepopulate_tasks</span><span class="p">()</span>
-    <span class="n">builder</span><span class="o">.</span><span class="n">prepare_cache</span><span class="p">(</span><span class="n">registries</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">PakInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">prepopulate_tasks</span><span class="p">()</span>
+        <span class="n">builder</span><span class="o">.</span><span class="n">prepare_cache</span><span class="p">(</span><span class="n">registries</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;use_cache&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">PackageInstaller</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)])</span>
     <span class="n">builder</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
 
     <span class="c1"># If successful, generate an sbom</span>
@@ -294,7 +298,6 @@
         <span class="n">sbom</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">sbom</span><span class="o">.</span><span class="n">generate_sbom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
         <span class="n">sbom_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meta_dir</span><span class="p">,</span> <span class="s2">&quot;sbom.json&quot;</span><span class="p">)</span>
         <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="n">sbom</span><span class="p">,</span> <span class="n">sbom_file</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="extract_tarball"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.install.extract_tarball">[docs]</a><span class="k">def</span> <span class="nf">extract_tarball</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
