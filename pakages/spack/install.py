@@ -41,6 +41,7 @@ def do_install(self, **kwargs):
 
     dev_path_var = self.spec.variants.get("dev_path", None)
     registries = kwargs.get("registries")
+    use_cache = kwargs.get('use_cache', False)
     tag = kwargs.get("tag")
 
     if dev_path_var:
@@ -66,6 +67,7 @@ def do_install(self, **kwargs):
             """
             Get a build task for the package.
             """
+            print('HITTING GET TASK')
             task = spack.installer.BuildTask(
                 pkg,
                 request,
@@ -85,6 +87,8 @@ def do_install(self, **kwargs):
             """
             Pre-populate a lookup of tasks for the cache.
             """
+            print('HITTING PREPOPULATE')
+
             # Prepare the complete list of dependencies to look for
             # This mimicks init_queue
             self._pakages_tasks = {}
@@ -115,6 +119,8 @@ def do_install(self, **kwargs):
             """
             Download artifacts in parallel
             """
+            print('HITTING DOWNLOAD')
+
             # If no registries in user settings or command line, use default
             if not registries:
                 registries = [pakages.defaults.trusted_packages_registry]
@@ -147,6 +153,8 @@ def do_install(self, **kwargs):
             that attempts a pull for an artifact, and just continue if we don't
             have one.
             """
+            print('HITTING PREPARE CACHE')
+
             tasks = self._download_pakages_artifacts(registries, tag)
             if not self.build_requests:
                 return
@@ -202,11 +210,13 @@ def do_install(self, **kwargs):
             for br in self.build_requests:
                 br._active_deptypes = ["link", "run", "build"]
 
-    builder = PakInstaller([(self, kwargs)])
-
     # Download what we can find from the GitHub cache
-    builder.prepopulate_tasks()
-    builder.prepare_cache(registries, tag)
+    if use_cache:
+        builder = PakInstaller([(self, kwargs)])
+        builder.prepopulate_tasks()
+        builder.prepare_cache(registries, tag)
+    else:
+        builder = PackageInstaller([(self, kwargs)])
     builder.install()
 
     # If successful, generate an sbom

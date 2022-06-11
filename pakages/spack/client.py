@@ -84,8 +84,9 @@ class SpackClient(pakages.client.PakagesClient):
             settings=self.settings,
         )
 
-        # Install all packages, and also generate sboms
-        specs = self.install(packages, registry=registry, tag=tag)
+        # Install all packages, and also generate sboms.
+        # A build never uses the gh-packages cache
+        specs = self.install(packages, registry=registry, tag=tag, use_cache=False)
 
         # TODO how can we attach the sbom to the package (aside from being in archive?)
         cache.create(specs, key=key)
@@ -117,7 +118,7 @@ class SpackClient(pakages.client.PakagesClient):
         repos.insert(0, path)
         spack.config.set("repos", repos)
 
-    def install(self, packages, registry=None, tag=None):
+    def install(self, packages, registry=None, tag=None, use_cache=False):
         """
         Install one or more packages.
 
@@ -137,11 +138,11 @@ class SpackClient(pakages.client.PakagesClient):
             # Do install - this dumps out matching from build cache first
             spec.package.do_install(
                 force=True,
+                use_cache=use_cache,
                 registries=registries,
                 tag=tag or self.settings.default_tag,
             )
-            if os.path.exists(spec.prefix):
-                specs.append(spec)
+            specs.append(spec)
         return specs
 
     def uninstall(self, packages):
