@@ -12,13 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Pakages
-        run: |
-           root=$PWD
-           git clone -b add/developer-docs-push https://github.com/oras-project/oras-py
-           cd oras-py
-           pip install -e .
-           cd $root
-           pip install -e .[all]
+        run: pip install -e .[all]
 
       - name: Test Pakages Build
         uses: ./action/build
