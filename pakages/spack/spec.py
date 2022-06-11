@@ -30,8 +30,9 @@ def parse_specs(packages):
     """
     Parse specs from a list of strings, and concretize
     """
-    specs = spack.cmd.parse_specs(packages, concretize=True)
-    for legacy in specs:
+    specs = []
+    spack_specs = spack.cmd.parse_specs(packages, concretize=True)
+    for legacy in spack_specs:
 
         logger.info(f"Preparing spec for {legacy.name}@{legacy.version}")
 
