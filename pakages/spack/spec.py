@@ -41,8 +41,9 @@ def parse_specs(packages):
         spec._dup(legacy)
 
         # Always set the arch to be general
-        spec.architecture = spack.spec.ArchSpec()
-        spec.architecture.target = spack.target.Target("x86_64")
+        if spec.architecture.target.name != "x86_64":
+            spec.architecture = spack.spec.ArchSpec()
+            spec.architecture.target = spack.target.Target("x86_64")
 
         spec.concretize()
         specs.append(spec)
