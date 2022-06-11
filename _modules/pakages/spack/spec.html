@@ -109,8 +109,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse specs from a list of strings, and concretize</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">specs</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">concretize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">spack_specs</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">concretize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">legacy</span> <span class="ow">in</span> <span class="n">spack_specs</span><span class="p">:</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing spec for </span><span class="si">{</span><span class="n">legacy</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">legacy</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
