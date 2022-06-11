@@ -18,7 +18,7 @@ import json
 import pakages.spack.spec
 
 
-class SpackClient(pakages.client.PackagesClient):
+class SpackClient(pakages.client.PakagesClient):
     """
     Pakages has a main controller for interacting with pakages.
     """
