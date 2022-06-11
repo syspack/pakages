@@ -182,22 +182,6 @@ def do_install(self, **kwargs):
                     if not spec or not os.path.exists(spec.prefix):
                         continue
 
-                    # Remove the build request if we hit it. Note that this
-                    # might fail if dependencies are still needed (and not hit)
-                    # I haven't tested it yet
-                    if spec_id in requests:
-                        del requests[spec_id]
-                        if not requests:
-                            break
-
-                    # And finish this piece of the install                    
-                    spec.package.installed_from_binary_cache = True
-                    spack.hooks.post_install(spec)
-                    spack.store.db.add(spec, spack.store.layout)
-
-            # Update build requests
-            self.build_requests = list(requests.values())
-
             # From this point on we need build deps too
             for br in self.build_requests:
                 br._active_deptypes = ["link", "run", "build"]
@@ -207,7 +191,7 @@ def do_install(self, **kwargs):
     # Download what we can find from the GitHub cache
     builder.prepopulate_tasks()
     builder.prepare_cache(registries, tag)
-    builder.install()
+    spack.store.store.reindex()
 
     # If successful, generate an sbom
     meta_dir = os.path.join(self.prefix, ".spack")
@@ -215,7 +199,6 @@ def do_install(self, **kwargs):
         sbom = pakages.spack.sbom.generate_sbom(self.spec)
         sbom_file = os.path.join(meta_dir, "sbom.json")
         pakages.utils.write_json(sbom, sbom_file)
-
 
 def extract_tarball(spec, filename):
     """
