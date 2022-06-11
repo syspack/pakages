@@ -2,7 +2,7 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-import pakages.install
+import pakages.spack.install
 import pakages.handlers.github
 import pakages.utils as utils
 from pakages.logger import logger
@@ -126,7 +126,7 @@ class Repo(spack.repo.Repo):
         package_class = self.get_pkg_class(spec.name)
 
         # Monkey patch the class with the new install!
-        package_class.do_install = pakages.install.do_install
+        package_class.do_install = pakages.spack.install.do_install
 
         try:
             return package_class(spec)

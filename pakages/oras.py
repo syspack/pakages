@@ -2,151 +2,79 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-import spack.bootstrap
-import spack.spec
-import pakages.utils as utils
-import pakages.defaults
-import spack.util.executable
-import spack.util.crypto
-
+import os
+import oras.oci
+import oras.defaults
+import oras.provider
+from oras.decorator import ensure_container
 from pakages.logger import logger
 
-import os
-import random
-import requests
-import shutil
-import time
 
-
-class Oras:
-    def __init__(self):
-        self._oras = None
-
-    @property
-    def oras(self):
+class Registry(oras.provider.Registry):
+    @ensure_container
+    def push(self, container, archives: dict, annotations=None):
         """
-        Get the oras executable (easier to install on your computer over bootstrap)
+        Given a dict of layers (paths and corresponding mediaType) push.
         """
-        if not self._oras:
-            with spack.bootstrap.ensure_bootstrap_configuration():
-                spec = spack.spec.Spec("oras")
-                spack.bootstrap.ensure_executables_in_path_or_raise(
-                    ["oras"], abstract_spec=spec
-                )
-                self._oras = spack.util.executable.which("oras")
-        return self._oras
+        # Prepare a new manifest
+        manifest = oras.oci.NewManifest()
 
-    def get_manifest(self, uri):
-        """
-        Use crane to get the image manifest
-        """
-        response = requests.get("https://crane.ggcr.dev/manifest/" + uri)
-        if response.status_code == 200:
-            return response.json()
+        # A lookup of annotations we can add
+        annotset = oras.oci.Annotations(annotations or {})
 
-    def get_manifest_digest(self, uri):
-        """
-        Get the first layer digest (the spack package archive)
-        """
-        response = self.get_manifest(uri)
-        if not response:
-            return
+        # Upload files as blobs
+        for blob, mediaType in archives.items():
 
-        layers = response.get("layers")
-        if layers:
-            digest = layers[0].get("digest")
-            if digest:
-                return digest.replace("sha256:", "")
+            # Must exist
+            if not os.path.exists(blob):
+                logger.exit(f"{blob} does not exist.")
 
-    def push(self, uri, push_file, content_type=None, retry=3, sleep=1):
-        """
-        Push an oras artifact to an OCI registry
-        """
-        tries = 0
-        content_type = content_type or pakages.defaults.content_type
-        logger.info("Pushing oras {0}".format(uri))
-        with utils.workdir(os.path.dirname(push_file)):
-            while tries < retry:
-                try:
-                    return self._push(uri, push_file, content_type)
-                except:
-                    time.sleep(sleep)
-                    sleep = sleep * 2**tries + random.uniform(0, 1)
-                    tries += 1
+            # Save directory or blob name before compressing
+            blob_name = os.path.basename(blob)
 
-    def _push(self, uri, push_file, content_type):
-        """
-        Helper to push that provides consistent metadata
-        """
-        self.oras(
-            "push",
-            uri,
-            "--manifest-config",
-            "/dev/null:application/vnd.unknown.config.v1+json",
-            # GitHub does not honor this content type - it will return an empty artifact
-            os.path.basename(push_file) + ":" + content_type,
-        )
+            # If it's a directory, we need to compress
+            cleanup_blob = False
+            if os.path.isdir(blob):
+                blob = oras.utils.make_targz(blob)
+                cleanup_blob = True
 
-    def fetch(self, url, save_file):
-        """
-        Fetch an oras artifact from an OCI registry
-        """
-        # We don't have programmatic access to list, so we just try to pull
-        save_dir = os.path.dirname(save_file)
-        try:
-            logger.debug("Trying fetch for {0}".format(url))
-            self.oras("pull", url, "-a", "--output", save_dir, output=str, error=str)
-        except:
-            logger.debug("{0} is not available for pull.".format(url))
-            return
+            # Create a new layer from the blob
+            layer = oras.oci.NewLayer(blob, mediaType, is_dir=cleanup_blob)
+            annotations = annotset.get_annotations(blob)
+            layer["annotations"] = {oras.defaults.annotation_title: blob_name}
+            if annotations:
+                layer["annotations"].update(annotations)
 
-        # Just print those that are successful
-        logger.info("Fetched {0}".format(url))
-        # Files are technically saved with the hash, we just hope spack will use
-        files = os.listdir(save_dir)
-        if len(files) > 0:
-            save_file = os.path.join(save_dir, files[0])
+            # update the manifest with the new layer
+            manifest["layers"].append(layer)
 
-        # Return the file if exists
-        if os.path.exists(save_file):
-            return save_file
+            # Upload the blob layer
+            response = self._upload_blob(blob, container, layer)
+            self._check_200_response(response)
 
+            # Do we need to cleanup a temporary targz?
+            if cleanup_blob and os.path.exists(blob):
+                os.remove(blob)
 
-def pull_task(*args, **kwargs):
-    """
-    A pull task
-    """
-    name = kwargs.get("name")
-    registries = kwargs.get("registries")
-    tag = kwargs.get("tag")
-    generic_name = utils.generalize_spack_archive(name)
+        # Add annotations to the manifest, if provided
+        manifest_annots = annotset.get_annotations("$manifest")
+        if manifest_annots:
+            manifest["annotations"] = manifest_annots
 
-    # Prepare an oras client
-    oras = Oras()
+        # Prepare the manifest config (temporary or one provided)
+        config_annots = annotset.get_annotations("$config")
+        conf, config_file = oras.oci.ManifestConfig()
 
-    # The name of the expected package, and directory to put it
-    tmpdir = utils.get_tmpdir()
+        # Config annotations?
+        if config_annots:
+            conf["annotations"] = config_annots
 
-    # Try until we get a cache hit
-    artifact = None
-    for registry in registries:
-        uri = "%s/%s:%s" % (registry, generic_name, tag)
-        artifact = oras.fetch(uri, os.path.join(tmpdir, name))
-        if artifact:
-            break
+        # Config is just another layer blob!
+        response = self._upload_blob(config_file, container, conf)
+        self._check_200_response(response)
 
-    # Don't continue if not found
-    if not artifact:
-        shutil.rmtree(tmpdir)
-        return
-
-    # Checksum check (removes sha256 prefix)
-    sha256 = oras.get_manifest_digest(uri)
-    if sha256:
-        checker = spack.util.crypto.Checker(sha256)
-        if not checker.check(artifact):
-            logger.error("Checksum of %s is not correct." % artifact)
-            return
-
-    # will be returned under namespace of package id
-    return artifact
+        # Final upload of the manifest
+        manifest["config"] = conf
+        self._check_200_response(self._upload_manifest(manifest, container))
+        print(f"Successfully pushed {container}")
+        return response

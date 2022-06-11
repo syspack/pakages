@@ -23,7 +23,8 @@ jobs:
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
-          pyflakes pakages/utils/fileio.py 
-          pyflakes pakages/utils/terminal.py
-          pyflakes pakages/*.py
-          pyflakes pakages/handlers/*.py
+          for filename in $(find pakages -name "*.py" -not -path "./docs/*" \
+                            -not -path "pakages/oras.py" -not -path "pakages/cli/shell.py" \
+                            -not -path "*__init__.py" -not -path "./env/*"); do
+              pyflakes $filename
+          done

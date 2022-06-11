@@ -2,16 +2,12 @@ from .terminal import (
     run_command,
     check_install,
     get_installdir,
-    get_username,
+    get_userhome,
+    get_user,
     which,
     confirm_action,
 )
-from .spack import (
-    add_spack_to_path,
-    add_pakages_spack_repo,
-    install_spack,
-    generalize_spack_archive,
-)
+from .command import Command
 from .fileio import (
     copyfile,
     get_file_hash,

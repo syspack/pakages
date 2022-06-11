@@ -5,7 +5,7 @@ __license__ = "Apache-2.0"
 import spack.spec
 from pakages.logger import logger
 import spack.util.string
-import pakages.repo
+import pakages.spack.repo
 
 
 class Spec(spack.spec.Spec):
@@ -15,7 +15,7 @@ class Spec(spack.spec.Spec):
         Return a custom repository that can deliver Pakages packages
         """
         if not self._package:
-            self._package = pakages.repo.get(self)
+            self._package = pakages.spack.repo.get(self)
         return self._package
 
 

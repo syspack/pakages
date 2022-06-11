@@ -2,21 +2,24 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
-import pakages.cache
+import os
+import pakages.packages
 from .settings import Settings
 
-import spack.cmd
-import spack.target
-import spack.main
-import spack.config
 
-import json
+def get_client(builder=None, settings_file=None):
+    """
+    Get a pakages client
+    """
+    if builder == "spack":
+        from pakages.spack.client import SpackClient
 
-import pakages.spec
+        return SpackClient(settings_file=settings_file)
+    else:
+        return PakagesClient(settings_file=settings_file)
 
 
-class PakClient:
+class PakagesClient:
     """
     Pakages has a main controller for interacting with pakages.
     """
@@ -33,98 +36,34 @@ class PakClient:
     def __str__(self):
         return "[pakages-client]"
 
-    def iter_specs(self, packages, concretize=True):
-        """
-        A shared function to retrieve iterable of specs from packages
-        """
-        for spec in pakages.spec.parse_specs(packages):
-            yield spec
-
-    def list_installed(self):
-        """
-        List installed packages
-        """
-        find = spack.main.SpackCommand("find")
-        print(find())
-        return json.loads(find("--json"))
-
-    def build(self, packages, cache_dir=None, key=None, registry=None, tag=None):
-        """
-        Build a package into a cache
-        """
-        # Prepare a cache directory
-        cache = pakages.cache.BuildCache(
-            cache_dir=cache_dir or self.settings.cache_dir,
-            username=self.settings.username,
-            email=self.settings.email,
-            settings=self.settings,
-        )
-
-        # Install all packages, and also generate sboms
-        specs = self.install(packages, registry=registry, tag=tag)
-
-        # TODO how can we attach the sbom to the package (aside from being in archive?)
-        cache.create(specs, key=key)
-        return cache
-
     def push(self, uri, cache_dir=None, tag=None):
         """
         Given an existing cache directory, push known specs to a specific uri
         """
-        # Prepare a cache directory
-        cache = pakages.cache.BuildCache(
-            cache_dir=cache_dir or self.settings.cache_dir,
-            username=self.settings.username,
-            email=self.settings.email,
-            settings=self.settings,
-        )
-        cache.push(uri, tag=tag)
-        return cache
+        raise NotImplementedError
 
-    def add_repository(self, path):
+    def build(self, *args, **kwargs):
         """
-        Add a repository.
+        Build one or more packages.
+        """
+        args = list(args)
+        if not args[0] or args[0] == ".":
+            args[0] = os.getcwd()
+        pkg = pakages.packages.get_package(args[0])
 
-        Given a path that exists, add the repository to the
-        underlying spack. If you need to add a GitHub uri, create a
-        pakages.repo.PakRepo first.
-        """
-        repos = spack.config.get("repos")
-        repos.insert(0, path)
-        spack.config.set("repos", repos)
+        # This returns a build result
+        result = pkg.build()
+        result.summary()
+        return result
 
     def install(self, packages, registry=None, tag=None):
         """
         Install one or more packages.
-
-        This eventually needs to take into account using the GitHub packages bulid cache
         """
-        # Default to registries defined in settings
-        registries = self.settings.trusted_pull_registries
-
-        # Do we have an additional trusted registry provided on the command line?
-        if registry:
-            registries = [registry] + registries
-
-        specs = []
-        for spec in self.iter_specs(packages):
-            logger.info("Preparing to install %s" % spec.name)
-
-            # Do install - this dumps out matching from build cache first
-            spec.package.do_install(
-                force=True,
-                registries=registries,
-                tag=tag or self.settings.default_tag,
-            )
-            specs.append(spec)
-        return specs
+        raise NotImplementedError
 
     def uninstall(self, packages):
         """
-        Uninstall a spack package
+        Uninstall a pakage
         """
-        for spec in self.iter_specs(packages):
-            try:
-                spec.package.do_uninstall(force=True)
-            except Exception as ex:
-                logger.exit(ex)
+        raise NotImplementedError

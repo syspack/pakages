@@ -7,7 +7,7 @@ import pakages.utils as utils
 from spack.main import SpackCommand
 import pakages.defaults
 import pakages.settings
-import pakages.oras
+import pakages.spack.oras
 
 import shutil
 import os
@@ -99,7 +99,7 @@ class BuildCache:
         uri = uri or self.settings.trusted_packages_registry
 
         # Create an oras client
-        oras = pakages.oras.Oras()
+        oras = pakages.spack.oras.Oras()
 
         # Find all .spack archives in the cache
         for archive in utils.recursive_find(self.cache_dir, ".spack"):

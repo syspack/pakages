@@ -47,6 +47,14 @@ def get_parser():
         dest="settings_file",
         help="custom path to settings file.",
     )
+
+    parser.add_argument(
+        "--builder",
+        "-b",
+        dest="builder",
+        help="Package builder (default is auto-detect)",
+    )
+
     subparsers = parser.add_subparsers(
         help="actions",
         title="actions",
@@ -146,6 +154,7 @@ def get_parser():
         action="store_true",
         help="Given that --push is added, don't clean up the build cache.",
     )
+    build.add_argument("packages", help="install these packages", nargs="?")
 
     config = subparsers.add_parser(
         "config",
@@ -187,7 +196,7 @@ pakages config init""",
         default="ipython",
     )
 
-    for command in [install, build, uninstall]:
+    for command in [install, uninstall]:
         command.add_argument("packages", help="install these packages", nargs="+")
 
     for command in [install, build]:
