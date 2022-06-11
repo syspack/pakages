@@ -216,6 +216,7 @@ def do_install(self, **kwargs):
         builder.prepopulate_tasks()
         builder.prepare_cache(registries, tag)
     else:
+        kwargs['use_cache'] = True
         builder = PackageInstaller([(self, kwargs)])
     builder.install()
 
