@@ -140,7 +140,8 @@ class SpackClient(pakages.client.PakagesClient):
                 registries=registries,
                 tag=tag or self.settings.default_tag,
             )
-            specs.append(spec)
+            if os.path.exists(spec.prefix):
+                specs.append(spec)
         return specs
 
     def uninstall(self, packages):

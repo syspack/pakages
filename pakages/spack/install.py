@@ -151,9 +151,17 @@ def do_install(self, **kwargs):
             if not self.build_requests:
                 return
 
+            # We will update build requests with specs we find
+            # This is a loose matching, we just care about name and version for now
+            requests = {
+                "%s:%s" % (x.pkg.spec.name, x.pkg.spec.version): x
+                for x in self.build_requests
+            }
+
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
             for pkg_id, request in self._pakages_tasks.items():
+                spec_id = f"{request.pkg.spec.name}:{request.pkg.spec.version}"
 
                 # Don't continue if installed!
                 if request.pkg.spec.install_status() == True:
@@ -174,6 +182,22 @@ def do_install(self, **kwargs):
                     if not spec or not os.path.exists(spec.prefix):
                         continue
 
+                    # Remove the build request if we hit it. Note that this
+                    # might fail if dependencies are still needed (and not hit)
+                    # I haven't tested it yet
+                    if spec_id in requests:
+                        del requests[spec_id]
+                        if not requests:
+                            break
+
+                    # And finish this piece of the install                    
+                    spec.package.installed_from_binary_cache = True
+                    spack.hooks.post_install(spec)
+                    spack.store.db.add(spec, spack.store.layout)
+
+            # Update build requests
+            self.build_requests = list(requests.values())
+
             # From this point on we need build deps too
             for br in self.build_requests:
                 br._active_deptypes = ["link", "run", "build"]
@@ -183,7 +207,7 @@ def do_install(self, **kwargs):
     # Download what we can find from the GitHub cache
     builder.prepopulate_tasks()
     builder.prepare_cache(registries, tag)
-    spack.store.store.reindex()
+    builder.install()
 
     # If successful, generate an sbom
     meta_dir = os.path.join(self.prefix, ".spack")
