@@ -10,6 +10,8 @@ You can see trusted packages under the [pakages](https://github.com/pakages) org
 that they are built, tested, and deployed from modular repositories, and can be
 installed into consistent container bases that Pakages provides.
 
+**important** recent updates to spack have broken pakages, and I don't have the patience with spack to fix it again, so I'm pursuring developing this toward other kinds of general artifact builds. If you have ideas to save spack please open an issue. The install -> cache functionality is not consistent enough imho for this to reliably work, and (as I've learned before) maintaining anything with spack as a dependency is a really bad idea.
+
 ## Goals
 
 We want a framework that is optimized to help people build packages from source,
