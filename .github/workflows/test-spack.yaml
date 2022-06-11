@@ -1,4 +1,4 @@
-name: Pakages Test Building
+name: Spack Build
 on:
   pull_request: []
   push:
