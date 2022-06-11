@@ -30,11 +30,8 @@ def parse_specs(packages):
     """
     Parse specs from a list of strings, and concretize
     """
-    print(type(packages))
-    print(packages)
     if not isinstance(packages, list):
-        packages = list(packages)
-    print(packages)
+        packages = [packages]
     specs = []
     for legacy in packages:
 
