@@ -33,6 +33,7 @@ if [ "${deploy}" == "true" ] && [ -z "${uri}" ]; then
 fi
 
 # Ensure we use develop build cache
+spack compiler find
 spack mirror add develop https://binaries.spack.io/develop
 
 # Run pakages for the specs provided, with deploy or not
