@@ -4,7 +4,7 @@ __license__ = "Apache-2.0"
 
 import os
 import sys
-from .terminal import get_installdir, which, run_command
+from pakages.utils.terminal import get_installdir, which, run_command
 
 
 def generalize_spack_archive(name):
