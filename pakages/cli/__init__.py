@@ -48,13 +48,6 @@ def get_parser():
         help="custom path to settings file.",
     )
 
-    parser.add_argument(
-        "--builder",
-        "-b",
-        dest="builder",
-        help="Package builder (default is auto-detect)",
-    )
-
     subparsers = parser.add_subparsers(
         help="actions",
         title="actions",
@@ -215,6 +208,13 @@ pakages config init""",
             help="tag to use for build cache retrieval or push",
         )
 
+    for command in [install, uninstall, build, push]:
+        command.add_argument(
+            "--builder",
+            "-b",
+            dest="builder",
+            help="Package builder (default is auto-detect)",
+        )
     return parser
 
 

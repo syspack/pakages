@@ -3,7 +3,8 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 from pakages.logger import logger
-import pakages.utils as utils
+import pakages.spack.utils as utils
+import pakages.utils
 from spack.main import SpackCommand
 import pakages.defaults
 import pakages.settings
@@ -20,7 +21,7 @@ def gpg_init(dirname):
     """
     Init the gpg directory, setting permissions etc.
     """
-    utils.mkdirp(dirname)
+    pakages.utils.mkdirp(dirname)
     os.chmod(dirname, 0o700)
 
 
@@ -46,7 +47,7 @@ class BuildCache:
 
     def __init__(self, cache_dir=None, username=None, email=None, settings=None):
         if not cache_dir:
-            cache_dir = utils.get_tmpdir()
+            cache_dir = pakages.utils.get_tmpdir()
         self.cache_dir = cache_dir
 
         # Inherit settings from the client, or set to empty settings
@@ -56,7 +57,7 @@ class BuildCache:
 
         # Use defautls for username and email if not provided
         # TODO eventually we want to store keys elsewhere
-        username = username or utils.get_username()
+        username = username or pakages.utils.get_username()
         email = email or "%s@users.noreply.spack.io" % username
 
         # TODO how do we check if this is already created?
@@ -102,7 +103,7 @@ class BuildCache:
         oras = pakages.spack.oras.Oras()
 
         # Find all .spack archives in the cache
-        for archive in utils.recursive_find(self.cache_dir, ".spack"):
+        for archive in pakages.utils.recursive_find(self.cache_dir, ".spack"):
 
             # Only push generic name - the full hash never hits
             package_name = os.path.basename(archive)
