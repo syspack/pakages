@@ -161,17 +161,14 @@ def do_install(self, **kwargs):
             # If we want to use Github packages API, it requires token with package;read scope
             # https://docs.github.com/en/rest/reference/packages#list-packages-for-an-organization
             for pkg_id, request in self._pakages_tasks.items():
-
                 spec_id = f"{request.pkg.spec.name}:{request.pkg.spec.version}"
-                if spec_id in requests:
-                    del requests[spec_id]
 
                 # Don't continue if installed!
                 if request.pkg.spec.install_status() == True:
                     continue
 
                 # Try until we get a cache hit
-                artifact = tasks[pkg_id]
+                artifact = tasks.get(pkg_id)
 
                 # Don't continue if not found
                 if not artifact:
@@ -188,7 +185,6 @@ def do_install(self, **kwargs):
                     # Remove the build request if we hit it. Note that this
                     # might fail if dependencies are still needed (and not hit)
                     # I haven't tested it yet
-                    spec_id = f"{spec.name}:{spec.version}"
                     if spec_id in requests:
                         del requests[spec_id]
                         if not requests:

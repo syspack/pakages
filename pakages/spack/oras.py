@@ -4,7 +4,8 @@ __license__ = "Apache-2.0"
 
 import spack.bootstrap
 import spack.spec
-import pakages.utils as utils
+import pakages.utils
+import pakages.spack.utils as utils
 import pakages.defaults
 import spack.util.executable
 import spack.util.crypto
@@ -65,7 +66,7 @@ class Oras:
         tries = 0
         content_type = content_type or pakages.defaults.content_type
         logger.info("Pushing oras {0}".format(uri))
-        with utils.workdir(os.path.dirname(push_file)):
+        with pakages.utils.workdir(os.path.dirname(push_file)):
             while tries < retry:
                 try:
                     return self._push(uri, push_file, content_type)
@@ -125,7 +126,7 @@ def pull_task(*args, **kwargs):
     oras = Oras()
 
     # The name of the expected package, and directory to put it
-    tmpdir = utils.get_tmpdir()
+    tmpdir = pakages.utils.get_tmpdir()
 
     # Try until we get a cache hit
     artifact = None
