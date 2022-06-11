@@ -179,7 +179,7 @@ def do_install(self, **kwargs):
                     # Note - for now not signing, since we don't have a consistent key strategy
                     # The spack function is a hairball that doesn't respect the provided filename
                     spec = extract_tarball(request.pkg.spec, artifact)
-                    if not spec:
+                    if not spec or not os.path.exists(spec.prefix):
                         continue
 
                     # Remove the build request if we hit it. Note that this
@@ -190,7 +190,7 @@ def do_install(self, **kwargs):
                         if not requests:
                             break
 
-                    # And finish this piece of the install
+                    # And finish this piece of the install                    
                     spec.package.installed_from_binary_cache = True
                     spack.hooks.post_install(spec)
                     spack.store.db.add(spec, spack.store.layout)
