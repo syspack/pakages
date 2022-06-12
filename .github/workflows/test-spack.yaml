@@ -18,6 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install pakages and Spack
+        run: |
+           git clone --depth 1 https://github.com/spack/spack /tmp/spack
+           pip install -e .[all]
       - name: List Files
         run: ls .
       - name: Build and Deploy Spack Package
@@ -28,4 +32,6 @@ jobs:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
           uri: ghcr.io/pakages
-        run: /bin/bash entrypoint.sh
+        run: |
+          export PATH=/tmp/spack/bin:$PATH
+          /bin/bash entrypoint.sh

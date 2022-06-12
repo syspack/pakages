@@ -86,7 +86,9 @@ class BuildCache:
 
         # This might have an issue with a compiler as package
         for blob in pakages.utils.recursive_find(self.cache_dir, pattern="spec.json"):
+            print(f"Looking for {self.spec_name} in {blob}")
             if self.spec_name in blob:
+                print("Found!")
                 self.spec = pakages.utils.read_json(blob)
                 break
 
