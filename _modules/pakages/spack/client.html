@@ -94,20 +94,10 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
-<span class="kn">import</span> <span class="nn">pakages.spack.spec</span>
-
-
 <div class="viewcode-block" id="SpackClient"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient">[docs]</a><span class="k">class</span> <span class="nc">SpackClient</span><span class="p">(</span><span class="n">pakages</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">PakagesClient</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pakages has a main controller for interacting with pakages.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="SpackClient.iter_specs"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.iter_specs">[docs]</a>    <span class="k">def</span> <span class="nf">iter_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">concretize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A shared function to retrieve iterable of specs from packages</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">parse_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
-            <span class="k">yield</span> <span class="n">spec</span></div>
-
 <div class="viewcode-block" id="SpackClient.parse_package_request"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.parse_package_request">[docs]</a>    <span class="k">def</span> <span class="nf">parse_package_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse the packages and repo (if any) from it.</span>
@@ -164,11 +154,8 @@
         <span class="p">)</span>
 
         <span class="c1"># Install all packages, and also generate sboms.</span>
-        <span class="c1"># A build never uses the gh-packages cache</span>
-        <span class="n">specs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-        <span class="c1"># TODO how can we attach the sbom to the package (aside from being in archive?)</span>
-        <span class="n">cache</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+        <span class="n">cache</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cache</span></div>
 
 <div class="viewcode-block" id="SpackClient.push"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -210,29 +197,16 @@
         <span class="k">if</span> <span class="n">registry</span><span class="p">:</span>
             <span class="n">registries</span> <span class="o">=</span> <span class="p">[</span><span class="n">registry</span><span class="p">]</span> <span class="o">+</span> <span class="n">registries</span>
 
-        <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Preparing to install </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-            <span class="c1"># Do install - this dumps out matching from build cache first</span>
-            <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">do_install</span><span class="p">(</span>
-                <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">,</span>
-                <span class="n">registries</span><span class="o">=</span><span class="n">registries</span><span class="p">,</span>
-                <span class="n">tag</span><span class="o">=</span><span class="n">tag</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">default_tag</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">specs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">specs</span></div>
+        <span class="c1"># Install packages using system spack - we aren&#39;t responsible for this working</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">([</span><span class="s1">&#39;spack&#39;</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="n">packages</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="SpackClient.uninstall"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.client.SpackClient.uninstall">[docs]</a>    <span class="k">def</span> <span class="nf">uninstall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Uninstall a spack package</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_specs</span><span class="p">(</span><span class="n">packages</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">spec</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">do_uninstall</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div></div>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">([</span><span class="s1">&#39;spack&#39;</span><span class="p">,</span> <span class="s1">&#39;uninstall&#39;</span><span class="p">,</span> <span class="n">packages</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span></div></div>
 </pre></div>
 
            </div>

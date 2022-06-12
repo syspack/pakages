@@ -92,9 +92,6 @@
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">gpg</span> <span class="o">=</span> <span class="n">SpackCommand</span><span class="p">(</span><span class="s2">&quot;gpg&quot;</span><span class="p">)</span>
-<span class="n">bc</span> <span class="o">=</span> <span class="n">SpackCommand</span><span class="p">(</span><span class="s2">&quot;buildcache&quot;</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="gpg_init"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.cache.gpg_init">[docs]</a><span class="k">def</span> <span class="nf">gpg_init</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -110,6 +107,8 @@
 
 <span class="sd">    This would really be nicer if we didn&#39;t have to use gpg :)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gpg</span> <span class="o">=</span> <span class="n">SpackCommand</span><span class="p">(</span><span class="s2">&quot;gpg&quot;</span><span class="p">)</span>
+
     <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">gpg</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
@@ -134,15 +133,6 @@
             <span class="n">settings</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">EmptySettings</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span>
 
-        <span class="c1"># Use defautls for username and email if not provided</span>
-        <span class="c1"># TODO eventually we want to store keys elsewhere</span>
-        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span>
-        <span class="n">email</span> <span class="o">=</span> <span class="n">email</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">@users.noreply.spack.io&quot;</span> <span class="o">%</span> <span class="n">username</span>
-
-        <span class="c1"># TODO how do we check if this is already created?</span>
-        <span class="n">gpg</span><span class="p">(</span><span class="s2">&quot;init&quot;</span><span class="p">)</span>
-        <span class="n">gpg</span><span class="p">(</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
-
 <div class="viewcode-block" id="BuildCache.remove"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.cache.BuildCache.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete the entire build cache</span>
@@ -157,18 +147,12 @@
 
 <span class="sd">        Ideally we could do spack buildcache add but that isn&#39;t supported.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># If a key isn&#39;t defined, choose the first spack one we find</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">get_gpg_key</span><span class="p">()</span>
-        <span class="n">format_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">@</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">dag_hash</span><span class="p">())</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">]</span>
-        <span class="p">)</span>
-
-        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">]</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;buildcache&quot;</span><span class="p">,</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">,</span> <span class="s2">&quot;-u&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">key</span><span class="p">:</span>
             <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-k&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">]</span>
-        <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">format_string</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">bc</span><span class="p">(</span><span class="o">*</span><span class="n">command</span><span class="p">))</span></div>
+        <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">specs</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="BuildCache.push"><a class="viewcode-back" href="../../../api_reference/pakages.spack.html#pakages.spack.cache.BuildCache.push">[docs]</a>    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

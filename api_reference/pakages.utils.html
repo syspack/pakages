@@ -348,7 +348,7 @@ extraction from the environment.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pakages.utils.terminal.run_command">
-<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#run_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.run_command" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#run_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.run_command" title="Permalink to this definition"></a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -357,6 +357,24 @@ extraction from the environment.</p>
 <li><p><strong>error_message</strong> (<em>the error message to give to user if fails</em><em>,</em>) – </p></li>
 <li><p><strong>failed.</strong> (<em>if none specified</em><em>, </em><em>will alert that command</em>) – </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pakages.utils.terminal.stream_command">
+<span class="sig-prename descclassname"><span class="pre">pakages.utils.terminal.</span></span><span class="sig-name descname"><span class="pre">stream_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/utils/terminal.html#stream_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.utils.terminal.stream_command" title="Permalink to this definition"></a></dt>
+<dd><p>stream a command (yield) back to the user, as each line is available.</p>
+<p># Example usage:
+results = []
+for line in stream_command(cmd):</p>
+<blockquote>
+<div><p>print(line, end=””)
+results.append(line)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cmd</strong> (<em>the command to send</em><em>, </em><em>should be a list for subprocess</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
