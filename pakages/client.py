@@ -49,7 +49,7 @@ class PakagesClient:
         args = list(args)
         if not args[0] or args[0] == ".":
             args[0] = os.getcwd()
-        pkg = pakages.packages.get_package(args[0])
+        pkg = pakages.builders.get_package(args[0])
 
         # This returns a build result
         result = pkg.build()

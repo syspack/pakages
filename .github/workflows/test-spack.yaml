@@ -12,26 +12,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [["zlib", "https://github.com/pakages/zlib/"]]  
+        package: ["zlib"]
     runs-on: ubuntu-latest
     name: Pakages Build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Clone ${{ matrix.repo[0] }}
-        env:
-          package: ${{ matrix.repo[0] }}
-          repo: ${{ matrix.repo[1] }}
-        run: |
-          git clone ${repo}
-          cd ${package}
-
+      - name: List Files
+        run: ls .
       - name: Build and Deploy Spack Package
         env:
           deploy: true
 #         deploy: ${{ github.event_name != 'pull_request' }}
-          package: ${{ matrix.repo[0] }}
+          package: ${{ matrix.package }}
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
           uri: ghcr.io/pakages
-        run: ../entrypoint.sh
+        run: /bin/bash entrypoint.sh
