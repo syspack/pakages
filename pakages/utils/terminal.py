@@ -3,10 +3,11 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 from pakages.logger import logger
-from subprocess import Popen, PIPE, STDOUT
+import subprocess
 import os
 import shlex
 import shutil
+import sys
 
 
 def which(software, strip_newline=True):
@@ -69,7 +70,39 @@ def get_user():
         return os.environ.get("USER") or os.environ.get("USERNAME")
 
 
-def run_command(cmd, stream=False):
+def stream_command(cmd):
+    """stream a command (yield) back to the user, as each line is available.
+
+    # Example usage:
+    results = []
+    for line in stream_command(cmd):
+        print(line, end="")
+        results.append(line)
+
+    Parameters
+    ==========
+    cmd: the command to send, should be a list for subprocess
+    """
+    process = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
+    )
+
+    # Allow the runner to choose streaming output or error
+    stream = process.stdout.readline
+
+    # Stream lines back to the caller
+    for line in iter(stream, ""):
+        yield line
+
+    # If there is an error, raise.
+    process.stdout.close()
+    return_code = process.wait()
+    if return_code:
+        print(process.stderr.read(), file=sys.stderr)
+        raise subprocess.CalledProcessError(return_code, cmd)
+
+
+def run_command(cmd):
     """run_command uses subprocess to send a command to the terminal.
 
     Parameters
@@ -82,7 +115,7 @@ def run_command(cmd, stream=False):
     if not isinstance(cmd, list):
         cmd = shlex.split(cmd)
 
-    output = Popen(cmd, stderr=STDOUT, stdout=PIPE)
+    output = subprocess.Popen(cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
     t = output.communicate()[0], output.returncode
     output = {"message": t[0], "return_code": t[1]}
 

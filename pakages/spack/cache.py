@@ -13,9 +13,6 @@ import pakages.spack.oras
 import shutil
 import os
 
-gpg = SpackCommand("gpg")
-bc = SpackCommand("buildcache")
-
 
 def gpg_init(dirname):
     """
@@ -31,6 +28,8 @@ def get_gpg_key():
 
     This would really be nicer if we didn't have to use gpg :)
     """
+    gpg = SpackCommand("gpg")
+
     key = None
     lines = gpg("list").split("\n")
     for i, line in enumerate(lines):
@@ -55,15 +54,6 @@ class BuildCache:
             settings = pakages.settings.EmptySettings()
         self.settings = settings
 
-        # Use defautls for username and email if not provided
-        # TODO eventually we want to store keys elsewhere
-        username = username or pakages.utils.get_user()
-        email = email or "%s@users.noreply.spack.io" % username
-
-        # TODO how do we check if this is already created?
-        gpg("init")
-        gpg("create", username, email)
-
     def remove(self):
         """
         Delete the entire build cache
@@ -78,18 +68,12 @@ class BuildCache:
 
         Ideally we could do spack buildcache add but that isn't supported.
         """
-        # If a key isn't defined, choose the first spack one we find
-        if not key:
-            key = get_gpg_key()
-        format_string = " ".join(
-            ["%s@%s/%s" % (s.name, s.version, s.dag_hash()) for s in specs]
-        )
-
-        command = ["create", "-r", "-a"]
+        command = ["spack", "buildcache", "create", "-r", "-a", "-u"]
         if key:
             command += ["-k", key]
-        command += ["-d", self.cache_dir, format_string]
-        print(bc(*command))
+        command += ["-d", self.cache_dir, specs]
+        for line in pakages.utils.stream_command(command):
+            logger.info(line.strip('\n'))
 
     def push(self, uri=None, tag=None):
         """

@@ -5,6 +5,7 @@ from .terminal import (
     get_userhome,
     get_user,
     which,
+    stream_command,
     confirm_action,
 )
 from .command import Command

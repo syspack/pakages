@@ -168,11 +168,20 @@ TODO over weekend or similar
 Spack Build
 ^^^^^^^^^^^
 
-Here is how to build zlib (from spack):
+Here is how to build zlib (from spack). Since we don't want to be responsible for spack building (or not) we require you to make
+your own buildcache.
 
 .. code-block:: console
 
-    $ pakages -b spack build zlib
+    $ mkdir -p /tmp/build-cache
+    $ spack buildcache create -u -a -d /tmp/build-cache python
+
+And then give it to pakages to "build" into artifacts. We used to attempt controlling the spack build
+but decided it was out of scope for pakages.
+
+.. code-block:: console
+
+    $ pakages -b spack build /tmp/build-cache
 
 For spack, by default, a build cache will be created in a temporary directory and the Pakages
 saved there. This is recommended, as each pakage is intended to be modular. If you want

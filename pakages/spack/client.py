@@ -15,20 +15,10 @@ import re
 import os
 import json
 
-import pakages.spack.spec
-
-
 class SpackClient(pakages.client.PakagesClient):
     """
     Pakages has a main controller for interacting with pakages.
     """
-    def iter_specs(self, packages, concretize=True):
-        """
-        A shared function to retrieve iterable of specs from packages
-        """
-        for spec in pakages.spack.spec.parse_specs(packages):
-            yield spec
-
     def parse_package_request(self, packages):
         """
         Parse the packages and repo (if any) from it.
@@ -85,11 +75,8 @@ class SpackClient(pakages.client.PakagesClient):
         )
 
         # Install all packages, and also generate sboms.
-        # A build never uses the gh-packages cache
-        specs = self.install(packages, registry=registry, tag=tag, use_cache=False)
-
-        # TODO how can we attach the sbom to the package (aside from being in archive?)
-        cache.create(specs, key=key)
+        self.install(packages, registry=registry, tag=tag)
+        cache.create(packages, key=key)
         return cache
 
     def push(self, uri, cache_dir=None, tag=None):
@@ -131,26 +118,13 @@ class SpackClient(pakages.client.PakagesClient):
         if registry:
             registries = [registry] + registries
 
-        specs = []
-        for spec in self.iter_specs(packages):
-            logger.info("Preparing to install %s" % spec.name)
-
-            # Do install - this dumps out matching from build cache first
-            spec.package.do_install(
-                force=True,
-                use_cache=use_cache,
-                registries=registries,
-                tag=tag or self.settings.default_tag,
-            )
-            specs.append(spec)
-        return specs
+        # Install packages using system spack - we aren't responsible for this working
+        for line in pakages.utils.stream_command(['spack', 'install', packages]):
+            logger.info(line.strip('\n'))
 
     def uninstall(self, packages):
         """
         Uninstall a spack package
         """
-        for spec in self.iter_specs(packages):
-            try:
-                spec.package.do_uninstall(force=True)
-            except Exception as ex:
-                logger.exit(ex)
+        for line in pakages.utils.stream_command(['spack', 'uninstall', packages]):
+            logger.info(line.strip('\n'))
