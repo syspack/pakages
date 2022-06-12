@@ -28,10 +28,7 @@ RUN git clone --depth 1 https://github.com/spack/spack /opt/spack && \
     spack compiler find && \
     
     # build for a generic target
-    spack config add 'packages:all:target:[x86_64]' && \
-
-    # reuse as much as possible, make externals useful
-    spack config add 'concretizer:reuse:true'
+    spack config add 'packages:all:target:[x86_64]'
 
 # install oras so we don't need to bootstrap
 RUN curl -LO https://github.com/oras-project/oras/releases/download/v0.12.0/oras_0.12.0_linux_amd64.tar.gz && \

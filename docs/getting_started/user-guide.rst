@@ -184,11 +184,8 @@ When you do a build, it will show you the location of the build cache.
 .. code-block:: console
 
     $ pakages -b spack build zlib
-    Preparing to install zlib
-    linux-ubuntu20.04-skylake
     [+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px
     ==> Pushing binary packages to file:///tmp/pakages-tmp.1by0dclj/build_cache
-    gpg: using "DECA3181DA00313E633F963157BE6A82D830EA34" as default secret key for signing
 
 Build also supports local and remote repositories, as outlined in install. For example:
 
