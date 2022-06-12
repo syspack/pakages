@@ -6,12 +6,14 @@ __license__ = "Apache-2.0"
 
 # https://www.ntia.gov/files/ntia/publications/howto_guide_for_sbom_generation_v1.pdf
 
+import pakages.utils
 import spack.main
 import spack.config
 import spack.spec
 
 from datetime import datetime
 import uuid
+import os
 
 # We will use CycloneDX which is a simplified format approved by standards committees
 # https://cyclonedx.org/docs/1.3/json
@@ -28,6 +30,16 @@ template = {
     # Will be populated with metadata
     "metadata": {},
 }
+
+
+def generate_sbom_file(spec, out_dir):
+    """
+    Generate an sbom for a spec (currently not used)
+    """
+    sbom = generate_sbom(spec)
+    sbom_file = os.path.join(out_dir, "sbom.json")
+    pakages.utils.write_json(sbom, sbom_file)
+    return sbom_file
 
 
 def generate_timestamp_now():

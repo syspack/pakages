@@ -7,7 +7,6 @@ import subprocess
 import os
 import shlex
 import shutil
-import sys
 
 
 def which(software, strip_newline=True):
@@ -97,8 +96,8 @@ def stream_command(cmd):
     # If there is an error, raise.
     process.stdout.close()
     return_code = process.wait()
-    if return_code:
-        print(process.stderr.read(), file=sys.stderr)
+    if return_code != 0:
+        logger.error(process.stderr.read().strip("\n"))
         raise subprocess.CalledProcessError(return_code, cmd)
 
 

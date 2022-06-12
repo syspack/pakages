@@ -1,4 +1,6 @@
 name: Spack Build
+
+# Spack is done in a container so we control os, version, etc.
 on:
   pull_request: []
   push:
@@ -10,24 +12,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [["zlib", "https://github.com/pakages/zlib/"]]  
+        package: ["zlib"]
     runs-on: ubuntu-latest
     name: Pakages Build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install Pakages and Spack
+      - name: Install pakages and Spack
         run: |
            git clone --depth 1 https://github.com/spack/spack /tmp/spack
-           export PATH=/tmp/spack/bin:${PATH}
            pip install -e .[all]
+           pip install git+https://github.com/oras-project/oras-py.git@improve-403-error-message
 
-      - name: Build ${{ matrix.repo[0] }}
+      - name: List Files
+        run: ls .
+      - name: Build and Deploy Spack Package
         env:
-          package: ${{ matrix.repo[0] }}
-          repo: ${{ matrix.repo[1] }}
+          deploy: ${{ github.event_name != 'pull_request' }}
+          package: ${{ matrix.package }}
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          uri: ghcr.io/syspack/pakages
         run: |
-          export PATH=/tmp/spack/bin:${PATH}
-          git clone ${repo}
-          cd ${package}
-          pakages build --builder spack ${package}
+          export PATH=/tmp/spack/bin:$PATH
+          /bin/bash entrypoint.sh

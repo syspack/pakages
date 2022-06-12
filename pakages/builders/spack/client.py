@@ -3,8 +3,9 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 from pakages.logger import logger
-import pakages.spack.cache
+import pakages.builders.spack.cache as spack_cache
 import pakages.client
+import pakages.oras
 
 import spack.cmd
 import spack.target
@@ -15,10 +16,12 @@ import re
 import os
 import json
 
+
 class SpackClient(pakages.client.PakagesClient):
     """
     Pakages has a main controller for interacting with pakages.
     """
+
     def parse_package_request(self, packages):
         """
         Parse the packages and repo (if any) from it.
@@ -62,36 +65,38 @@ class SpackClient(pakages.client.PakagesClient):
         print(find())
         return json.loads(find("--json"))
 
-    def build(self, packages, cache_dir=None, key=None, registry=None, tag=None):
+    def build(self, packages, cache_dir=None, key=None, **kwargs):
         """
         Build a package into a cache
         """
+        packages = self.parse_packages(packages)
+
         # Prepare a cache directory
-        cache = pakages.spack.cache.BuildCache(
+        cache = spack_cache.BuildCache(
+            spec_name=packages,
             cache_dir=cache_dir or self.settings.cache_dir,
             username=self.settings.username,
             email=self.settings.email,
             settings=self.settings,
         )
 
-        # Install all packages, and also generate sboms.
-        self.install(packages, registry=registry, tag=tag)
+        # Install all packages
+        self._install(packages)
         cache.create(packages, key=key)
+
+        # Push function is on cache, if desired
         return cache
 
-    def push(self, uri, cache_dir=None, tag=None):
+    def parse_packages(self, packages):
         """
-        Given an existing cache directory, push known specs to a specific uri
+        Helper function to ensure we return consistent names.
         """
-        # Prepare a cache directory
-        cache = pakages.spack.cache.BuildCache(
-            cache_dir=cache_dir or self.settings.cache_dir,
-            username=self.settings.username,
-            email=self.settings.email,
-            settings=self.settings,
-        )
-        cache.push(uri, tag=tag)
-        return cache
+        if isinstance(packages, list):
+            packages = packages[0]
+        if " " in packages:
+            logger.exit("We currently only support one package for build.")
+        logger.info(f"Preparing package {packages}")
+        return packages
 
     def add_repository(self, path):
         """
@@ -105,26 +110,55 @@ class SpackClient(pakages.client.PakagesClient):
         repos.insert(0, path)
         spack.config.set("repos", repos)
 
-    def install(self, packages, registry=None, tag=None, use_cache=False):
+    def download_cache(self, target, download_dir=None):
+        """
+        Download a target to a cache download directory
+        """
+        download_dir = download_dir or pakages.utils.get_tmpdir()
+        reg = pakages.oras.get_oras_client()
+
+        # This will error if not successful, result is a list of files
+        reg.pull(target=target, outdir=download_dir)
+        return download_dir
+
+    def install(self, packages, **kwargs):
+        """
+        Install one or more packages.
+        """
+        packages = self.parse_packages(packages)
+        use_cache = kwargs.get("use_cache", False)
+        if use_cache:
+            cache_dir = self.download_cache(use_cache)
+            cache = spack_cache.BuildCache(
+                packages, cache_dir=cache_dir, settings=self.settings
+            )
+
+            # Cache is named after target, this is a filesystem mirror
+            cache.add_as_mirror(re.sub("(-|:|/)", "-", use_cache))
+
+        # Prepare install command with or without cache
+        command = ["spack", "install"]
+        if use_cache:
+            command.append("--use-cache")
+        command.append(" ".join(packages))
+
+        # Install packages using system spack - we aren't responsible for this working
+        for line in pakages.utils.stream_command(command):
+            logger.info(line.strip("\n"))
+
+    def _install(self, packages):
         """
         Install one or more packages.
 
         This eventually needs to take into account using the GitHub packages bulid cache
         """
-        # Default to registries defined in settings
-        registries = self.settings.trusted_pull_registries
-
-        # Do we have an additional trusted registry provided on the command line?
-        if registry:
-            registries = [registry] + registries
-
         # Install packages using system spack - we aren't responsible for this working
-        for line in pakages.utils.stream_command(['spack', 'install', packages]):
-            logger.info(line.strip('\n'))
+        for line in pakages.utils.stream_command(["spack", "install", packages]):
+            logger.info(line.strip("\n"))
 
     def uninstall(self, packages):
         """
         Uninstall a spack package
         """
-        for line in pakages.utils.stream_command(['spack', 'uninstall', packages]):
-            logger.info(line.strip('\n'))
+        for line in pakages.utils.stream_command(["spack", "uninstall", packages]):
+            logger.info(line.strip("\n"))

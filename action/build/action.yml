@@ -24,7 +24,7 @@ runs:
       shell: bash
       run: |
           which pakages || (
-            git clone -b isolate-spack https://github.com/syspack/pakages
+            git clone https://github.com/syspack/pakages
             cd pakages
             pip install -e .
           )

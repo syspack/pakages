@@ -61,45 +61,10 @@ def get_parser():
     # Install, Uninstall and Build
     install = subparsers.add_parser(
         "install",
-        description="install a Pak to the current environment",
+        description="install to the current environment",
         formatter_class=argparse.RawTextHelpFormatter,
     )
-
-    uninstall = subparsers.add_parser(
-        "uninstall",
-        description="install a Pak from the current environment",
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-
-    # List installed packages
-    ls = subparsers.add_parser(
-        "list",
-        description="list installed packages",
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-
-    push = subparsers.add_parser(
-        "push",
-        description="push an existing cache",
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-
-    # For a push we assue we don't want default cleanup
-    push.add_argument(
-        "--cleanup",
-        "-c",
-        dest="cleanup",
-        default=False,
-        action="store_true",
-        help="Clean up (remove) the cache after push.",
-    )
-
-    # One required, one optional arg
-    push.add_argument(
-        "paths",
-        help="path to cache directory (optional) and GitHub packages or other oras URI (ghcr.io)",
-        nargs="*",
-    )
+    install.add_argument("packages", help="install these packages", nargs="+")
 
     build = subparsers.add_parser(
         "build",
@@ -189,9 +154,6 @@ pakages config init""",
         default="ipython",
     )
 
-    for command in [install, uninstall]:
-        command.add_argument("packages", help="install these packages", nargs="+")
-
     for command in [install, build]:
         command.add_argument(
             "--registry",
@@ -200,7 +162,13 @@ pakages config init""",
             help="registry to use for install or build.",
         )
 
-    for command in [install, build, push]:
+    for command in [install, build]:
+        command.add_argument(
+            "--builder",
+            "-b",
+            dest="builder",
+            help="Package builder (default is auto-detect)",
+        )
         command.add_argument(
             "--tag",
             "-t",
@@ -208,13 +176,6 @@ pakages config init""",
             help="tag to use for build cache retrieval or push",
         )
 
-    for command in [install, uninstall, build, push]:
-        command.add_argument(
-            "--builder",
-            "-b",
-            dest="builder",
-            help="Package builder (default is auto-detect)",
-        )
     return parser
 
 
@@ -269,16 +230,10 @@ def run_main():
         from .build import main
     elif args.command == "config":
         from .config import main
-    elif args.command == "list":
-        from .ls import main
     elif args.command == "install":
         from .install import main
-    elif args.command == "push":
-        from .push import main
     elif args.command == "shell":
         from .shell import main
-    elif args.command == "uninstall":
-        from .uninstall import main
 
     # Pass on to the correct parser
     return_code = 0

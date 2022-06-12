@@ -13,6 +13,7 @@ def generalize_spack_archive(name):
     """
     return "-".join(name.split("-")[:-1]) + ".spack"
 
+
 def install_spack(repo=None, branch=None):
     """
     Install spack to pakages/spack (note this is not used).

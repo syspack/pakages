@@ -10,12 +10,38 @@ from oras.decorator import ensure_container
 from pakages.logger import logger
 
 
+def get_oras_client():
+    """
+    Consistent method to get an oras client
+    """
+    user = os.environ.get("ORAS_USER")
+    password = os.environ.get("ORAS_PASS")
+    reg = Registry()
+    if user and password:
+        print("Found username and password for basic auth")
+        reg.set_basic_auth(user, password)
+    else:
+        logger.warning("ORAS_USER or ORAS_PASS is missing, push may have issues.")
+    return reg
+
+
+def pull_to_dir(pull_dir, target):
+    """
+    Given a URI, pull to an output directory.
+    """
+    reg = get_oras_client()
+    return reg.pull(target=target, outdir=pull_dir)
+
+
 class Registry(oras.provider.Registry):
     @ensure_container
-    def push(self, container, archives: dict, annotations=None):
+    def push(self, container, archives: dict, annotations=None, titles: dict = None):
         """
         Given a dict of layers (paths and corresponding mediaType) push.
         """
+        # Lookup of titles to override default
+        titles = titles or {}
+
         # Prepare a new manifest
         manifest = oras.oci.NewManifest()
 
@@ -31,6 +57,8 @@ class Registry(oras.provider.Registry):
 
             # Save directory or blob name before compressing
             blob_name = os.path.basename(blob)
+            if blob in titles:
+                blob_name = titles[blob]
 
             # If it's a directory, we need to compress
             cleanup_blob = False
@@ -49,6 +77,7 @@ class Registry(oras.provider.Registry):
             manifest["layers"].append(layer)
 
             # Upload the blob layer
+            logger.info(f"Uploading {blob} to {container.uri}")
             response = self._upload_blob(blob, container, layer)
             self._check_200_response(response)
 

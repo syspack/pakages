@@ -14,7 +14,7 @@ jobs:
       - name: Install Pakages
         run: pip install -e .[all]
 
-      - name: Test Pakages Build
+      - name: Test Pakages Python Build
         uses: ./action/build
         with:
           user: ${{ github.actor }}

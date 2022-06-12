@@ -41,7 +41,8 @@ RUN curl -LO https://github.com/oras-project/oras/releases/download/v0.12.0/oras
 COPY ./entrypoint.sh /entrypoint.sh
 WORKDIR /opt/pakages
 COPY . /opt/pakages
-RUN python3 -m pip install .
+RUN python3 -m pip install . && \
+    python3 -m pip install git+https://github.com/oras-project/oras-py.git@improve-403-error-message
 
 ENV SPACK_ROOT=/opt/spack    
 ENTRYPOINT ["/bin/bash"]
