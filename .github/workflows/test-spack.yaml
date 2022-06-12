@@ -34,4 +34,4 @@ jobs:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
           uri: ghcr.io/pakages
-        run: /entrypoint.sh
+        run: ../entrypoint.sh
