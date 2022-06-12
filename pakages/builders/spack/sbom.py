@@ -36,7 +36,7 @@ def generate_sbom_file(spec, out_dir):
     """
     Generate an sbom for a spec
     """
-    sbom = pakages.spack.sbom.generate_sbom(spec)
+    sbom = generate_sbom(spec)
     sbom_file = os.path.join(out_dir, "sbom.json")
     pakages.utils.write_json(sbom, sbom_file)
     return sbom_file
