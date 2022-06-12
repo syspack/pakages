@@ -34,7 +34,8 @@ fi
 
 # Ensure we use develop build cache
 spack compiler find
-spack mirror add develop https://binaries.spack.io/develop
+# This can pull in compiler dependencies we cannot satisfy
+# spack mirror add develop https://binaries.spack.io/develop
 
 # Run pakages for the specs provided, with deploy or not
 if [ "${deploy}" == "true" ]; then
