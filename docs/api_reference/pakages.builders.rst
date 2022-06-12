@@ -1,13 +1,21 @@
-pakages.packages package
+pakages.builders package
 ========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   pakages.builders.spack
 
 Submodules
 ----------
 
-pakages.packages.python module
+pakages.builders.python module
 ------------------------------
 
-.. automodule:: pakages.packages.python
+.. automodule:: pakages.builders.python
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +23,7 @@ pakages.packages.python module
 Module contents
 ---------------
 
-.. automodule:: pakages.packages
+.. automodule:: pakages.builders
    :members:
    :undoc-members:
    :show-inheritance:

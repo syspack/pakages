@@ -7,10 +7,9 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   pakages.builders
    pakages.cli
    pakages.handlers
-   pakages.packages
-   pakages.spack
    pakages.utils
 
 Submodules
