@@ -20,6 +20,14 @@ pakages.cli.config module
    :undoc-members:
    :show-inheritance:
 
+pakages.cli.helpers module
+--------------------------
+
+.. automodule:: pakages.cli.helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pakages.cli.install module
 --------------------------
 
@@ -28,34 +36,10 @@ pakages.cli.install module
    :undoc-members:
    :show-inheritance:
 
-pakages.cli.ls module
----------------------
-
-.. automodule:: pakages.cli.ls
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pakages.cli.push module
------------------------
-
-.. automodule:: pakages.cli.push
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pakages.cli.shell module
 ------------------------
 
 .. automodule:: pakages.cli.shell
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pakages.cli.uninstall module
-----------------------------
-
-.. automodule:: pakages.cli.uninstall
    :members:
    :undoc-members:
    :show-inheritance:

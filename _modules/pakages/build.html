@@ -98,6 +98,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">builder</span> <span class="o">=</span> <span class="n">builder</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">archives</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tmpdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titles</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="n">annotations</span> <span class="ow">or</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -117,13 +118,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Push archives to a target</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ORAS_USER&quot;</span><span class="p">)</span>
-        <span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ORAS_PASS&quot;</span><span class="p">)</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">Registry</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">user</span> <span class="ow">and</span> <span class="n">password</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found username and password for basic auth&quot;</span><span class="p">)</span>
-            <span class="n">reg</span><span class="o">.</span><span class="n">set_basic_auth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
-        <span class="n">reg</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">archives</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">)</span></div>
+        <span class="n">reg</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">get_oras_client</span><span class="p">()</span>
+        <span class="n">reg</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">archives</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">,</span> <span class="n">titles</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">titles</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BuildResult.summary"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.build.BuildResult.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -135,6 +131,12 @@
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">mediaType</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">archives</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mediaType</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">path</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BuildResult.add_title"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.build.BuildResult.add_title">[docs]</a>    <span class="k">def</span> <span class="nf">add_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a specific title for a blob.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titles</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">title</span></div>
 
 <div class="viewcode-block" id="BuildResult.add_archive"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.build.BuildResult.add_archive">[docs]</a>    <span class="k">def</span> <span class="nf">add_archive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mediaType</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

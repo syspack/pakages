@@ -83,11 +83,13 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pakages.client</span> <span class="kn">import</span> <span class="n">get_client</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">parse_extra</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api_reference/pakages.cli.html#pakages.cli.install.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">subparser</span><span class="p">):</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">parse_extra</span><span class="p">(</span><span class="n">extra</span><span class="p">)</span>
     <span class="n">cli</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">builder</span><span class="p">,</span> <span class="n">settings_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">settings_file</span><span class="p">)</span>
-    <span class="n">cli</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span></div>
+    <span class="n">cli</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">registry</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

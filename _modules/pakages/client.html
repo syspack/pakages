@@ -82,7 +82,7 @@
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pakages.packages</span>
+<span class="kn">import</span> <span class="nn">pakages.builders</span>
 <span class="kn">from</span> <span class="nn">.settings</span> <span class="kn">import</span> <span class="n">Settings</span>
 
 
@@ -90,8 +90,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a pakages client</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We don&#39;t require other builders to have spack installed</span>
     <span class="k">if</span> <span class="n">builder</span> <span class="o">==</span> <span class="s2">&quot;spack&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">pakages.spack.client</span> <span class="kn">import</span> <span class="n">SpackClient</span>
+        <span class="kn">from</span> <span class="nn">pakages.builders.spack</span> <span class="kn">import</span> <span class="n">SpackClient</span>
 
         <span class="k">return</span> <span class="n">SpackClient</span><span class="p">(</span><span class="n">settings_file</span><span class="o">=</span><span class="n">settings_file</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -128,14 +129,14 @@
         <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-        <span class="n">pkg</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">get_package</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">pkg</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">builders</span><span class="o">.</span><span class="n">get_package</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># This returns a build result</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">pkg</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
         <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="PakagesClient.install"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.client.PakagesClient.install">[docs]</a>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="PakagesClient.install"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.client.PakagesClient.install">[docs]</a>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Install one or more packages.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

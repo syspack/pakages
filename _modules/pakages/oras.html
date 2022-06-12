@@ -89,12 +89,38 @@
 <span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 
+<div class="viewcode-block" id="get_oras_client"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.oras.get_oras_client">[docs]</a><span class="k">def</span> <span class="nf">get_oras_client</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Consistent method to get an oras client</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ORAS_USER&quot;</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ORAS_PASS&quot;</span><span class="p">)</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">Registry</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">user</span> <span class="ow">and</span> <span class="n">password</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found username and password for basic auth&quot;</span><span class="p">)</span>
+        <span class="n">reg</span><span class="o">.</span><span class="n">set_basic_auth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;ORAS_USER or ORAS_PASS is missing, push may have issues.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">reg</span></div>
+
+
+<div class="viewcode-block" id="pull_to_dir"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.oras.pull_to_dir">[docs]</a><span class="k">def</span> <span class="nf">pull_to_dir</span><span class="p">(</span><span class="n">pull_dir</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a URI, pull to an output directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">get_oras_client</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">reg</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="n">pull_dir</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="Registry"><a class="viewcode-back" href="../../api_reference/pakages.html#pakages.oras.Registry">[docs]</a><span class="k">class</span> <span class="nc">Registry</span><span class="p">(</span><span class="n">oras</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">Registry</span><span class="p">):</span>
     <span class="nd">@ensure_container</span>
-    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">archives</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">archives</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">titles</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a dict of layers (paths and corresponding mediaType) push.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Lookup of titles to override default</span>
+        <span class="n">titles</span> <span class="o">=</span> <span class="n">titles</span> <span class="ow">or</span> <span class="p">{}</span>
+
         <span class="c1"># Prepare a new manifest</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">oras</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">NewManifest</span><span class="p">()</span>
 
@@ -110,6 +136,8 @@
 
             <span class="c1"># Save directory or blob name before compressing</span>
             <span class="n">blob_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">blob</span> <span class="ow">in</span> <span class="n">titles</span><span class="p">:</span>
+                <span class="n">blob_name</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="n">blob</span><span class="p">]</span>
 
             <span class="c1"># If it&#39;s a directory, we need to compress</span>
             <span class="n">cleanup_blob</span> <span class="o">=</span> <span class="kc">False</span>
@@ -128,6 +156,7 @@
             <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;layers&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
             <span class="c1"># Upload the blob layer</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploading </span><span class="si">{</span><span class="n">blob</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">container</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upload_blob</span><span class="p">(</span><span class="n">blob</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_200_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 

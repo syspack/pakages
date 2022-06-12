@@ -140,45 +140,10 @@
     <span class="c1"># Install, Uninstall and Build</span>
     <span class="n">install</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
         <span class="s2">&quot;install&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;install a Pak to the current environment&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;install to the current environment&quot;</span><span class="p">,</span>
         <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
     <span class="p">)</span>
-
-    <span class="n">uninstall</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-        <span class="s2">&quot;uninstall&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;install a Pak from the current environment&quot;</span><span class="p">,</span>
-        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># List installed packages</span>
-    <span class="n">ls</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-        <span class="s2">&quot;list&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;list installed packages&quot;</span><span class="p">,</span>
-        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">push</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
-        <span class="s2">&quot;push&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;push an existing cache&quot;</span><span class="p">,</span>
-        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawTextHelpFormatter</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># For a push we assue we don&#39;t want default cleanup</span>
-    <span class="n">push</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;--cleanup&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
-        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;cleanup&quot;</span><span class="p">,</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Clean up (remove) the cache after push.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># One required, one optional arg</span>
-    <span class="n">push</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-        <span class="s2">&quot;paths&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;path to cache directory (optional) and GitHub packages or other oras URI (ghcr.io)&quot;</span><span class="p">,</span>
-        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">install</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;packages&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;install these packages&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
 
     <span class="n">build</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
         <span class="s2">&quot;build&quot;</span><span class="p">,</span>
@@ -268,9 +233,6 @@
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;ipython&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">uninstall</span><span class="p">]:</span>
-        <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;packages&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;install these packages&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
-
     <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">build</span><span class="p">]:</span>
         <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;--registry&quot;</span><span class="p">,</span>
@@ -279,7 +241,13 @@
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;registry to use for install or build.&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">build</span><span class="p">,</span> <span class="n">push</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">build</span><span class="p">]:</span>
+        <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--builder&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-b&quot;</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;builder&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Package builder (default is auto-detect)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;--tag&quot;</span><span class="p">,</span>
             <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
@@ -287,13 +255,6 @@
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;tag to use for build cache retrieval or push&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="p">[</span><span class="n">install</span><span class="p">,</span> <span class="n">uninstall</span><span class="p">,</span> <span class="n">build</span><span class="p">,</span> <span class="n">push</span><span class="p">]:</span>
-        <span class="n">command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-            <span class="s2">&quot;--builder&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-b&quot;</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;builder&quot;</span><span class="p">,</span>
-            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Package builder (default is auto-detect)&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
@@ -348,16 +309,10 @@
         <span class="kn">from</span> <span class="nn">.build</span> <span class="kn">import</span> <span class="n">main</span>
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;config&quot;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">main</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;list&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.ls</span> <span class="kn">import</span> <span class="n">main</span>
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;install&quot;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">.install</span> <span class="kn">import</span> <span class="n">main</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;push&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.push</span> <span class="kn">import</span> <span class="n">main</span>
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;shell&quot;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">.shell</span> <span class="kn">import</span> <span class="n">main</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;uninstall&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.uninstall</span> <span class="kn">import</span> <span class="n">main</span>
 
     <span class="c1"># Pass on to the correct parser</span>
     <span class="n">return_code</span> <span class="o">=</span> <span class="mi">0</span>

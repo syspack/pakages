@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pakages.builders.spack.client &mdash; Pakages 0.0.16 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sphinx-argparse.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> Pakages
+          </a>
+              <div class="version">
+                0.0.16
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/user-guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/developer-guide.html">Developer Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api_reference/pakages.html">pakages package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api_reference/modules.html">pakages</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Pakages</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../builders.html">pakages.builders</a> &raquo;</li>
+      <li>pakages.builders.spack.client</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pakages.builders.spack.client</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pakages.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">pakages.builders.spack.cache</span> <span class="k">as</span> <span class="nn">spack_cache</span>
+<span class="kn">import</span> <span class="nn">pakages.client</span>
+<span class="kn">import</span> <span class="nn">pakages.oras</span>
+
+<span class="kn">import</span> <span class="nn">spack.cmd</span>
+<span class="kn">import</span> <span class="nn">spack.target</span>
+<span class="kn">import</span> <span class="nn">spack.main</span>
+<span class="kn">import</span> <span class="nn">spack.config</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="SpackClient"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient">[docs]</a><span class="k">class</span> <span class="nc">SpackClient</span><span class="p">(</span><span class="n">pakages</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">PakagesClient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pakages has a main controller for interacting with pakages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SpackClient.parse_package_request"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.parse_package_request">[docs]</a>    <span class="k">def</span> <span class="nf">parse_package_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the packages and repo (if any) from it.</span>
+<span class="sd">        This is shared between install and build</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># By defualt, assume not adding a repository</span>
+        <span class="n">repo</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Case 1: we have an install directed at the present working directory</span>
+        <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+            <span class="n">repo</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+            <span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># If we have a path (akin to the first)</span>
+        <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">repo</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># OR if we have a github URI</span>
+        <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;(http|https)://github.com&quot;</span><span class="p">,</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">repo</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Add the repository, if defined</span>
+        <span class="k">if</span> <span class="n">repo</span><span class="p">:</span>
+            <span class="n">repo</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">PakRepo</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+
+        <span class="c1"># If we don&#39;t have packages and we have a repo, derive from PWD</span>
+        <span class="k">if</span> <span class="n">repo</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">packages</span><span class="p">:</span>
+            <span class="n">packages</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">list_packages</span><span class="p">()</span>
+
+        <span class="c1"># Finally, add the repository</span>
+        <span class="k">if</span> <span class="n">repo</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_repository</span><span class="p">(</span><span class="n">repo</span><span class="o">.</span><span class="n">repo_dir</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">packages</span></div>
+
+<div class="viewcode-block" id="SpackClient.list_installed"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.list_installed">[docs]</a>    <span class="k">def</span> <span class="nf">list_installed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List installed packages</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">find</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">SpackCommand</span><span class="p">(</span><span class="s2">&quot;find&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">find</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;--json&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SpackClient.build"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build a package into a cache</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">packages</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_packages</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
+
+        <span class="c1"># Prepare a cache directory</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="n">spack_cache</span><span class="o">.</span><span class="n">BuildCache</span><span class="p">(</span>
+            <span class="n">spec_name</span><span class="o">=</span><span class="n">packages</span><span class="p">,</span>
+            <span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">,</span>
+            <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">email</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+            <span class="n">settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Install all packages</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_install</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
+        <span class="n">cache</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="c1"># Push function is on cache, if desired</span>
+        <span class="k">return</span> <span class="n">cache</span></div>
+
+<div class="viewcode-block" id="SpackClient.parse_packages"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.parse_packages">[docs]</a>    <span class="k">def</span> <span class="nf">parse_packages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper function to ensure we return consistent names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">packages</span> <span class="o">=</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;We currently only support one package for build.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing package </span><span class="si">{</span><span class="n">packages</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">packages</span></div>
+
+<div class="viewcode-block" id="SpackClient.add_repository"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.add_repository">[docs]</a>    <span class="k">def</span> <span class="nf">add_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a repository.</span>
+
+<span class="sd">        Given a path that exists, add the repository to the</span>
+<span class="sd">        underlying spack. If you need to add a GitHub uri, create a</span>
+<span class="sd">        pakages.repo.PakRepo first.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">repos</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">)</span>
+        <span class="n">repos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpackClient.download_cache"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.download_cache">[docs]</a>    <span class="k">def</span> <span class="nf">download_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Download a target to a cache download directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">download_dir</span> <span class="o">=</span> <span class="n">download_dir</span> <span class="ow">or</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_tmpdir</span><span class="p">()</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">oras</span><span class="o">.</span><span class="n">get_oras_client</span><span class="p">()</span>
+
+        <span class="c1"># This will error if not successful, result is a list of files</span>
+        <span class="n">reg</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="n">download_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">download_dir</span></div>
+
+<div class="viewcode-block" id="SpackClient.install"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.install">[docs]</a>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Install one or more packages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">packages</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_packages</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
+        <span class="n">use_cache</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;use_cache&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+            <span class="n">cache_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_cache</span><span class="p">(</span><span class="n">use_cache</span><span class="p">)</span>
+            <span class="n">cache</span> <span class="o">=</span> <span class="n">spack_cache</span><span class="o">.</span><span class="n">BuildCache</span><span class="p">(</span>
+                <span class="n">packages</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Cache is named after target, this is a filesystem mirror</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">add_as_mirror</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;(-|:|/)&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">use_cache</span><span class="p">))</span>
+
+        <span class="c1"># Prepare install command with or without cache</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+            <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--use-cache&quot;</span><span class="p">)</span>
+        <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">packages</span><span class="p">))</span>
+
+        <span class="c1"># Install packages using system spack - we aren&#39;t responsible for this working</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">(</span><span class="n">command</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Install one or more packages.</span>
+
+<span class="sd">        This eventually needs to take into account using the GitHub packages bulid cache</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Install packages using system spack - we aren&#39;t responsible for this working</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">([</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">packages</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+
+<div class="viewcode-block" id="SpackClient.uninstall"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.uninstall">[docs]</a>    <span class="k">def</span> <span class="nf">uninstall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packages</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uninstall a spack package</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">stream_command</span><span class="p">([</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;uninstall&quot;</span><span class="p">,</span> <span class="n">packages</span><span class="p">]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

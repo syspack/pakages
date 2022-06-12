@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.packages package &mdash; Pakages 0.0.16 documentation</title>
+  <title>pakages.builders package &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="pakages.spack package" href="pakages.spack.html" />
-    <link rel="prev" title="pakages.handlers package" href="pakages.handlers.html" /> 
+    <link rel="next" title="pakages.builders.spack package" href="pakages.builders.spack.html" />
+    <link rel="prev" title="pakages package" href="pakages.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,15 +53,15 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="pakages.html">pakages package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pakages.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pakages.packages package</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pakages.builders package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pakages.packages.python">pakages.packages.python module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-pakages.packages">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.builders.python">pakages.builders.python module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pakages.builders">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pakages.spack.html">pakages.spack package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.cli.html">pakages.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pakages.handlers.html">pakages.handlers package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pakages.utils.html">pakages.utils package</a></li>
 </ul>
 </li>
@@ -96,9 +96,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="pakages.html">pakages package</a> &raquo;</li>
-      <li>pakages.packages package</li>
+      <li>pakages.builders package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api_reference/pakages.packages.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api_reference/pakages.builders.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,37 +106,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pakages-packages-package">
-<h1>pakages.packages package<a class="headerlink" href="#pakages-packages-package" title="Permalink to this heading"></a></h1>
+  <section id="pakages-builders-package">
+<h1>pakages.builders package<a class="headerlink" href="#pakages-builders-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pakages.builders.spack.html">pakages.builders.spack package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#module-pakages.builders.spack.cache">pakages.builders.spack.cache module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#module-pakages.builders.spack.client">pakages.builders.spack.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#module-pakages.builders.spack.sbom">pakages.builders.spack.sbom module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#module-pakages.builders.spack.utils">pakages.builders.spack.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pakages.builders.spack.html#module-pakages.builders.spack">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-pakages.packages.python">
-<span id="pakages-packages-python-module"></span><h2>pakages.packages.python module<a class="headerlink" href="#module-pakages.packages.python" title="Permalink to this heading"></a></h2>
+<section id="module-pakages.builders.python">
+<span id="pakages-builders-python-module"></span><h2>pakages.builders.python module<a class="headerlink" href="#module-pakages.builders.python" title="Permalink to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="pakages.packages.python.PythonPackage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.packages.python.</span></span><span class="sig-name descname"><span class="pre">PythonPackage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/packages/python.html#PythonPackage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.packages.python.PythonPackage" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pakages.builders.python.PythonPackage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pakages.builders.python.</span></span><span class="sig-name descname"><span class="pre">PythonPackage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/python.html#PythonPackage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.python.PythonPackage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="pakages.packages.python.PythonPackage.build">
-<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/packages/python.html#PythonPackage.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.packages.python.PythonPackage.build" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pakages.builders.python.PythonPackage.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/python.html#PythonPackage.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.python.PythonPackage.build" title="Permalink to this definition"></a></dt>
 <dd><p>A build returns a build result.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pakages.packages.python.PythonPackage.matches">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/packages/python.html#PythonPackage.matches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.packages.python.PythonPackage.matches" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pakages.builders.python.PythonPackage.matches">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/python.html#PythonPackage.matches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.python.PythonPackage.matches" title="Permalink to this definition"></a></dt>
 <dd><p>Determine if a root has a setup.py or setup.cfg</p>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-pakages.packages">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages.packages" title="Permalink to this heading"></a></h2>
+<section id="module-pakages.builders">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pakages.builders" title="Permalink to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="pakages.packages.get_package">
-<span class="sig-prename descclassname"><span class="pre">pakages.packages.</span></span><span class="sig-name descname"><span class="pre">get_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/packages.html#get_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.packages.get_package" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pakages.builders.get_package">
+<span class="sig-prename descclassname"><span class="pre">pakages.builders.</span></span><span class="sig-name descname"><span class="pre">get_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders.html#get_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.get_package" title="Permalink to this definition"></a></dt>
 <dd><p>Get a packager based on a context</p>
 </dd></dl>
 
@@ -147,8 +163,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pakages.handlers.html" class="btn btn-neutral float-left" title="pakages.handlers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pakages.spack.html" class="btn btn-neutral float-right" title="pakages.spack package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pakages.html" class="btn btn-neutral float-left" title="pakages package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pakages.builders.spack.html" class="btn btn-neutral float-right" title="pakages.builders.spack package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.packages.python &mdash; Pakages 0.0.16 documentation</title>
+  <title>pakages.builders.python &mdash; Pakages 0.0.16 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
@@ -67,8 +67,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../packages.html">pakages.packages</a> &raquo;</li>
-      <li>pakages.packages.python</li>
+          <li><a href="../builders.html">pakages.builders</a> &raquo;</li>
+      <li>pakages.builders.python</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,7 +77,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pakages.packages.python</h1><div class="highlight"><pre>
+  <h1>Source code for pakages.builders.python</h1><div class="highlight"><pre>
 <span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
@@ -97,11 +97,11 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="PythonPackage"><a class="viewcode-back" href="../../../api_reference/pakages.packages.html#pakages.packages.python.PythonPackage">[docs]</a><span class="k">class</span> <span class="nc">PythonPackage</span><span class="p">:</span>
+<div class="viewcode-block" id="PythonPackage"><a class="viewcode-back" href="../../../api_reference/pakages.builders.html#pakages.builders.python.PythonPackage">[docs]</a><span class="k">class</span> <span class="nc">PythonPackage</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
 
-<div class="viewcode-block" id="PythonPackage.matches"><a class="viewcode-back" href="../../../api_reference/pakages.packages.html#pakages.packages.python.PythonPackage.matches">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PythonPackage.matches"><a class="viewcode-back" href="../../../api_reference/pakages.builders.html#pakages.builders.python.PythonPackage.matches">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">matches</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if a root has a setup.py or setup.cfg</span>
@@ -109,7 +109,7 @@
         <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;setup.py&quot;</span> <span class="ow">in</span> <span class="n">files</span> <span class="ow">or</span> <span class="s2">&quot;setup.cfg&quot;</span> <span class="ow">in</span> <span class="n">files</span></div>
 
-<div class="viewcode-block" id="PythonPackage.build"><a class="viewcode-back" href="../../../api_reference/pakages.packages.html#pakages.packages.python.PythonPackage.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PythonPackage.build"><a class="viewcode-back" href="../../../api_reference/pakages.builders.html#pakages.builders.python.PythonPackage.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A build returns a build result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
