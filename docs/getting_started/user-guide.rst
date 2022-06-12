@@ -168,20 +168,11 @@ TODO over weekend or similar
 Spack Build
 ^^^^^^^^^^^
 
-Here is how to build zlib (from spack). Since we don't want to be responsible for spack building (or not) we require you to make
-your own buildcache.
+Here is how to build zlib (from spack):
 
 .. code-block:: console
 
-    $ mkdir -p /tmp/build-cache
-    $ spack buildcache create -u -a -d /tmp/build-cache python
-
-And then give it to pakages to "build" into artifacts. We used to attempt controlling the spack build
-but decided it was out of scope for pakages.
-
-.. code-block:: console
-
-    $ pakages -b spack build /tmp/build-cache
+    $ pakages -b spack build zlib
 
 For spack, by default, a build cache will be created in a temporary directory and the Pakages
 saved there. This is recommended, as each pakage is intended to be modular. If you want
@@ -193,11 +184,8 @@ When you do a build, it will show you the location of the build cache.
 .. code-block:: console
 
     $ pakages -b spack build zlib
-    Preparing to install zlib
-    linux-ubuntu20.04-skylake
     [+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px
     ==> Pushing binary packages to file:///tmp/pakages-tmp.1by0dclj/build_cache
-    gpg: using "DECA3181DA00313E633F963157BE6A82D830EA34" as default secret key for signing
 
 Build also supports local and remote repositories, as outlined in install. For example:
 
