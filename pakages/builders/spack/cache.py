@@ -16,9 +16,12 @@ import os
 class BuildCache:
     """
     A controller that makes it easy to create a build cache and install to it.
+    We require that it is specific to one spec for now.
     """
 
-    def __init__(self, cache_dir=None, username=None, email=None, settings=None):
+    def __init__(
+        self, spec_name, cache_dir=None, username=None, email=None, settings=None
+    ):
         if not cache_dir:
             cache_dir = pakages.utils.get_tmpdir()
         self.cache_dir = cache_dir
@@ -29,7 +32,7 @@ class BuildCache:
         self.settings = settings
 
         # Set when we do create to remember specs
-        self.spec_string = None
+        self.spec_string = spec_name
         self.spec = None
 
     def remove(self):

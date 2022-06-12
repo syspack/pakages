@@ -69,11 +69,11 @@ class SpackClient(pakages.client.PakagesClient):
         """
         Build a package into a cache
         """
-        if " " in packages:
-            logger.exit("We currently only support one package for build.")
+        packages = self.parse_packages(packages)
 
         # Prepare a cache directory
         cache = spack_cache.BuildCache(
+            spec_name=packages,
             cache_dir=cache_dir or self.settings.cache_dir,
             username=self.settings.username,
             email=self.settings.email,
@@ -86,6 +86,17 @@ class SpackClient(pakages.client.PakagesClient):
 
         # Push function is on cache, if desired
         return cache
+
+    def parse_packages(self, packages):
+        """
+        Helper function to ensure we return consistent names.
+        """
+        if isinstance(packages, list):
+            packages = packages[0]
+        if " " in packages:
+            logger.exit("We currently only support one package for build.")
+        logger.info(f"Preparing package {packages}")
+        return packages
 
     def add_repository(self, path):
         """
@@ -114,10 +125,13 @@ class SpackClient(pakages.client.PakagesClient):
         """
         Install one or more packages.
         """
+        packages = self.parse_packages(packages)
         use_cache = kwargs.get("use_cache", False)
         if use_cache:
             cache_dir = self.download_cache(use_cache)
-            cache = spack_cache.BuildCache(cache_dir=cache_dir, settings=self.settings)
+            cache = spack_cache.BuildCache(
+                packages, cache_dir=cache_dir, settings=self.settings
+            )
 
             # Cache is named after target, this is a filesystem mirror
             cache.add_as_mirror(re.sub("(-|:|/)", "-", use_cache))
