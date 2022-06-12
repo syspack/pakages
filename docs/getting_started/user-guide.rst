@@ -56,34 +56,40 @@ Spack
 ^^^^^
 
 Pakages can install from spack just using pakages install (which is installable via pip so it can be on your path
-more easily or in a Python environment).
+more easily or in a Python environment). For Spack, the intended workflow is to build (and optionally push) when you
+want to create a GitHub packages build cache, and then to install pointing at the cache. If you don't need to push to
+GitHub packagese, build would be equivalent to manually creating a spack build cach. First, here is how to do that:
 
 .. code-block:: console
     
-    $ pakages --builder spack install zlib
-    # equivalent to pakages -b spack install zlib
+    $ pakages --builder spack build zlib
+    # equivalent to pakages -b spack build zlib
     Preparing to install zlib
     linux-ubuntu20.04-skylake
     [+] /home/vanessa/Desktop/Code/syspack/pakages/pakages/spack/opt/spack/linux-ubuntu20.04-skylake/gcc-9.3.0/zlib-1.2.11-3kmnsdv36qxm3slmcyrb326gkghsp6px
 
-
-This is a traditional install, but it's also a little more! We generate a software
-bill of materials (SBOM) to go alongside the install, and if the package is available as a binary
-on GitHub packages in your trusted registry it will be retrieved there first. If you don't need either
-this binary install or the SBOM, you could just install with spack. To change the registry to pull from on the fly
-(given that you don't want to change permanently in your settings) add ``--registry``:
+To push to GitHub packages, provide the push prefix (which will be appended
+with your system architecture):
 
 .. code-block:: console
+    
+    $ pakages --builder spack build zlib --push ghcr.io/pakages/zlib
 
-    $ pakages -b spack install zlib --registry ghcr.io/myorg
+The above will be extended to include ``ghcr.io/pakages/zlib-linux-ubuntu20.04-x86_64:latest``.
+Note that if/when we want to support builds with customized names (not including host info) this can be
+added - please open an issue. The current functionality is assuming that you are uploading a cache
+using the same host you built on. Finally, when you are ready to install (using the GitHub packages build
+cache) you can do:
 
-Note that we use the manifest 
-of the artifact to validate the checksum before installing it.
+.. code-block:: console
+    
+    $ pakages install --builder spack zlib --use-cache ghcr.io/pakages/zlib-linux-ubuntu20.04-x86_64:latest
 
-Local
-^^^^^
+The above will prepare the build cache, add it, and then perform the install, allowing spack to decide
+if a binary and libraries are compatible.
 
-If you have a package repository locally, e.g., a directory with this structure:
+
+Note that you can install from a local package repository structured liked this:
 
 .. code-block:: console
 
@@ -95,34 +101,7 @@ If you have a package repository locally, e.g., a directory with this structure:
          zlib/
             package.py
 
-Then you can install all packages via:
-
-
-.. code-block:: console
-
-    $ pakages -b spack install .
-
-Pakages will detect that you want to install from the present working directory,
-and then install appropriately. The above ``.`` will install all packages in the present working directory.
-You'd likely want to use this in a CI recipe to build and deploy a single package repository, however it could
-have a local use case too, in the case that you want to clone someone's package repository and install all of them.
-If you don't want to install all packages in the local repository, you can also select a specific package by name:
-
-.. code-block:: console
-
-    $ pakages -b spack install . zlib
-
-
-This install command is different from a traditional ``spack install zlib`` because we are providing an absolute
-or relative path first to a packages repository before the package name.
-The above command will add the package directory, and then install zlib from it. Finally, to install from
-a repository with the same package structure but from a remote on GitHub:
-
-.. code-block:: console
-
-    $ pakages -b spack install https://github.com/pakages/zlib
-
-The above will create a temporary repository to use, and then clean up.
+And use the same spack build command to generate the cache from it.
 
 
 Shell
@@ -163,7 +142,7 @@ Here is an example:
     $ cd /tmp/citelang
     $ pakages build
 
-TODO over weekend or similar
+**TODO**
 
 Spack Build
 ^^^^^^^^^^^

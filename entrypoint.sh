@@ -13,6 +13,9 @@ if [ -z "${user}" ]; then
     exit 1
 fi
 
+export ORAS_USER="${user}"
+export ORAS_PASS="${token}"
+
 # Login with user and github token
 echo ${GITHUB_TOKEN} | oras login -u ${user} --password-stdin ghcr.io
 

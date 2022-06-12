@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
-import pakages.packages
+import pakages.builders
 from .settings import Settings
 
 
@@ -11,9 +11,9 @@ def get_client(builder=None, settings_file=None):
     """
     Get a pakages client
     """
-    if builder == "spack":
-        from pakages.spack.client import SpackClient
+    from pakages.builders.spack import SpackClient
 
+    if builder == "spack":
         return SpackClient(settings_file=settings_file)
     else:
         return PakagesClient(settings_file=settings_file)
@@ -56,7 +56,7 @@ class PakagesClient:
         result.summary()
         return result
 
-    def install(self, packages, registry=None, tag=None):
+    def install(self, packages, registry=None, tag=None, **kwargs):
         """
         Install one or more packages.
         """

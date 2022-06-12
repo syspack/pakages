@@ -1,4 +1,6 @@
 name: Spack Build
+
+# Spack is done in a container so we control os, version, etc.
 on:
   pull_request: []
   push:
@@ -16,18 +18,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install Pakages and Spack
-        run: |
-           git clone --depth 1 https://github.com/spack/spack /tmp/spack
-           export PATH=/tmp/spack/bin:${PATH}
-           pip install -e .[all]
-
-      - name: Build ${{ matrix.repo[0] }}
+      - name: Clone ${{ matrix.repo[0] }}
         env:
           package: ${{ matrix.repo[0] }}
           repo: ${{ matrix.repo[1] }}
         run: |
-          export PATH=/tmp/spack/bin:${PATH}
           git clone ${repo}
           cd ${package}
-          pakages build --builder spack ${package}
+
+      - name: Build and Deploy Spack Package
+        env:
+          deploy: true
+#         deploy: ${{ github.event_name != 'pull_request' }}
+          package: ${{ matrix.repo[0] }}
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          uri: ghcr.io/pakages
+        run: /entrypoint.sh

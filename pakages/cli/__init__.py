@@ -61,7 +61,7 @@ def get_parser():
     # Install, Uninstall and Build
     install = subparsers.add_parser(
         "install",
-        description="install a Pak to the current environment",
+        description="install to the current environment",
         formatter_class=argparse.RawTextHelpFormatter,
     )
 

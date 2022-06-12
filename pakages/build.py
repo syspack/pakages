@@ -19,6 +19,7 @@ class BuildResult:
         self.builder = builder
         self.archives = {}
         self.tmpdir = tmpdir
+        self.titles = {}
         self.annotations = annotations or {}
 
     def __repr__(self):
@@ -38,13 +39,8 @@ class BuildResult:
         """
         Push archives to a target
         """
-        user = os.environ.get("ORAS_USER")
-        password = os.environ.get("ORAS_PASS")
-        reg = pakages.oras.Registry()
-        if user and password:
-            print("Found username and password for basic auth")
-            reg.set_basic_auth(user, password)
-        reg.push(target, self.archives, self.annotations)
+        reg = pakages.oras.get_oras_client()
+        reg.push(target, self.archives, self.annotations, titles=self.titles)
 
     def summary(self):
         """
@@ -56,6 +52,12 @@ class BuildResult:
         )
         for path, mediaType in self.archives.items():
             logger.info("%s %s" % (mediaType.ljust(50), path))
+
+    def add_title(self, path, title):
+        """
+        Add a specific title for a blob.
+        """
+        self.titles[path] = title
 
     def add_archive(self, path, mediaType):
         """
