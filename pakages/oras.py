@@ -77,7 +77,7 @@ class Registry(oras.provider.Registry):
             manifest["layers"].append(layer)
 
             # Upload the blob layer
-            logger.info(f"Uploading {blob}")
+            logger.info(f"Uploading {blob} to {container.uri}")
             response = self._upload_blob(blob, container, layer)
             self._check_200_response(response)
 
