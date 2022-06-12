@@ -11,9 +11,9 @@ def get_client(builder=None, settings_file=None):
     """
     Get a pakages client
     """
-    from pakages.builders.spack import SpackClient
-
+    # We don't require other builders to have spack installed
     if builder == "spack":
+        from pakages.builders.spack import SpackClient
         return SpackClient(settings_file=settings_file)
     else:
         return PakagesClient(settings_file=settings_file)
