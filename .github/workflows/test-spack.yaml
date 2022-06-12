@@ -33,7 +33,7 @@ jobs:
           package: ${{ matrix.package }}
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          uri: ghcr.io/pakages
+          uri: ghcr.io/syspack/pakages
         run: |
           export PATH=/tmp/spack/bin:$PATH
           /bin/bash entrypoint.sh
