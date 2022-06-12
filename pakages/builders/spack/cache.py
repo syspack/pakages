@@ -7,7 +7,6 @@ import pakages.utils
 import pakages.build
 import pakages.defaults
 import pakages.settings
-from . import sbom
 
 import shutil
 import os
@@ -122,7 +121,7 @@ class BuildCache:
         if not os.path.exists(self.cache_dir) or not os.listdir(self.cache_dir):
             logger.exit(f"{self.cache_dir} is empty, use build to populate first.")
 
-        # We must have the spec to generate archive name and generate sbom
+        # We must have the spec to generate archive name
         self.load_spec()
         if not self.spec:
             logger.exit(f"Cannot find spec for {self.spec_name} in cache.")
@@ -134,10 +133,6 @@ class BuildCache:
 
         # Create a build result with the temporary directory
         result = pakages.build.BuildResult("spack", self.cache_dir)
-
-        # If we have a spec, generate and add an sbom
-        sbom_file = sbom.generate_sbom_file(self.spec, self.cache_dir)
-        result.add_archive(sbom_file, "application/vnd.cyclonedx+json")
 
         # Here we add each filename (relative to the root) as a layer
         for blob in pakages.utils.recursive_find(self.cache_dir):

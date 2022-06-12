@@ -34,7 +34,7 @@ template = {
 
 def generate_sbom_file(spec, out_dir):
     """
-    Generate an sbom for a spec
+    Generate an sbom for a spec (currently not used)
     """
     sbom = generate_sbom(spec)
     sbom_file = os.path.join(out_dir, "sbom.json")
