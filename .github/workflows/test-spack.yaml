@@ -28,8 +28,7 @@ jobs:
         run: ls .
       - name: Build and Deploy Spack Package
         env:
-          deploy: true
-#         deploy: ${{ github.event_name != 'pull_request' }}
+          deploy: ${{ github.event_name != 'pull_request' }}
           package: ${{ matrix.package }}
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
