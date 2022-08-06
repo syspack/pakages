@@ -127,8 +127,8 @@ class BuildCache:
         if not self.spec:
             logger.exit(f"Cannot find spec for {self.spec_name} in cache.")
 
-        suffix = self.get_spec_uri()
-        uri = f"{uri}/{suffix}"
+        if not uri:
+            uri = self.get_spec_uri()
         if ":" not in uri:
             uri = f"{uri}:{tag}"
 
