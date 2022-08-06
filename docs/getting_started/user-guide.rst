@@ -258,3 +258,6 @@ The following variables are available:
    * - token
      - token to authenticate GitHub packages
      - unset (required)
+     
+     
+For an example, see `flux-framework/flux-spack <https://github.com/flux-framework/flux-spack>`_.
