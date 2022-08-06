@@ -2,8 +2,8 @@ name: "pakages build"
 description: "Build oras pakages"
 inputs:
   builder:
-    description: the builder to use (defaults to auto-detect)
-    default: ""
+    description: the builder to use
+    required: true
   user:
     default: username to authenticate to GitHub packages
     required: true
@@ -41,11 +41,7 @@ runs:
         package: ${{ inputs.package }}
         target: ${{ inputs.target }}
       run: |
-          cmd="pakages build"
-          if [[ "${builder}" != "" ]]; then
-              cmd="${cmd} --builder ${builder}"
-          fi
-          cmd="pakages build ${repo} ${package}"
+          cmd="pakages build --builder ${builder} ${repo} ${package}"
           if [[ "${target}" != "" ]]; then
               cmd="${cmd} --push ${target}"
           fi
