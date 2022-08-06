@@ -205,6 +205,8 @@ to GitHub packages.
 Build
 ^^^^^
 
+Here is an example for a python package:
+
 .. code-block:: yaml
 
     name: Test Action
@@ -219,17 +221,53 @@ Build
         steps:
           - name: Checkout Repository
             uses: actions/checkout@v3
-
-          - name: Install Pakages
-            run: pip install -e .[all]
-
+        
           - name: Test Pakages Python Build
-            uses: syspack/pakages/action/build
+            uses: syspack/packages/action/build@main
             with:
               user: ${{ github.actor }}
               token: ${{ secrets.GITHUB_TOKEN }}
+              builder: python
+              package: .
               target: ghcr.io/syspack/pakages/pakages-bundle:latest
-              
+
+
+And for a spack package:
+
+.. code-block:: yaml
+
+    name: Test Action
+
+    on:
+      pull_request: []
+
+    jobs:
+      test-action-spack:
+        name: Test Spack Build Action
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+
+          - name: Install Spack
+            run: |
+              git clone --depth 1 https://github.com/spack/spack /opt/spack
+              echo "/opt/spack/bin" >> $GITHUB_PATH
+              export PATH="/opt/spack/bin:$PATH"
+              spack external find
+
+          - name: Test Pakages Spack Build
+            uses: ./action/build
+            with:
+              user: ${{ github.actor }}
+              token: ${{ secrets.GITHUB_TOKEN }}
+              builder: spack
+              package: ./tests/spack flux-core
+              target: ghcr.io/syspack/pakages-test/zlib:latest              
+
+Note that the main difference is that for the second we are installing spack
+and asking for the spack builder. The package includes the path to our repository
+to add, and the name of the package (flux-core).
 
 The following variables are available:
 
