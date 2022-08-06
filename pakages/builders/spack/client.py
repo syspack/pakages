@@ -109,7 +109,7 @@ class SpackClient(pakages.client.PakagesClient):
         """
         repos = spack.config.get("repos")
         if path not in repos:
-            logger.info(f"Adding repo {repo} to spack repos.")
+            logger.info(f"Adding repo {path} to spack repos.")
             repos.insert(0, path)
             spack.config.set("repos", repos)
 
