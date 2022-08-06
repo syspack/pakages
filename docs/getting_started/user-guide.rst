@@ -209,7 +209,7 @@ Here is an example for a python package:
 
 .. code-block:: yaml
 
-    name: Test Action
+    name: Test Python Build Action
 
     on:
       pull_request: []
@@ -228,7 +228,7 @@ Here is an example for a python package:
               user: ${{ github.actor }}
               token: ${{ secrets.GITHUB_TOKEN }}
               builder: python
-              repo: .
+              package: .
               target: ghcr.io/syspack/pakages/pakages-bundle:latest
 
 
@@ -236,7 +236,7 @@ And for a spack package:
 
 .. code-block:: yaml
 
-    name: Test Action
+    name: Test Spack Build Action
 
     on:
       pull_request: []
