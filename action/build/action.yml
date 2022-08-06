@@ -39,7 +39,7 @@ runs:
       run: |
           cmd="pakages build"
           if [[ "${builder}" != "" ]]; then
-              cmd="${cmd} --builder ${builder}"
+              cmd="${cmd} -b ${builder}"
           fi
           cmd="pakages build ${path}"
           if [[ "${target}" != "" ]]; then
