@@ -48,4 +48,4 @@ jobs:
           builder: spack
           package: zlib
           repo: ./tests/spack
-          target: ghcr.io/syspack/pakages-test/zlib:latest
+          target: ghcr.io/syspack/pakages/test-zlib:latest
