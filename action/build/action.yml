@@ -26,7 +26,7 @@ runs:
           which pakages || (
             git clone https://github.com/syspack/pakages
             cd pakages
-            pip install -e .
+            pip install -e .[all]
           )
 
     - name: Build Package
@@ -39,11 +39,12 @@ runs:
       run: |
           cmd="pakages build"
           if [[ "${builder}" != "" ]]; then
-              cmd="${cmd} -b ${builder}"
+              cmd="${cmd} --builder ${builder}"
           fi
           cmd="pakages build ${path}"
           if [[ "${target}" != "" ]]; then
               cmd="${cmd} --push ${target}"
           fi
+          echo ${cmd}
           $cmd
       shell: bash

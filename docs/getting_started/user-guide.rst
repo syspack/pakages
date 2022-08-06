@@ -194,3 +194,64 @@ oras is in the container to easily pull and push packages:
 
 
 And then you can interact with ``pakages`` as needed. We will be updated these docs with more soon!
+
+
+GitHub Action
+-------------
+
+You can use one of our GitHub actions to build (and optionally deploy the build cache)
+to GitHub packages.
+
+Build
+^^^^^
+
+.. code-block:: yaml
+
+    name: Test Action
+
+    on:
+      pull_request: []
+
+    jobs:
+      test-action:
+        name: Test Build Action
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+
+          - name: Install Pakages
+            run: pip install -e .[all]
+
+          - name: Test Pakages Python Build
+            uses: syspack/pakages/action/build
+            with:
+              user: ${{ github.actor }}
+              token: ${{ secrets.GITHUB_TOKEN }}
+              target: ghcr.io/syspack/pakages/pakages-bundle:latest
+              
+
+The following variables are available:
+
+.. list-table:: GitHub Action Variables
+   :widths: 25 65 10
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Default
+   * - builder
+     - The builder to use (e.g, spack)
+     - unset
+   * - path
+     - path to root of package (defaults to PWD)
+     - "."
+   * - target
+     - target to upload to (defaults to GitHub repository)
+     - unset
+   * - user
+     - username to authenticate GitHub packages
+     - unset (required)
+   * - token
+     - token to authenticate GitHub packages
+     - unset (required)
