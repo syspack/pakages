@@ -2,14 +2,16 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
-import pakages.utils
+import os
+import shutil
+
+import spack.config
+
 import pakages.build
 import pakages.defaults
 import pakages.settings
-
-import shutil
-import os
+import pakages.utils
+from pakages.logger import logger
 
 
 class BuildCache:
@@ -55,6 +57,12 @@ class BuildCache:
             ["spack", "buildcache", "update-index", "-d", self.cache_dir],
             ["spack", "buildcache", "list", "--allarch"],
         ]
+
+        # Cut out early if mirror already added
+        mirrors = spack.config.get("mirrors")
+        if name not in mirrors:
+            return
+
         for command in commands:
             try:
                 for line in pakages.utils.stream_command(command):

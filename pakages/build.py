@@ -2,10 +2,11 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
-import pakages.oras
-import shutil
 import os
+import shutil
+
+import pakages.oras
+from pakages.logger import logger
 
 
 class BuildResult:

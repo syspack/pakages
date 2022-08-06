@@ -22,8 +22,7 @@ jobs:
         run: |
            git clone --depth 1 https://github.com/spack/spack /tmp/spack
            pip install -e .[all]
-           pip install git+https://github.com/oras-project/oras-py.git@improve-403-error-message
-
+ 
       - name: List Files
         run: ls .
       - name: Build and Deploy Spack Package

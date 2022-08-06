@@ -49,3 +49,13 @@ jobs:
           package: zlib
           repo: ./tests/spack
           target: ghcr.io/syspack/pakages/test-zlib:latest
+          
+      - name: Test Pakages Spack Install
+        uses: ./action/install
+        with:
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          builder: spack
+          package: zlib
+          repo: ./tests/spack
+          use_cache: ghcr.io/syspack/pakages/test-zlib:latest

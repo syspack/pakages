@@ -2,19 +2,20 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from .fileio import read_file
-from .terminal import get_user, run_command
+import locale
+import os
+import platform
+import shlex
+import shutil
+import subprocess
+import tempfile
+import uuid
+from datetime import datetime
+
 from pakages.logger import logger
 
-from datetime import datetime
-import os
-import locale
-import tempfile
-import subprocess
-import shutil
-import shlex
-import uuid
-import platform
+from .fileio import read_file
+from .terminal import get_user, run_command
 
 
 class Capturing:

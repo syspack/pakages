@@ -1,0 +1,50 @@
+name: "pakages install"
+description: "Install with pakages"
+inputs:
+  user:
+    default: username to authenticate to GitHub packages
+    required: true
+  token:
+    default: token authenticate to GitHub packages
+    required: true
+  builder:
+    description: the builder to use
+    required: true
+  package:
+    description: package to install
+    required: true
+  repo:
+    description: filesystem path to repo to add (with repo.yaml)
+    default: "."
+  use_cache:
+    description: target of previous build cache to install from
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Pakages
+      shell: bash
+      run: |
+          which pakages || (
+            git clone https://github.com/syspack/pakages
+            cd pakages
+            pip install -e .[all]
+          )
+
+    - name: Install Package
+      env:
+        ORAS_USER: ${{ inputs.user }}
+        ORAS_PASS: ${{ inputs.token }}
+        repo: ${{ inputs.repo }}
+        use_cache: ${{ inputs.use_cache }}
+        builder: ${{ inputs.builder }}
+        package: ${{ inputs.package }}
+      run: |
+          cmd="pakages install --builder ${builder} ${repo} ${package}"
+          if [[ "${use_cache}" != "" ]]; then
+              cmd="${cmd} --use_cache ${use_cache}"
+          fi
+          echo ${cmd}
+          $cmd
+      shell: bash

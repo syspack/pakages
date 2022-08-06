@@ -1,13 +1,3 @@
-from .terminal import (
-    run_command,
-    check_install,
-    get_installdir,
-    get_userhome,
-    get_user,
-    which,
-    stream_command,
-    confirm_action,
-)
 from .command import Command
 from .fileio import (
     copyfile,
@@ -24,4 +14,14 @@ from .fileio import (
     workdir,
     write_file,
     write_json,
+)
+from .terminal import (
+    check_install,
+    confirm_action,
+    get_installdir,
+    get_user,
+    get_userhome,
+    run_command,
+    stream_command,
+    which,
 )

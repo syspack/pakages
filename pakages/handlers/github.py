@@ -2,11 +2,12 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-import pakages.utils as utils
-from pakages.logger import logger
-import requests
 import os
 
+import requests
+
+import pakages.utils as utils
+from pakages.logger import logger
 
 base = "https://api.github.com"
 accept = [

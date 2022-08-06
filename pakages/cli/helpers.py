@@ -32,5 +32,5 @@ def parse_extra(extras):
         # Just a boolean flag
         elif key.startswith("--") and not extras:
             key = key.replace("--", "").replace("-", "_")
-            extras[key] = True
+            values[key] = True
     return values

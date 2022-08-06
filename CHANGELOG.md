@@ -14,6 +14,8 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on Github.
 
 ## [0.0.x](https://github.scom/syspack/pakages/tree/main) (0.0.x)
+ - bugfixes to install and adding GitHub action (0.0.18)
+   - checking for existing mirrors before adding blindly
  - updates to spack build (0.0.17)
  - adding multiprocessing workers (0.0.16)
  - tweaking install process (0.0.15)

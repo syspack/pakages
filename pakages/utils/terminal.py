@@ -2,11 +2,12 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
-import subprocess
 import os
 import shlex
 import shutil
+import subprocess
+
+from pakages.logger import logger
 
 
 def which(software, strip_newline=True):

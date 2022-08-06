@@ -2,20 +2,20 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-from pakages.logger import logger
+import json
+import os
+import re
+import shlex
+
+import spack.cmd
+import spack.config
+import spack.main
+import spack.target
+
 import pakages.builders.spack.cache as spack_cache
 import pakages.client
 import pakages.oras
-
-import spack.cmd
-import spack.target
-import spack.main
-import spack.config
-
-import re
-import shlex
-import os
-import json
+from pakages.logger import logger
 
 
 class SpackClient(pakages.client.PakagesClient):
@@ -144,7 +144,10 @@ class SpackClient(pakages.client.PakagesClient):
         command = ["spack", "install"]
         if use_cache:
             command.append("--use-cache")
-        command.append(" ".join(packages))
+        if isinstance(packages, list):
+            command.append(" ".join(packages))
+        else:
+            command.append(packages)
 
         # Install packages using system spack - we aren't responsible for this working
         for line in pakages.utils.stream_command(command):

@@ -2,17 +2,18 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-import hashlib
 import errno
+import hashlib
+import json
 import os
 import re
 import shutil
 import sys
 import tempfile
+from contextlib import contextmanager
+
 import yaml
 
-import json
-from contextlib import contextmanager
 from pakages.logger import logger
 
 
