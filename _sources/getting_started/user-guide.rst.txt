@@ -194,3 +194,110 @@ oras is in the container to easily pull and push packages:
 
 
 And then you can interact with ``pakages`` as needed. We will be updated these docs with more soon!
+
+
+GitHub Action
+-------------
+
+You can use one of our GitHub actions to build (and optionally deploy the build cache)
+to GitHub packages.
+
+Build
+^^^^^
+
+Here is an example for a python package:
+
+.. code-block:: yaml
+
+    name: Test Python Build Action
+
+    on:
+      pull_request: []
+
+    jobs:
+      test-action:
+        name: Test Build Action
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+        
+          - name: Test Pakages Python Build
+            uses: syspack/packages/action/build@main
+            with:
+              user: ${{ github.actor }}
+              token: ${{ secrets.GITHUB_TOKEN }}
+              builder: python
+              package: .
+              target: ghcr.io/syspack/pakages/pakages-bundle:latest
+
+
+And for a spack package:
+
+.. code-block:: yaml
+
+    name: Test Spack Build Action
+
+    on:
+      pull_request: []
+
+    jobs:
+      test-action-spack:
+        name: Test Spack Build Action
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+
+          - name: Install Spack
+            run: |
+              git clone --depth 1 https://github.com/spack/spack /opt/spack
+              echo "/opt/spack/bin" >> $GITHUB_PATH
+              export PATH="/opt/spack/bin:$PATH"
+              spack external find
+
+          - name: Test Pakages Spack Build
+            uses: ./action/build
+            with:
+              user: ${{ github.actor }}
+              token: ${{ secrets.GITHUB_TOKEN }}
+              builder: spack
+              repo: ./tests/spack
+              package: flux-core
+              target: ghcr.io/syspack/pakages-test/zlib:latest              
+
+Note that the main difference is that for the second we are installing spack
+and asking for the spack builder. Also note that if you want to install a custom
+branch of pakages beforhand, it will be used instead of instaling from main
+by default.
+
+The following variables are available:
+
+.. list-table:: GitHub Action Variables
+   :widths: 25 65 10
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Default
+   * - builder
+     - The builder to use (e.g, spack)
+     - unset
+   * - package
+     - package name to build (required)
+     - unset
+   * - repo
+     - filesystem path to repo to add (with your package recipe)
+     - . (PWD)
+   * - target
+     - target to upload to (defaults to GitHub repository)
+     - unset
+   * - user
+     - username to authenticate GitHub packages
+     - unset (required)
+   * - token
+     - token to authenticate GitHub packages
+     - unset (required)
+     
+     
+For an example, see `flux-framework/flux-spack <https://github.com/flux-framework/flux-spack>`_.

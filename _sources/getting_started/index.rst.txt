@@ -12,7 +12,7 @@ set of tested software.
 If you have any questions or issues, please `let us know <https://github.com/syspack/pakages/issues>`_
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    installation
    settings

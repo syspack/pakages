@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Guide &mdash; Pakages 0.0.16 documentation</title>
+  <title>User Guide &mdash; Pakages 0.0.17 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sphinx-argparse.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.16
+                0.0.17
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#shell">Shell</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#uninstall">Uninstall</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#containers">Containers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#github-action">GitHub Action</a></li>
 </ul>
 </li>
 </ul>
@@ -244,6 +245,116 @@ As an example, let’s run the ubuntu 18.04 container and install zlib.</p>
 </pre></div>
 </div>
 <p>And then you can interact with <code class="docutils literal notranslate"><span class="pre">pakages</span></code> as needed. We will be updated these docs with more soon!</p>
+</section>
+<section id="github-action">
+<h4>GitHub Action<a class="headerlink" href="#github-action" title="Permalink to this heading"></a></h4>
+<p>You can use one of our GitHub actions to build (and optionally deploy the build cache)
+to GitHub packages.</p>
+<section id="id1">
+<h5>Build<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
+<p>Here is an example for a python package:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Python Build Action</span><span class="w"></span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">test-action</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Build Action</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"></span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout Repository</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span><span class="w"></span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Pakages Python Build</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">syspack/packages/action/build@main</span><span class="w"></span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.actor }}</span><span class="w"></span>
+<span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span><span class="w"></span>
+<span class="w">          </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+<span class="w">          </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w"></span>
+<span class="w">          </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/syspack/pakages/pakages-bundle:latest</span><span class="w"></span>
+</pre></div>
+</div>
+<p>And for a spack package:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Spack Build Action</span><span class="w"></span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">test-action-spack</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Spack Build Action</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"></span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout Repository</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span><span class="w"></span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Spack</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">          </span><span class="no">git clone --depth 1 https://github.com/spack/spack /opt/spack</span><span class="w"></span>
+<span class="w">          </span><span class="no">echo &quot;/opt/spack/bin&quot; &gt;&gt; $GITHUB_PATH</span><span class="w"></span>
+<span class="w">          </span><span class="no">export PATH=&quot;/opt/spack/bin:$PATH&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="no">spack external find</span><span class="w"></span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Pakages Spack Build</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./action/build</span><span class="w"></span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ github.actor }}</span><span class="w"></span>
+<span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span><span class="w"></span>
+<span class="w">          </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spack</span><span class="w"></span>
+<span class="w">          </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./tests/spack</span><span class="w"></span>
+<span class="w">          </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flux-core</span><span class="w"></span>
+<span class="w">          </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/syspack/pakages-test/zlib:latest</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Note that the main difference is that for the second we are installing spack
+and asking for the spack builder. Also note that if you want to install a custom
+branch of pakages beforhand, it will be used instead of instaling from main
+by default.</p>
+<p>The following variables are available:</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">GitHub Action Variables</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 65.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>builder</p></td>
+<td><p>The builder to use (e.g, spack)</p></td>
+<td><p>unset</p></td>
+</tr>
+<tr class="row-odd"><td><p>package</p></td>
+<td><p>package name to build (required)</p></td>
+<td><p>unset</p></td>
+</tr>
+<tr class="row-even"><td><p>repo</p></td>
+<td><p>filesystem path to repo to add (with your package recipe)</p></td>
+<td><p>. (PWD)</p></td>
+</tr>
+<tr class="row-odd"><td><p>target</p></td>
+<td><p>target to upload to (defaults to GitHub repository)</p></td>
+<td><p>unset</p></td>
+</tr>
+<tr class="row-even"><td><p>user</p></td>
+<td><p>username to authenticate GitHub packages</p></td>
+<td><p>unset (required)</p></td>
+</tr>
+<tr class="row-odd"><td><p>token</p></td>
+<td><p>token to authenticate GitHub packages</p></td>
+<td><p>unset (required)</p></td>
+</tr>
+</tbody>
+</table>
+<p>For an example, see <a class="reference external" href="https://github.com/flux-framework/flux-spack">flux-framework/flux-spack</a>.</p>
+</section>
 </section>
 </section>
 </section>

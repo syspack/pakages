@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.builders.spack.client &mdash; Pakages 0.0.16 documentation</title>
+  <title>pakages.builders.spack.client &mdash; Pakages 0.0.17 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/sphinx-argparse.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../../index.html" class="icon icon-home"> Pakages
           </a>
               <div class="version">
-                0.0.16
+                0.0.17
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -93,6 +93,7 @@
 <span class="kn">import</span> <span class="nn">spack.config</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shlex</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
@@ -110,6 +111,9 @@
         <span class="c1"># By defualt, assume not adding a repository</span>
         <span class="n">repo</span> <span class="o">=</span> <span class="kc">None</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">packages</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
+
         <span class="c1"># Case 1: we have an install directed at the present working directory</span>
         <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
             <span class="n">repo</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
@@ -119,21 +123,17 @@
         <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="n">repo</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="c1"># OR if we have a github URI</span>
+        <span class="c1"># OR if we have a github URI TODO, can clone here</span>
         <span class="k">if</span> <span class="n">packages</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;(http|https)://github.com&quot;</span><span class="p">,</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="n">repo</span> <span class="o">=</span> <span class="n">packages</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="c1"># Add the repository, if defined</span>
-        <span class="k">if</span> <span class="n">repo</span><span class="p">:</span>
-            <span class="n">repo</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">spack</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">PakRepo</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
-
         <span class="c1"># If we don&#39;t have packages and we have a repo, derive from PWD</span>
         <span class="k">if</span> <span class="n">repo</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">packages</span><span class="p">:</span>
-            <span class="n">packages</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">list_packages</span><span class="p">()</span>
+            <span class="n">packages</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
 
         <span class="c1"># Finally, add the repository</span>
         <span class="k">if</span> <span class="n">repo</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_repository</span><span class="p">(</span><span class="n">repo</span><span class="o">.</span><span class="n">repo_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_repository</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">packages</span></div>
 
@@ -171,6 +171,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function to ensure we return consistent names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">packages</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_package_request</span><span class="p">(</span><span class="n">packages</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">packages</span> <span class="o">=</span> <span class="n">packages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
@@ -187,8 +188,11 @@
 <span class="sd">        pakages.repo.PakRepo first.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">repos</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">)</span>
-        <span class="n">repos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-        <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">repos</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding repo </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> to spack repos.&quot;</span><span class="p">)</span>
+            <span class="n">repos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;repos&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spack repos </span><span class="si">{</span><span class="n">repos</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SpackClient.download_cache"><a class="viewcode-back" href="../../../../api_reference/pakages.builders.spack.html#pakages.builders.spack.client.SpackClient.download_cache">[docs]</a>    <span class="k">def</span> <span class="nf">download_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
