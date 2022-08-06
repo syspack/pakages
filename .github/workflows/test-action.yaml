@@ -53,6 +53,8 @@ jobs:
       - name: Test Pakages Spack Install
         uses: ./action/install
         with:
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           builder: spack
           package: zlib
           repo: ./tests/spack
