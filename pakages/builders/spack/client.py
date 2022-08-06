@@ -112,6 +112,7 @@ class SpackClient(pakages.client.PakagesClient):
             logger.info(f"Adding repo {path} to spack repos.")
             repos.insert(0, path)
             spack.config.set("repos", repos)
+            logger.info(f"Spack repos {repos}")
 
     def download_cache(self, target, download_dir=None):
         """
