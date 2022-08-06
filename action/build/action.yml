@@ -10,8 +10,11 @@ inputs:
   token:
     default: token authenticate to GitHub packages
     required: true
-  path:
-    description: path to root of package (defaults to PWD)
+  package:
+    description: package to build
+    required: true
+  repo:
+    description: filesystem path to repo to add (with repo.yaml)
     default: "."
   target:
     description: target to upload to (defaults to GitHub repository)
@@ -34,14 +37,14 @@ runs:
         ORAS_USER: ${{ inputs.user }}
         ORAS_PASS: ${{ inputs.token }}
         builder: ${{ inputs.builder }}
-        path: ${{ inputs.path }}
+        package: ${{ inputs.package }}
         target: ${{ inputs.target }}
       run: |
           cmd="pakages build"
           if [[ "${builder}" != "" ]]; then
               cmd="${cmd} -b ${builder}"
           fi
-          cmd="pakages build ${path}"
+          cmd="pakages build ${repo} ${package}"
           if [[ "${target}" != "" ]]; then
               cmd="${cmd} --push ${target}"
           fi

@@ -243,9 +243,12 @@ The following variables are available:
    * - builder
      - The builder to use (e.g, spack)
      - unset
-   * - path
-     - path to root of package (defaults to PWD)
-     - "."
+   * - package
+     - package name to build (required)
+     - unset
+   * - repo
+     - filesystem path to repo to add (with your package recipe)
+     - . (PWD)
    * - target
      - target to upload to (defaults to GitHub repository)
      - unset
