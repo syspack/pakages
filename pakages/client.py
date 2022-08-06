@@ -16,8 +16,7 @@ def get_client(builder=None, settings_file=None):
         from pakages.builders.spack import SpackClient
 
         return SpackClient(settings_file=settings_file)
-    else:
-        return PakagesClient(settings_file=settings_file)
+    return PakagesClient(settings_file=settings_file)
 
 
 class PakagesClient:
@@ -29,7 +28,7 @@ class PakagesClient:
         settings_file = kwargs.get("settings_file")
         validate = kwargs.get("validate", True)
         if not hasattr(self, "settings"):
-            self.settings = Settings(settings_file, validate=validate)
+            self.settings = Settings(etsettings_file, validate=validate)
 
     def __repr__(self):
         return str(self)
@@ -47,10 +46,7 @@ class PakagesClient:
         """
         Build one or more packages.
         """
-        args = list(args)
-        if not args[0] or args[0] == ".":
-            args[0] = os.getcwd()
-        pkg = pakages.builders.get_package(args[0])
+        pkg = pakages.builders.get_package(args)
 
         # This returns a build result
         result = pkg.build()

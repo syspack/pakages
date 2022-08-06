@@ -43,7 +43,7 @@ runs:
       run: |
           cmd="pakages build"
           if [[ "${builder}" != "" ]]; then
-              cmd="${cmd} -b ${builder}"
+              cmd="${cmd} --builder ${builder}"
           fi
           cmd="pakages build ${repo} ${package}"
           if [[ "${target}" != "" ]]; then
