@@ -36,6 +36,7 @@ runs:
       env:
         ORAS_USER: ${{ inputs.user }}
         ORAS_PASS: ${{ inputs.token }}
+        repo: ${{ inputs.repo }}
         builder: ${{ inputs.builder }}
         package: ${{ inputs.package }}
         target: ${{ inputs.target }}
