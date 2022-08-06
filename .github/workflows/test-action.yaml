@@ -46,5 +46,6 @@ jobs:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
           builder: spack
-          package: ./tests/spack
+          package: zlib
+          repo: ./tests/spack
           target: ghcr.io/syspack/pakages-test/zlib:latest

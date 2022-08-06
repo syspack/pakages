@@ -228,7 +228,7 @@ Here is an example for a python package:
               user: ${{ github.actor }}
               token: ${{ secrets.GITHUB_TOKEN }}
               builder: python
-              package: .
+              repo: .
               target: ghcr.io/syspack/pakages/pakages-bundle:latest
 
 
@@ -262,12 +262,14 @@ And for a spack package:
               user: ${{ github.actor }}
               token: ${{ secrets.GITHUB_TOKEN }}
               builder: spack
-              package: ./tests/spack flux-core
+              repo: ./tests/spack
+              package: flux-core
               target: ghcr.io/syspack/pakages-test/zlib:latest              
 
 Note that the main difference is that for the second we are installing spack
-and asking for the spack builder. The package includes the path to our repository
-to add, and the name of the package (flux-core).
+and asking for the spack builder. Also note that if you want to install a custom
+branch of pakages beforhand, it will be used instead of instaling from main
+by default.
 
 The following variables are available:
 
