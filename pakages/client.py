@@ -28,7 +28,7 @@ class PakagesClient:
         settings_file = kwargs.get("settings_file")
         validate = kwargs.get("validate", True)
         if not hasattr(self, "settings"):
-            self.settings = Settings(etsettings_file, validate=validate)
+            self.settings = Settings(settings_file, validate=validate)
 
     def __repr__(self):
         return str(self)
@@ -46,7 +46,10 @@ class PakagesClient:
         """
         Build one or more packages.
         """
-        pkg = pakages.builders.get_package(args)
+        args = list(args)
+        if not args[0] or args[0] == ".":
+            args[0] = os.getcwd()
+        pkg = pakages.builders.get_package(args[0])
 
         # This returns a build result
         result = pkg.build()
