@@ -1,6 +1,12 @@
 name: "pakages install"
 description: "Install with pakages"
 inputs:
+  user:
+    default: username to authenticate to GitHub packages
+    required: true
+  token:
+    default: token authenticate to GitHub packages
+    required: true
   builder:
     description: the builder to use
     required: true
