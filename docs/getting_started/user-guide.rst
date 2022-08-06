@@ -202,6 +202,72 @@ GitHub Action
 You can use one of our GitHub actions to build (and optionally deploy the build cache)
 to GitHub packages.
 
+Install
+^^^^^^^
+
+An install simply installs (and optionally from a build cache already done).
+Unlike build, it doesn't then create a build cache.
+
+.. code-block:: yaml
+
+    name: Test Spack Build Action
+
+    on:
+      pull_request: []
+
+    jobs:
+      test-action-spack:
+        name: Test Spack Build Action
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+
+          - name: Install Spack
+            run: |
+              git clone --depth 1 https://github.com/spack/spack /opt/spack
+              echo "/opt/spack/bin" >> $GITHUB_PATH
+              export PATH="/opt/spack/bin:$PATH"
+              spack external find
+
+          - name: Test Pakages Spack Install
+            uses: syspack/pakages/action/install@main
+            with:
+              builder: spack
+              package: zlib
+              repo: ./tests/spack
+              use_cache: ghcr.io/syspack/pakages/test-zlib:latest
+
+
+The following variables are available:
+
+.. list-table:: GitHub Action Variables
+   :widths: 25 65 10
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Default
+   * - builder
+     - The builder to use (e.g, spack)
+     - unset
+   * - package
+     - package name to build (required)
+     - unset
+   * - repo
+     - filesystem path to repo to add (with your package recipe)
+     - . (PWD)
+   * - use_cache
+     - target (GitHub Package) to install from
+     - unset
+   * - user
+     - username to authenticate GitHub packages
+     - unset (required)
+   * - token
+     - token to authenticate GitHub packages
+     - unset (required)
+
+
 Build
 ^^^^^
 

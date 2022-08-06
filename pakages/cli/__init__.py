@@ -64,7 +64,6 @@ def get_parser():
         description="install to the current environment",
         formatter_class=argparse.RawTextHelpFormatter,
     )
-    install.add_argument("packages", help="install these packages", nargs="+")
 
     build = subparsers.add_parser(
         "build",
@@ -112,7 +111,6 @@ def get_parser():
         action="store_true",
         help="Given that --push is added, don't clean up the build cache.",
     )
-    build.add_argument("packages", help="install these packages", nargs="+")
 
     config = subparsers.add_parser(
         "config",
@@ -174,6 +172,9 @@ pakages config init""",
             "-t",
             dest="tag",
             help="tag to use for build cache retrieval or push",
+        )
+        command.add_argument(
+            "packages", help="build or install these packages", nargs="+"
         )
 
     return parser
