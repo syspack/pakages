@@ -112,7 +112,7 @@ def get_parser():
         action="store_true",
         help="Given that --push is added, don't clean up the build cache.",
     )
-    build.add_argument("packages", help="install these packages", nargs="?")
+    build.add_argument("packages", help="install these packages", nargs="+")
 
     config = subparsers.add_parser(
         "config",

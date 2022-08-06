@@ -13,6 +13,7 @@ import spack.main
 import spack.config
 
 import re
+import shlex
 import os
 import json
 
@@ -30,6 +31,9 @@ class SpackClient(pakages.client.PakagesClient):
         # By defualt, assume not adding a repository
         repo = None
 
+        if not isinstance(packages, list):
+            packages = shlex.split(packages)
+
         # Case 1: we have an install directed at the present working directory
         if packages and packages[0] == ".":
             repo = os.getcwd()
@@ -39,21 +43,17 @@ class SpackClient(pakages.client.PakagesClient):
         if packages and os.path.exists(packages[0]):
             repo = packages.pop(0)
 
-        # OR if we have a github URI
+        # OR if we have a github URI TODO, can clone here
         if packages and re.search("(http|https)://github.com", packages[0]):
             repo = packages.pop(0)
 
-        # Add the repository, if defined
-        if repo:
-            repo = pakages.spack.repo.PakRepo(repo)
-
         # If we don't have packages and we have a repo, derive from PWD
         if repo and not packages:
-            packages = repo.list_packages()
+            packages = os.listdir(repo)
 
         # Finally, add the repository
         if repo:
-            self.add_repository(repo.repo_dir)
+            self.add_repository(repo)
 
         return packages
 
@@ -91,6 +91,7 @@ class SpackClient(pakages.client.PakagesClient):
         """
         Helper function to ensure we return consistent names.
         """
+        packages = self.parse_package_request(packages)
         if isinstance(packages, list):
             packages = packages[0]
         if " " in packages:
@@ -107,8 +108,11 @@ class SpackClient(pakages.client.PakagesClient):
         pakages.repo.PakRepo first.
         """
         repos = spack.config.get("repos")
-        repos.insert(0, path)
-        spack.config.set("repos", repos)
+        if path not in repos:
+            logger.info(f"Adding repo {path} to spack repos.")
+            repos.insert(0, path)
+            spack.config.set("repos", repos)
+            logger.info(f"Spack repos {repos}")
 
     def download_cache(self, target, download_dir=None):
         """

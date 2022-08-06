@@ -16,8 +16,7 @@ def get_client(builder=None, settings_file=None):
         from pakages.builders.spack import SpackClient
 
         return SpackClient(settings_file=settings_file)
-    else:
-        return PakagesClient(settings_file=settings_file)
+    return PakagesClient(settings_file=settings_file)
 
 
 class PakagesClient:

@@ -19,4 +19,33 @@ jobs:
         with:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          builder: python
+          package: .
           target: ghcr.io/syspack/pakages/pakages-bundle:latest
+
+  test-action-spack:
+    name: Test Spack Build Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Pakages
+        run: pip install -e .[all]
+
+      - name: Install Spack
+        run: |
+          git clone --depth 1 https://github.com/spack/spack /opt/spack
+          echo "/opt/spack/bin" >> $GITHUB_PATH
+          export PATH="/opt/spack/bin:$PATH"
+          spack external find
+
+      - name: Test Pakages Spack Build
+        uses: ./action/build
+        with:
+          user: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          builder: spack
+          package: zlib
+          repo: ./tests/spack
+          target: ghcr.io/syspack/pakages/test-zlib:latest

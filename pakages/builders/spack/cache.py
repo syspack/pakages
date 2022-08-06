@@ -76,6 +76,7 @@ class BuildCache:
         if key:
             command += ["-k", key]
         command += ["-d", self.cache_dir, specs]
+        logger.info(command)
         for line in pakages.utils.stream_command(command):
             logger.info(line.strip("\n"))
 
@@ -126,8 +127,8 @@ class BuildCache:
         if not self.spec:
             logger.exit(f"Cannot find spec for {self.spec_name} in cache.")
 
-        suffix = self.get_spec_uri()
-        uri = f"{uri}/{suffix}"
+        if not uri:
+            uri = self.get_spec_uri()
         if ":" not in uri:
             uri = f"{uri}:{tag}"
 
