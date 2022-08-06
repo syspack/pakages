@@ -76,6 +76,7 @@ class BuildCache:
         if key:
             command += ["-k", key]
         command += ["-d", self.cache_dir, specs]
+        logger.info(command)
         for line in pakages.utils.stream_command(command):
             logger.info(line.strip("\n"))
 
