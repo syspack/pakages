@@ -5,11 +5,12 @@ __license__ = "Apache-2.0"
 import itertools
 import multiprocessing
 import os
-import time
 import signal
 import sys
-from pakages.logger import logger
+import time
 from typing import Optional
+
+from pakages.logger import logger
 
 
 class Workers:

@@ -4,11 +4,12 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
+import argparse
+import os
+import sys
+
 import pakages
 from pakages.logger import setup_logger
-import argparse
-import sys
-import os
 
 
 def get_parser():

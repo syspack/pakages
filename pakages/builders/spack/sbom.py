@@ -6,14 +6,15 @@ __license__ = "Apache-2.0"
 
 # https://www.ntia.gov/files/ntia/publications/howto_guide_for_sbom_generation_v1.pdf
 
-import pakages.utils
-import spack.main
+import os
+import uuid
+from datetime import datetime
+
 import spack.config
+import spack.main
 import spack.spec
 
-from datetime import datetime
-import uuid
-import os
+import pakages.utils
 
 # We will use CycloneDX which is a simplified format approved by standards committees
 # https://cyclonedx.org/docs/1.3/json

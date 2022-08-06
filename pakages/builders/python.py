@@ -2,19 +2,19 @@ __author__ = "Vanessa Sochat, Alec Scott"
 __copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
-import pakages.utils as utils
-import pakages.build
-from pakages.logger import logger
-from citelang.main.packages import SetupManager
-
-from cyclonedx_py.parser.requirements import RequirementsParser
-from cyclonedx.model.bom import Bom
-from cyclonedx.output import get_instance, OutputFormat
-from cyclonedx.model import Tool
-
-from pakages.version import __version__ as version
-import shutil
 import os
+import shutil
+
+from citelang.main.packages import SetupManager
+from cyclonedx.model import Tool
+from cyclonedx.model.bom import Bom
+from cyclonedx.output import OutputFormat, get_instance
+from cyclonedx_py.parser.requirements import RequirementsParser
+
+import pakages.build
+import pakages.utils as utils
+from pakages.logger import logger
+from pakages.version import __version__ as version
 
 
 class PythonPackage:
