@@ -25,7 +25,9 @@ jobs:
            pip install pytest
 
       - name: Test Spack
-        run: pytest -xs tests/test_spack.py
+        run: |
+          export PATH=/tmp/spack/bin:$PATH
+          pytest -xs tests/test_spack.py
  
       - name: List Files
         run: ls .
