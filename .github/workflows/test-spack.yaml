@@ -22,6 +22,12 @@ jobs:
         run: |
            git clone --depth 1 https://github.com/spack/spack /tmp/spack
            pip install -e .[all]
+           pip install pytest
+
+      - name: Test Spack
+        run: |
+          export PATH=/tmp/spack/bin:$PATH
+          pytest -xs tests/test_spack.py
  
       - name: List Files
         run: ls .
