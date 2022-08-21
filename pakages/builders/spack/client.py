@@ -15,6 +15,7 @@ import spack.target
 import pakages.builders.spack.cache as spack_cache
 import pakages.client
 import pakages.oras
+import pakages.utils
 from pakages.logger import logger
 
 
@@ -49,7 +50,8 @@ class SpackClient(pakages.client.PakagesClient):
 
         # If we don't have packages and we have a repo, derive from PWD
         if repo and not packages:
-            packages = os.listdir(repo)
+            for path in pakages.utils.recursive_find(repo, "package.py"):
+                packages.append(os.path.basename(os.path.dirname(path)))
 
         # Finally, add the repository
         if repo:
