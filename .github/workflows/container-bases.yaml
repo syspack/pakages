@@ -3,9 +3,6 @@ name: Build Pakages Containers
 # This job generates build matrices using base images built two hours earlier
 
 on:
-  schedule:
-    - cron: 0 3 * * *
-
   # On pull request we test updates to images
   pull_request: []
  
