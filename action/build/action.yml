@@ -26,8 +26,6 @@ runs:
     - name: Install Pakages
       shell: bash
       run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate pak
           which pakages || (
             git clone https://github.com/syspack/pakages || echo "Pakages already cloned"
             cd pakages

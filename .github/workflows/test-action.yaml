@@ -19,7 +19,7 @@ jobs:
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate pak
           pip install -e .[all]
-          echo "/usr/share/miniconda/envs/pak/bin/pakages" >> $GITHUB_PATH
+          echo "/usr/share/miniconda/envs/pak/bin" >> $GITHUB_PATH
 
       - name: Test Pakages Python Build
         uses: ./action/build
@@ -45,7 +45,7 @@ jobs:
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate pak
           pip install -e .[all]
-          echo "/usr/share/miniconda/envs/pak/bin/pakages" >> $GITHUB_PATH
+          echo "/usr/share/miniconda/envs/pak/bin" >> $GITHUB_PATH
 
       - name: Install Spack
         run: |
