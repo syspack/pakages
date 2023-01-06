@@ -11,8 +11,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Setup Python Environment
+        run: conda create --quiet --name pak requests
+
       - name: Install Pakages
-        run: pip install -e .[all]
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate pak
+          pip install -e .[all]
+          echo "/usr/share/miniconda/envs/pak/bin" >> $GITHUB_PATH
 
       - name: Test Pakages Python Build
         uses: ./action/build
@@ -30,8 +37,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Setup Python Environment
+        run: conda create --quiet --name pak requests
+
       - name: Install Pakages
-        run: pip install -e .[all]
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate pak
+          pip install -e .[all]
+          echo "/usr/share/miniconda/envs/pak/bin" >> $GITHUB_PATH
 
       - name: Install Spack
         run: |
@@ -49,7 +63,7 @@ jobs:
           package: zlib
           repo: ./tests/spack
           target: ghcr.io/syspack/pakages/test-zlib:latest
-          
+
       - name: Test Pakages Spack Install
         uses: ./action/install
         with:

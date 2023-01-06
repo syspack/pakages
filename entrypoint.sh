@@ -29,7 +29,7 @@ if [ -z "${builder}" ]; then
     export builder=spack
 fi
 
-# If deploy is set to true and we don't have a uri, this is an error 
+# If deploy is set to true and we don't have a uri, this is an error
 if [ "${deploy}" == "true" ] && [ -z "${uri}" ]; then
     printf "If you want to deploy you must define a uri (unique resource identifier)\n"
     exit 1

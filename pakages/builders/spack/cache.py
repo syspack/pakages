@@ -69,7 +69,7 @@ class BuildCache:
                     logger.info(line.strip("\n"))
 
             # Mirror already exists, just pass for now
-            except:
+            except Exception:
                 pass
 
     def create(self, specs, key=None):

@@ -9,7 +9,7 @@
  - create pakages metadata spec for container labels? Also add spack labels to container
  - where can we put the trusted registry metadata, aside from the registry configs/labels? E.g., an interface?
  - get on conda for faster install
- 
+
 ## Old Brainstorming
 
 The project was originally going to be called "stack" but the pypi name wasn't available!
@@ -108,5 +108,5 @@ And stack would:
 2. Run the same stack install with the full GitHub URI
 
 During install, we would basically need to match the architecture of the package
-to what is requested, and we would provide a reasonable set. This package manager is not 
+to what is requested, and we would provide a reasonable set. This package manager is not
 intended for HPC, it would be intended for installing inside containers.

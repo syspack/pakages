@@ -26,7 +26,7 @@ RUN git clone --depth 1 https://github.com/spack/spack /opt/spack && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install clingo && \
     spack compiler find && \
-    
+
     # build for a generic target
     spack config add 'packages:all:target:[x86_64]'
 
@@ -42,5 +42,5 @@ COPY ./entrypoint.sh /entrypoint.sh
 WORKDIR /opt/pakages
 COPY . /opt/pakages
 RUN python3 -m pip install .
-ENV SPACK_ROOT=/opt/spack    
+ENV SPACK_ROOT=/opt/spack
 ENTRYPOINT ["/bin/bash"]

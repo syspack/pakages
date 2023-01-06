@@ -5,8 +5,8 @@ on:
   pull_request: []
   push:
     branches:
-      - main 
- 
+      - main
+
 jobs:
   build:
     strategy:
@@ -18,17 +18,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup Python Environment
+        run: |
+          conda create --quiet --name pak requests
+          echo "/usr/share/miniconda/bin" >> $GITHUB_PATH
+          echo "/usr/share/miniconda/envs/pak/bin" >> $GITHUB_PATH
+
       - name: Install pakages and Spack
         run: |
            git clone --depth 1 https://github.com/spack/spack /tmp/spack
+           echo "/tmp/spack/bin" >> $GITHUB_PATH
+           source activate pak
            pip install -e .[all]
            pip install pytest
 
       - name: Test Spack
         run: |
-          export PATH=/tmp/spack/bin:$PATH
+          source activate pak
           pytest -xs tests/test_spack.py
- 
+
       - name: List Files
         run: ls .
       - name: Build and Deploy Spack Package
@@ -39,5 +48,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           uri: ghcr.io/syspack/pakages
         run: |
-          export PATH=/tmp/spack/bin:$PATH
-          /bin/bash entrypoint.sh
+           source activate pak
+           /bin/bash entrypoint.sh

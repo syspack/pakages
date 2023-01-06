@@ -4,10 +4,10 @@ This code is licensed under the Apache 2.0 [LICENSE](../LICENSE).
 
 # Contributing
 
-When contributing to Syspak Pak, it is 
-important to properly communicate the gist of the contribution. 
-If it is a simple code or editorial fix, simply explaining this 
-within the GitHub Pull Request (PR) will suffice. But if this is a larger 
+When contributing to Syspak Pak, it is
+important to properly communicate the gist of the contribution.
+If it is a simple code or editorial fix, simply explaining this
+within the GitHub Pull Request (PR) will suffice. But if this is a larger
 fix or Enhancement, it should be first discussed with the project
 developers.
 
