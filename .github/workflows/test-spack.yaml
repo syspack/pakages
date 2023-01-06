@@ -46,4 +46,6 @@ jobs:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
           uri: ghcr.io/syspack/pakages
-        run: /bin/bash entrypoint.sh
+        run: |
+           source activate pak
+           /bin/bash entrypoint.sh
