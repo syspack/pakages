@@ -5,7 +5,7 @@ Developer Guide
 ===============
 
 This developer guide includes more detail about how to build and distribute your own
-pakages repository, or how to create a module package repository. 
+pakages repository, or how to create a module package repository.
 If you haven't read :ref:`getting_started-installation` you should do that first, along
 with learning how to customize settings via :ref:`getting_started-settings`.
 You will need to set a username and email to sign packages.
@@ -48,8 +48,8 @@ of your own packages. This means you will need to push packages to your organiza
 and ideally via an automated workflow that deploys to a specific repository namespace.
 To allow packages to be pushed you will need to go to Settings -> Packages
 and ensure that the public box is checked. Otherwise, all packages will be private (and not seen by
-the tool) unless you are using them privately in CI only. Note that by default we use 
-packages from `the pakages organization <https://github.com/pakages>`_ , which you likely 
+the tool) unless you are using them privately in CI only. Note that by default we use
+packages from `the pakages organization <https://github.com/pakages>`_ , which you likely
 won't have permission to push to, but you can pull/install from.
 
 
@@ -58,4 +58,3 @@ Repository Creation
 
 These instructions will be written soon! We are still working on core of Pakages and
 developing the CI workflows for a package repository.
-

@@ -10,17 +10,17 @@ Pakages
 
 Pakages is a framework for building community packages and containers 📦️
 
-Pakages is a wrapper around the spack package manager that aims to provide a set of consistent 
-and trusted packages and environments, either for use separately or in combination with `syspack/pack <https://github.com/syspack/pakages>`_. 
-It is optimized for install, build, and deploy of spack build caches to GitHub packages. 
-The tool wraps spack to ensure that any installation first checks a repository of trusted pakages packages, 
-and a Pakages user can run one of a set of base containers with a chosen set of operating systems and matched compilers, 
-and then quickly install binaries from the GitHub packages cache. Since the packages are built from the same base containers, we can have more assurance of a cache hit than if just running on a local machine. 
+Pakages is a wrapper around the spack package manager that aims to provide a set of consistent
+and trusted packages and environments, either for use separately or in combination with `syspack/pack <https://github.com/syspack/pakages>`_.
+It is optimized for install, build, and deploy of spack build caches to GitHub packages.
+The tool wraps spack to ensure that any installation first checks a repository of trusted pakages packages,
+and a Pakages user can run one of a set of base containers with a chosen set of operating systems and matched compilers,
+and then quickly install binaries from the GitHub packages cache. Since the packages are built from the same base containers, we can have more assurance of a cache hit than if just running on a local machine.
 
-The packages are intended to be "trusted" because each package repository will be built and deployed with testing, 
-and will use an automated tool (`binoc <https://github.com/alecbcs/binoc>`_) to always look for updates to package versions, 
-along with updates from the spack upstream. The packages also will be provided with Software Bill’s of Materials (SBOMs) 
-that will be added to the container and easy to interact with, eventually allowing the container to be scanned and 
+The packages are intended to be "trusted" because each package repository will be built and deployed with testing,
+and will use an automated tool (`binoc <https://github.com/alecbcs/binoc>`_) to always look for updates to package versions,
+along with updates from the spack upstream. The packages also will be provided with Software Bill’s of Materials (SBOMs)
+that will be added to the container and easy to interact with, eventually allowing the container to be scanned and
 compared to a vulnerability database.
 
 You can see trusted packages under the `pakages <https://github.com/pakages>`_ organization. Trusted means
@@ -51,7 +51,7 @@ Getting started with Pakages
 ----------------------------
 
 Pakages can be installed from pypi or directly from the repository. See :ref:`getting_started-installation` for
-installation, and then the :ref:`getting-started` section for using pakages on the command line or 
+installation, and then the :ref:`getting-started` section for using pakages on the command line or
 from a provided base container.
 
 .. _main-support:

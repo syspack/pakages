@@ -13,7 +13,7 @@ and deploy your own packages, you should see :ref:`getting_started-developer-gui
 Quick Start
 ===========
 
-After installation, you'll first need spack to be on your path. If 
+After installation, you'll first need spack to be on your path. If
 you want control over Pakages settings (discussed next) you should create your own copy of the config file.
 
 .. code-block:: console
@@ -30,9 +30,9 @@ the defaults. To quickly edit:
 
 The settings will let you add trusted package registries to try pulling from (which
 also can be set on the fly on the command line) along with a default registry to push to,
-a tag to use, and default cache directory, and others. Browse :ref:`getting_started-settings` 
+a tag to use, and default cache directory, and others. Browse :ref:`getting_started-settings`
 and ensure the settings are to your liking before continuing. And importantly - if you are just
-using pakages to install the default provided trusted registry at pakages, you likely don't need to customize 
+using pakages to install the default provided trusted registry at pakages, you likely don't need to customize
 anything. Finally, make sure that you have spack added to your path, to be discovered by pakages.
 If you are using a pre-built container, this will already be the case.
 
@@ -40,7 +40,7 @@ Commands
 ========
 
 Pakages allows for easy install of different formats of packages, which currently
-includes spack and Python (pip). 
+includes spack and Python (pip).
 
 -----
 Spack
@@ -52,7 +52,7 @@ The goal of the pakages spack builder to to make it easy to:
 2. On any change, trigger an automated build for the package with spack develop
 3. Install to spack using this build cache from GitHub packages.
 
-For development, we provide (currently under development) `a set of packages, "pakages" <https://github.com/pakages>`_ , 
+For development, we provide (currently under development) `a set of packages, "pakages" <https://github.com/pakages>`_ ,
 that you can easily install. The following commands work with the spack builder:
 
 
@@ -65,7 +65,7 @@ want to create a GitHub packages build cache, and then to install pointing at th
 GitHub packagese, build would be equivalent to manually creating a spack build cach. First, here is how to do that:
 
 .. code-block:: console
-    
+
     $ pakages --builder spack build zlib
     # equivalent to pakages -b spack build zlib
     Preparing to install zlib
@@ -76,13 +76,13 @@ To push to GitHub packages, provide the push prefix (which will be appended
 with your system architecture):
 
 .. code-block:: console
-    
+
     $ pakages --builder spack build zlib --push ghcr.io/pakages/zlib
 
 The above will be extended to include ``ghcr.io/pakages/zlib-linux-ubuntu20.04-x86_64:latest``.
 Note that if/when we want to support builds with customized names (not including host info) this can be
 added - please open an issue. The current functionality is assuming that you are uploading a cache
-using the same host you built on. 
+using the same host you built on.
 
 Note that you can build from a local package repository structured liked this:
 
@@ -105,7 +105,7 @@ Finally, when you are ready to install (using the GitHub packages build
 cache) you can do:
 
 .. code-block:: console
-    
+
     $ pakages install --builder spack zlib --use-cache ghcr.io/pakages/zlib-linux-ubuntu20.04-x86_64:latest
 
 The above will prepare the build cache, add it, and then perform the install, allowing spack to decide
@@ -154,7 +154,7 @@ If you want a quick shell to interact with a client (example below with spack)
 .. code-block:: console
 
     $ pakages -b spack shell
-    Python 3.8.8 (default, Apr 13 2021, 19:58:26) 
+    Python 3.8.8 (default, Apr 13 2021, 19:58:26)
     Type 'copyright', 'credits' or 'license' for more information
     IPython 7.30.1 -- An enhanced Interactive Python. Type '?' for help.
 
@@ -172,7 +172,7 @@ the package manager being wrapped.
 
     $ pakages -b spack uninstall zlib
 
-    
+
 Containers
 ----------
 
@@ -287,7 +287,7 @@ Here is an example for a python package:
         steps:
           - name: Checkout Repository
             uses: actions/checkout@v3
-        
+
           - name: Test Pakages Python Build
             uses: syspack/packages/action/build@main
             with:
@@ -330,7 +330,7 @@ And for a spack package:
               builder: spack
               repo: ./tests/spack
               package: flux-core
-              target: ghcr.io/syspack/pakages-test/zlib:latest              
+              target: ghcr.io/syspack/pakages-test/zlib:latest
 
 Note that the main difference is that for the second we are installing spack
 and asking for the spack builder. Also note that if you want to install a custom
@@ -364,6 +364,6 @@ The following variables are available:
    * - token
      - token to authenticate GitHub packages
      - unset (required)
-     
-     
+
+
 For an example, see `flux-framework/flux-spack <https://github.com/flux-framework/flux-spack>`_.

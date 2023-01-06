@@ -36,7 +36,7 @@ def ipython(args):
     """
     Generate an IPython shell with the client.
     """
-    client = create_client(args)
+    client = create_client(args)  # noqa
     from IPython import embed
 
     embed()

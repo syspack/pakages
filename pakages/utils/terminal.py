@@ -31,7 +31,7 @@ def check_install(software, quiet=True, command="--version"):
     cmd = [software, command]
     try:
         version = run_command(cmd, software)
-    except:  # FileNotFoundError
+    except Exception:  # FileNotFoundError
         return False
     if version:
         if not quiet and version["return_code"] == 0:
@@ -54,7 +54,7 @@ def get_userhome():
         import pwd
 
         return pwd.getpwuid(os.getuid())[5]
-    except:
+    except Exception:
         return os.environ.get("HOME") or os.environ.get("HOMEPATH")
 
 
@@ -66,7 +66,7 @@ def get_user():
         import pwd
 
         return pwd.getpwuid(os.getuid())[0]
-    except:
+    except Exception:
         return os.environ.get("USER") or os.environ.get("USERNAME")
 
 

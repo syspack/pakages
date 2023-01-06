@@ -82,7 +82,7 @@ class Workers:
             pool.terminate()
             sys.exit(1)
 
-        except:
+        except Exception:
             logger.error("Error running task")
 
         return finished

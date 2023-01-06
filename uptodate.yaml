@@ -7,5 +7,5 @@ dockerbuild:
       name: ghcr.io/rse-ops/ubuntu
       type: container
       startat: "20.04"
-      filter: 
+      filter:
         - "^[0-9]+[.]04$"

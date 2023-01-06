@@ -121,7 +121,7 @@ class Command:
 
         try:
             line = line.decode(loc)
-        except:
+        except Exception:
             pass
         return line
 

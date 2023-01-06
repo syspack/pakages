@@ -49,7 +49,7 @@ jobs:
           package: zlib
           repo: ./tests/spack
           target: ghcr.io/syspack/pakages/test-zlib:latest
-          
+
       - name: Test Pakages Spack Install
         uses: ./action/install
         with:

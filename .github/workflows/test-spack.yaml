@@ -5,8 +5,8 @@ on:
   pull_request: []
   push:
     branches:
-      - main 
- 
+      - main
+
 jobs:
   build:
     strategy:
@@ -28,7 +28,7 @@ jobs:
         run: |
           export PATH=/tmp/spack/bin:$PATH
           pytest -xs tests/test_spack.py
- 
+
       - name: List Files
         run: ls .
       - name: Build and Deploy Spack Package

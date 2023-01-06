@@ -4,9 +4,9 @@
 Settings
 ========
 
-Most defaults should work without changing, however you will likely want to customize 
+Most defaults should work without changing, however you will likely want to customize
 settings in the case that you are deploying packages (as a developer)
-or if you want to install from a different trusted registry (as a user). 
+or if you want to install from a different trusted registry (as a user).
 
 Updating Settings
 =================

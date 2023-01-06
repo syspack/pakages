@@ -46,5 +46,7 @@ def add_spack_to_path():
 
     spack_lib_path = os.path.join(spack_prefix, "lib", "spack")
     spack_external_libs = os.path.join(spack_lib_path, "external")
-    for path in [spack_lib_path, spack_external_libs]:
+    spack_vendor_libs = os.path.join(spack_external_libs, "_vendoring")
+
+    for path in [spack_lib_path, spack_external_libs, spack_vendor_libs]:
         sys.path.insert(0, path)

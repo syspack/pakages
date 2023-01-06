@@ -14,6 +14,7 @@ and **Merged pull requests**. Critical items to know are:
 The versions coincide with releases on pip. Only major versions will be released as tags on Github.
 
 ## [0.0.x](https://github.scom/syspack/pakages/tree/main) (0.0.x)
+ - add new vendoring line imports (0.0.2)
  - bug with parsing hidden (and non package directories) in spack (0.0.19)
  - bugfixes to install and adding GitHub action (0.0.18)
    - checking for existing mirrors before adding blindly
@@ -27,4 +28,3 @@ The versions coincide with releases on pip. Only major versions will be released
  - Added support for building local path or GitHub remote (0.0.11)
  - First release with ability to install, build, and push with oras (0.0.1)
  - Initial skeleton of project (0.0.0)
-

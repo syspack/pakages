@@ -3,8 +3,8 @@ on:
   pull_request: []
   push:
     branches:
-      - main 
- 
+      - main
+
 jobs:
   build:
     permissions:
@@ -29,7 +29,7 @@ jobs:
 
       # Repos that use pre-built containers don't need to use this manual format
       - name: Build Package
-        env:        
+        env:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -39,7 +39,7 @@ jobs:
                      --env token=${token} ghcr.io/syspack/pakages-ubuntu-${{ matrix.container[0] }}:latest
 
       - name: Build Remote Package
-        env:        
+        env:
           user: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
         run: |
