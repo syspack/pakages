@@ -17,7 +17,7 @@ jobs:
       - name: Install Pakages
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate pak       
+          source activate pak
           pip install -e .[all]
 
       - name: Test Pakages Python Build
@@ -39,7 +39,7 @@ jobs:
       - name: Install Pakages
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate pak       
+          source activate pak
           pip install -e .[all]
 
       - name: Install Spack

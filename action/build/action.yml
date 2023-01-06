@@ -27,7 +27,7 @@ runs:
       shell: bash
       run: |
           which pakages || (
-            git clone https://github.com/syspack/pakages
+            git clone https://github.com/syspack/pakages || echo "Pakages already cloned"
             cd pakages
             pip install -e .[all]
           )
