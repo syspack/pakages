@@ -18,15 +18,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+  
+      - name: Setup Python Environment
+        run: conda create --quiet --name pak requests
+ 
       - name: Install pakages and Spack
         run: |
            git clone --depth 1 https://github.com/spack/spack /tmp/spack
+           export PATH="/usr/share/miniconda/bin:$PATH"
+           source activate pak
            pip install -e .[all]
            pip install pytest
 
       - name: Test Spack
         run: |
           export PATH=/tmp/spack/bin:$PATH
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate pak
           pytest -xs tests/test_spack.py
 
       - name: List Files

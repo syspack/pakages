@@ -11,8 +11,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Setup Python Environment
+        run: conda create --quiet --name pak requests
+
       - name: Install Pakages
-        run: pip install -e .[all]
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate pak       
+          pip install -e .[all]
 
       - name: Test Pakages Python Build
         uses: ./action/build
@@ -31,7 +37,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Pakages
-        run: pip install -e .[all]
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate pak       
+          pip install -e .[all]
 
       - name: Install Spack
         run: |
