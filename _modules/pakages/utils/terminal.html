@@ -1,37 +1,76 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pakages.utils.terminal &mdash; Pakages 0.0.19 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
+  
+  <title>pakages.utils.terminal &mdash; Pakages 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx-argparse.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../index.html" class="icon icon-home"> Pakages
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
-                0.0.19
+                0.0.2
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -39,7 +78,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
@@ -52,30 +102,69 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../api_reference/modules.html">pakages</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">Pakages</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
       <li>pakages.utils.terminal</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for pakages.utils.terminal</h1><div class="highlight"><pre>
 <span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
@@ -90,14 +179,14 @@
 
 
 <div class="viewcode-block" id="which"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.which">[docs]</a><span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">software</span><span class="p">,</span> <span class="n">strip_newline</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;get_install will return the path to where Singularity (or another</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;get_install will return the path to where Singularity (or another</span>
 <span class="sd">    executable) is installed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">software</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s2">&quot;--version&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;check_install will attempt to run the singularity command, and</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;check_install will attempt to run the singularity command, and</span>
 <span class="sd">    return True if installed. The command line utils will not run</span>
 <span class="sd">    without this check.</span>
 
@@ -110,7 +199,7 @@
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">software</span><span class="p">,</span> <span class="n">command</span><span class="p">]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">software</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>  <span class="c1"># FileNotFoundError</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># FileNotFoundError</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">version</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -121,36 +210,36 @@
 
 
 <div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;get_installdir returns the installation directory of the application&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;get_installdir returns the installation directory of the application&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span></div>
 
 
 <div class="viewcode-block" id="get_userhome"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.get_userhome">[docs]</a><span class="k">def</span> <span class="nf">get_userhome</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;get the user home based on the effective uid. If import of pwd fails</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;get the user home based on the effective uid. If import of pwd fails</span>
 <span class="sd">    (not supported for Windows) then fall back to environment variable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">pwd</span>
 
         <span class="k">return</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwuid</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">())[</span><span class="mi">5</span><span class="p">]</span>
-    <span class="k">except</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HOME&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HOMEPATH&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_user"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.get_user">[docs]</a><span class="k">def</span> <span class="nf">get_user</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Get the name of the user. We first try to import pwd, but fallback to</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of the user. We first try to import pwd, but fallback to</span>
 <span class="sd">    extraction from the environment.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span> <span class="nn">pwd</span>
 
         <span class="k">return</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwuid</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">except</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;USER&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;USERNAME&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="stream_command"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.stream_command">[docs]</a><span class="k">def</span> <span class="nf">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;stream a command (yield) back to the user, as each line is available.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;stream a command (yield) back to the user, as each line is available.</span>
 
 <span class="sd">    # Example usage:</span>
 <span class="sd">    results = []</span>
@@ -182,7 +271,7 @@
 
 
 <div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;run_command uses subprocess to send a command to the terminal.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;run_command uses subprocess to send a command to the terminal.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
@@ -204,7 +293,7 @@
 
 
 <div class="viewcode-block" id="confirm_action"><a class="viewcode-back" href="../../../api_reference/pakages.utils.html#pakages.utils.terminal.confirm_action">[docs]</a><span class="k">def</span> <span class="nf">confirm_action</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;confirm if the user wants to perform a certain action</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;confirm if the user wants to perform a certain action</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
@@ -225,30 +314,46 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.</p>
-  </div>
+    <p>
+        &#169; Copyright 2021-2022, Vanessa Sochat and Alec Scott.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
