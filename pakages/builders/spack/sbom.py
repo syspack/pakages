@@ -10,7 +10,6 @@ import os
 import uuid
 from datetime import datetime
 
-import spack.config
 import spack.main
 import spack.spec
 
