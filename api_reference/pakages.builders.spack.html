@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>pakages.builders.spack package &mdash; Pakages 0.0.2 documentation</title>
+  <title>pakages.builders.spack package &mdash; Pakages 0.0.21 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.21
               </div>
             
           
@@ -107,6 +107,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="pakages.builders.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pakages.builders.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pakages.builders.html#module-pakages.builders.python">pakages.builders.python module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pakages.builders.html#pakages-builders-r-module">pakages.builders.r module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pakages.builders.html#module-pakages.builders">Module contents</a></li>
 </ul>
 </li>
@@ -324,6 +325,10 @@ This is shared between install and build</p>
 <dt class="sig sig-object py" id="pakages.builders.spack.sbom.generate_sbom">
 <span class="sig-prename descclassname"><span class="pre">pakages.builders.spack.sbom.</span></span><span class="sig-name descname"><span class="pre">generate_sbom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/spack/sbom.html#generate_sbom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.spack.sbom.generate_sbom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the sbom based on best practices suggested in the guide.</p>
+<p>This function used to import spack.main and spack.spec, but we have
+fallen back to calling spack on the command line because it is not
+reliable to use from Python as a native python API. After that change,
+the metadata is not very good. We don’t really use it, so it’s fine.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -347,9 +352,9 @@ This is shared between install and build</p>
 <section id="module-pakages.builders.spack.utils">
 <span id="pakages-builders-spack-utils-module"></span><h2>pakages.builders.spack.utils module<a class="headerlink" href="#module-pakages.builders.spack.utils" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="pakages.builders.spack.utils.add_spack_to_path">
-<span class="sig-prename descclassname"><span class="pre">pakages.builders.spack.utils.</span></span><span class="sig-name descname"><span class="pre">add_spack_to_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/spack/utils.html#add_spack_to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.spack.utils.add_spack_to_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find spack and add to path, allowing for import of spack modules</p>
+<dt class="sig sig-object py" id="pakages.builders.spack.utils.ensure_spack_on_path">
+<span class="sig-prename descclassname"><span class="pre">pakages.builders.spack.utils.</span></span><span class="sig-name descname"><span class="pre">ensure_spack_on_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pakages/builders/spack/utils.html#ensure_spack_on_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pakages.builders.spack.utils.ensure_spack_on_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure spack is on the path.</p>
 </dd></dl>
 
 <dl class="py function">

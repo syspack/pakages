@@ -20,6 +20,14 @@ pakages.builders.python module
    :undoc-members:
    :show-inheritance:
 
+pakages.builders.r module
+-------------------------
+
+.. automodule:: pakages.builders.r
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

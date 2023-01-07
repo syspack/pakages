@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>pakages.builders.spack.cache &mdash; Pakages 0.0.2 documentation</title>
+  <title>pakages.builders.spack.cache &mdash; Pakages 0.0.21 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.21
               </div>
             
           
@@ -169,13 +169,11 @@
             
   <h1>Source code for pakages.builders.spack.cache</h1><div class="highlight"><pre>
 <span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Vanessa Sochat, Alec Scott&quot;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2022, Vanessa Sochat and Alec Scott&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright 2021-2023, Vanessa Sochat and Alec Scott&quot;</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;Apache-2.0&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-
-<span class="kn">import</span> <span class="nn">spack.config</span>
 
 <span class="kn">import</span> <span class="nn">pakages.build</span>
 <span class="kn">import</span> <span class="nn">pakages.defaults</span>
@@ -223,14 +221,14 @@
 <span class="sd">        the time being I&#39;m making it a temporary interaction.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror&quot;</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror&quot;</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;file://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
             <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;buildcache&quot;</span><span class="p">,</span> <span class="s2">&quot;update-index&quot;</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="p">],</span>
             <span class="p">[</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;buildcache&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;--allarch&quot;</span><span class="p">],</span>
         <span class="p">]</span>
 
         <span class="c1"># Cut out early if mirror already added</span>
-        <span class="n">mirrors</span> <span class="o">=</span> <span class="n">spack</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mirrors&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mirrors</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">pakages</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">run_command</span><span class="p">([</span><span class="s2">&quot;spack&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]:</span>
             <span class="k">return</span>
 
         <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
