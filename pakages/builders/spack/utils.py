@@ -1,5 +1,5 @@
 __author__ = "Vanessa Sochat, Alec Scott"
-__copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
+__copyright__ = "Copyright 2021-2023, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
@@ -25,9 +25,9 @@ def install_spack(repo=None, branch=None):
     return run_command(["git", "clone", "-b", branch, repo, spack_prefix])
 
 
-def add_spack_to_path():
+def ensure_spack_on_path():
     """
-    Find spack and add to path, allowing for import of spack modules
+    Ensure spack is on the path.
     """
     # First check for spack in environment
     spack_prefix = which("spack")
@@ -43,10 +43,3 @@ def add_spack_to_path():
     # Otherwise, fail
     if not os.path.exists(spack_prefix):
         sys.exit("spack must be installed! Add to path for pakages to find.")
-
-    spack_lib_path = os.path.join(spack_prefix, "lib", "spack")
-    spack_external_libs = os.path.join(spack_lib_path, "external")
-    spack_vendor_libs = os.path.join(spack_external_libs, "_vendoring")
-
-    for path in [spack_lib_path, spack_external_libs, spack_vendor_libs]:
-        sys.path.insert(0, path)

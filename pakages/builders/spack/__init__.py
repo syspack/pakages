@@ -1,4 +1,4 @@
-from .utils import add_spack_to_path
+from .utils import ensure_spack_on_path
 
-add_spack_to_path()  # noqa
+ensure_spack_on_path()  # noqa
 from .client import SpackClient

@@ -1,18 +1,15 @@
 __author__ = "Vanessa Sochat, Alec Scott"
-__copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
+__copyright__ = "Copyright 2021-2023, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 # Generate a software bill of materials for a spack package
 
 # https://www.ntia.gov/files/ntia/publications/howto_guide_for_sbom_generation_v1.pdf
 
+import json
 import os
 import uuid
 from datetime import datetime
-
-import spack.config
-import spack.main
-import spack.spec
 
 import pakages.utils
 
@@ -52,10 +49,7 @@ def get_component(spec):
     Given a spec, get a component for it.
     """
     # Let's take a simple approach - anything with "lib" is a library, otherwise application
-    component_type = "lib" if "lib" in spec.package.name else "application"
-
-    # Must be concrets
-    spec.concretize()
+    component_type = "lib" if "lib" in spec["name"] else "application"
 
     component = {
         # Note that "application" might also be a suitable choice
@@ -67,7 +61,7 @@ def get_component(spec):
         "scope": "required",
         # The name of the component. This will often be a shortened, single name of the component.
         # Examples: commons-lang3 and jquery
-        "name": spec.package.name,
+        "name": spec["name"],
         # Associated mime-type. Spack doesn't have one officially, but this is what
         # I was using for oras push to an OCI registry
         "mime-type": "application/vnd.spack.package",
@@ -77,10 +71,10 @@ def get_component(spec):
         # should be avoided. Examples include: apache, org.apache.commons, and apache.org.
         "group": "spack.io",
         # The component version. The version should ideally comply with semantic versioning but is not enforced.
-        "version": str(spec.version),
+        "version": str(spec["version"]),
         # An optional identifier which can be used to reference the component elsewhere in the BOM. Every bom-ref should be unique.
         # We can use the build hash since it's unique to this spec
-        "bom-ref": str(spec),
+        "bom-ref": f"{spec['name']}@{spec['hash']}",
         # Excluded
         # publisher: The person(s) or organization(s) that published the component
         # author: The person(s) or organization(s) that authored the component
@@ -100,10 +94,7 @@ def get_component(spec):
     }
 
     # Specifies a description for the component
-    # Only add if not empty!
-    description = spec.package.format_doc()
-    if description:
-        component["description"] = description
+    # If spack into supports --json we can add more here
 
     # Add hashes, whichever might exist
     # I looked for all unique hash types on 11/28
@@ -114,27 +105,14 @@ def get_component(spec):
     #        for alg, _ in version.items():
     #            names.add(alg)
 
-    component["hashes"] = []
-    for key, hashvalue in spec.package.versions.get(spec.version, {}).items():
-
-        # Covers both sha256 and sha256sum
-        if key.startswith("sha256"):
-            component["hashes"].append({"alg": "SHA-256", "content": hashvalue})
-
-    # External references?
-    if spec.package.all_urls:
-        component["externalReferences"] = []
-        for url in spec.package.all_urls:
-            component["externalReferences"].append({"type": "website", "url": url})
+    # if spack versions supports --json we can support them here too
+    component["hashes"] = [{"alg": "SHA-256", "content": spec["package_hash"]}]
 
     # Finally, custom spack metadata (properties)
     component["properties"] = {
-        "spack:dag_hash": spec.dag_hash(),
-        "spack:spec": str(spec),
-        "spack:build_spec": str(spec.build_spec),
-        "spack:architecture": str(spec.architecture),
-        "spack:variants": str(spec.variants),
-        "spack:compiler": str(spec.compiler),
+        "spack:dag_hash": spec["hash"],
+        "spack:spec": "{spec['name']}@{spec['hash']}",
+        "spack:package_spec": spec["package_hash"],
     }
     return component
 
@@ -142,12 +120,19 @@ def get_component(spec):
 def generate_sbom(pkg):
     """
     Generates the sbom based on best practices suggested in the guide.
+
+    This function used to import spack.main and spack.spec, but we have
+    fallen back to calling spack on the command line because it is not
+    reliable to use from Python as a native python API. After that change,
+    the metadata is not very good. We don't really use it, so it's fine.
     """
     bom = template.copy()
-    if isinstance(pkg, spack.spec.Spec):
-        spec = pkg
-    else:
-        spec = spack.spec.Spec(pkg)
+    result = pakages.utils.run_command(["spack", "spec", "--json", pkg])
+    spec = json.loads(result["message"])
+
+    # Get the spack version
+    result = pakages.utils.run_command(["spack", "--version"])
+    spack_version = result["message"].strip("\n")
 
     # Every BOM generated should have a unique serial number, even if the contents of the BOM
     # being generated have not changed over time. The process or tool responsible for
@@ -162,7 +147,7 @@ def generate_sbom(pkg):
         {
             "vendor": "Lawrence Livermore National Lab",
             "name": "Spack",
-            "version": spack.main.get_version(),
+            "version": spack_version,
         }
     ]
 
@@ -172,8 +157,14 @@ def generate_sbom(pkg):
         {"name": "@vsoch", "email": "vsoch@users.noreply.github.com"}
     ]
 
+    # Find our main package spec
+    package_spec = [x for x in spec["spec"]["nodes"] if x["name"] == pkg]
+    if not package_spec:
+        raise ValueError("Cannot find package {pkg} in spec, spack is borked.")
+    package_spec = package_spec[0]
+
     # The component that the BOM describes.
-    metadata["component"] = get_component(spec)
+    metadata["component"] = get_component(package_spec)
 
     # Skipped:
     # manufacture: The organization that manufactured the component that the BOM describes.
@@ -189,33 +180,32 @@ def generate_sbom(pkg):
 
     # We might also assume that properties on this level could be for spack
     # Could put spack properties here.
-    deps = spec.dependencies()
+
     components = {}
 
     # Let's include all nested dependencies
-    if deps:
-        while deps:
-            dep = deps.pop(0)
-            deps = deps + dep.dependencies()
-
-            if str(dep) not in components:
-                components[str(dep)] = get_component(dep)
+    for dep in spec["spec"]["nodes"]:
+        if dep["name"] == pkg:
+            continue
+        if dep["name"] not in components:
+            components[dep["name"]] = get_component(dep)
 
     if components:
         bom["components"] = components
 
     # Finally, add direct dependencies
-    deps = spec.dependencies()
+    deps = package_spec.get("dependencies")
     if deps:
+        package_hash = f"{package_spec['name']}@{package_spec['hash']}"
         bom["dependencies"] = []
         for dep in deps:
             # The bom-ref identifiers of the components that are dependencies of this dependency object.
-            dependsOn = [str(x) for x in dep.dependencies()]
-            bom["dependencies"].append({"ref": str(dep), "dependsOn": dependsOn})
+            dependsOn = f"{dep['name']}@{dep['hash']}"
+            bom["dependencies"].append({"ref": package_hash, "dependsOn": dependsOn})
 
     # Add an external reference for spack packages, GitHub, etc.
     bom["externalReferences"] = [
         {"type": "website", "url": "https://github.com/spack/spack"},
-        {"type": "website", "url": "https://spack.github.io/packages"},
+        {"type": "website", "url": "https://packages.spack.io"},
     ]
     return bom

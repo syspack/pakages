@@ -1,11 +1,9 @@
 __author__ = "Vanessa Sochat, Alec Scott"
-__copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
+__copyright__ = "Copyright 2021-2023, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
 import shutil
-
-import spack.config
 
 import pakages.build
 import pakages.defaults
@@ -53,14 +51,14 @@ class BuildCache:
         the time being I'm making it a temporary interaction.
         """
         commands = [
-            ["spack", "mirror", "add", name, self.cache_dir],
+            ["spack", "mirror", "add", name, f"file://{self.cache_dir}"],
             ["spack", "buildcache", "update-index", "-d", self.cache_dir],
             ["spack", "buildcache", "list", "--allarch"],
         ]
 
         # Cut out early if mirror already added
-        mirrors = spack.config.get("mirrors")
-        if name not in mirrors:
+        result = pakages.utils.run_command(["spack", "mirror", "list"])
+        if name in result["message"]:
             return
 
         for command in commands:
