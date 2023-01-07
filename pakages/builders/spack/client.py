@@ -1,16 +1,12 @@
 __author__ = "Vanessa Sochat, Alec Scott"
-__copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
+__copyright__ = "Copyright 2021-2023, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import json
 import os
 import re
 import shlex
-
-import spack.cmd
-import spack.config
-import spack.main
-import spack.target
+import subprocess
 
 import pakages.builders.spack.cache as spack_cache
 import pakages.client
@@ -63,9 +59,13 @@ class SpackClient(pakages.client.PakagesClient):
         """
         List installed packages
         """
-        find = spack.main.SpackCommand("find")
-        print(find())
-        return json.loads(find("--json"))
+        command = ["spack", "find"]
+        for line in pakages.utils.stream_command(command):
+            print(line.strip("\n"))
+
+        command = ["spack", "find", "--json"]
+        result = pakages.utils.run_command(command)
+        return json.loads(result["message"])
 
     def build(self, packages, cache_dir=None, key=None, **kwargs):
         """
@@ -109,12 +109,15 @@ class SpackClient(pakages.client.PakagesClient):
         underlying spack. If you need to add a GitHub uri, create a
         pakages.repo.PakRepo first.
         """
-        repos = spack.config.get("repos")
-        if path not in repos:
-            logger.info(f"Adding repo {path} to spack repos.")
-            repos.insert(0, path)
-            spack.config.set("repos", repos)
-            logger.info(f"Spack repos {repos}")
+        try:
+            command = ["spack", "repo", "add", path]
+            for line in pakages.utils.stream_command(command):
+                logger.info(line.strip("\n"))
+        except subprocess.CalledProcessError as e:
+            if "Repository is already registered" in e.output:
+                pass
+            else:
+                raise e
 
     def download_cache(self, target, download_dir=None):
         """

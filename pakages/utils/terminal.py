@@ -1,5 +1,5 @@
 __author__ = "Vanessa Sochat, Alec Scott"
-__copyright__ = "Copyright 2021-2022, Vanessa Sochat and Alec Scott"
+__copyright__ = "Copyright 2021-2023, Vanessa Sochat and Alec Scott"
 __license__ = "Apache-2.0"
 
 import os
@@ -98,8 +98,9 @@ def stream_command(cmd):
     process.stdout.close()
     return_code = process.wait()
     if return_code != 0:
-        logger.error(process.stderr.read().strip("\n"))
-        raise subprocess.CalledProcessError(return_code, cmd)
+        error = process.stderr.read().strip("\n")
+        logger.error(error)
+        raise subprocess.CalledProcessError(return_code, cmd, error)
 
 
 def run_command(cmd):
