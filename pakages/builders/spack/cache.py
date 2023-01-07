@@ -51,7 +51,7 @@ class BuildCache:
         the time being I'm making it a temporary interaction.
         """
         commands = [
-            ["spack", "mirror", "add", name, self.cache_dir],
+            ["spack", "mirror", "add", name, f"file://{self.cache_dir}"],
             ["spack", "buildcache", "update-index", "-d", self.cache_dir],
             ["spack", "buildcache", "list", "--allarch"],
         ]
