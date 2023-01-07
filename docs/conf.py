@@ -287,9 +287,9 @@ def spack_clone(*args, **kwargs):
     path = "%s/bin:%s" % (spack, os.environ["PATH"])
     os.putenv("PATH", path)
     os.environ["PATH"] = path
-    from pakages.builders.spack.utils import add_spack_to_path
+    from pakages.builders.spack.utils import ensure_spack_on_path
 
-    add_spack_to_path()
+    ensure_spack_on_path()
 
 
 version = "devel"
